@@ -124,7 +124,7 @@ export default function MyRecruited (props) {
 								>
 									<i class="bi bi-list-ul"></i>
 									<span className="spacing-xxs"/>
-									Xem chi tiết
+									Xem chi tiết 
 							</button></td>
 						</tr>
 					</tbody>					
