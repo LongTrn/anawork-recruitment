@@ -1,12 +1,12 @@
 import React from 'react';
 import "../../styles/TableRecruitment/TableRecruitment.scss"
-import Header from "../Header/Header"
 
 export default function TableRecruitment (props) {
 
 	return (
-		<div>
-			<table class="table table-borderless table">
+		
+		<div className="table--padding">
+			<table class="table table-borderless table__data">
 				<thead>
 					<tr>
 						<th 
@@ -31,48 +31,30 @@ export default function TableRecruitment (props) {
 						>Kết thúc</th>
 						<th 
 							scope="col"
-							className="table__header__count"
+							className="table__header__count table--text-center"
 						>Số lượng</th>
 						<th 
 							scope="col"
-							className="table__header__behavior"
+							className="table__header__behavior table--text-center"
 						>Thao tác</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr className="table__rows">
-						<td scope="row">Tuyển dụng nhân viên kiểm thử</td>
-						<td>Tuyển dụng nhân viên kiểm thử</td>
-						<td>Nguyễn Lữ Thế</td>
-						<td>20/11/2020</td>
-						<td>20/11/2020</td>
-						<td>2</td>
-						<td className="table__rows__action">
+					<tr className="table__rows status__pending">
+						<td className="table__rows__name status__item">Tuyển dụng nhân viên kiểm thử</td>
+						<td className="table__rows__description">Tuyển dụng nhân viên kiểm thử</td>
+						<td className="table__rows__creator">Nguyễn Lữ Thế</td>
+						<td className="table__rows__date-start">20/11/2020</td>
+						<td className="table__rows__date-end">20/11/2020</td>
+						<td className="table__rows__count table--text-center">2</td>
+						<td className="table__rows__behavior table--item-center">
 							<button
 								type="button"
-								className="table__action__button"
+								className="btn btn-outline-primary table__rows__behavior__button text-nowrap 
+								"
 							>
-								<i class="bi bi-list-ul"></i>
-								<span className="spacing-xxs"/>
-								Xem chi tiết
-						</button></td>
-					</tr>
-					<tr className="table__rows">
-						<td scope="row">Tuyển dụng nhân viên kiểm thử</td>
-						<td>Tuyển dụng nhân viên kiểm thử</td>
-						<td>Nguyễn Lữ Thế</td>
-						<td>20/11/2020</td>
-						<td>20/11/2020</td>
-						<td>2</td>
-						<td className="table__rows__action">
-							<button
-								type="button"
-								className="btn btn-outline-primary table__action__button"
-							>
-								<i class="bi bi-list-ul"></i>
-								<span className="spacing-xxs"/>
-								Xem chi tiết
-						</button></td>
+								<i class="bi bi-list-ul table__rows__behavior__button__icon"/>
+								Xem chi tiết</button></td>
 					</tr>
 				</tbody>					
 			</table>
