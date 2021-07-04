@@ -20,9 +20,9 @@ export default function Recruitment () {
 				/>
 				<Recruit/>
 			</div>
-
 			<ListRecruitment></ListRecruitment>
 			<MyRecruited></MyRecruited>
+
 			<div></div>
 
 		</div>
