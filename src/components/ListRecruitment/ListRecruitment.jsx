@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect, } from 'react';
 import "../../styles/ListRecruitment/ListRecruitment.scss"
-import Header from "../Header/Header"
-import TableRecruitment from "../TableRecruitment/TableRecruitment"
+import { Header, TableRecruitment, } from "../index"
+import { ListRecruitmentModel } from "../../models/index"
 
 export default function ListRecruitment (props) {
+
+	const [state, setState] = useState([])
+
+	useEffect(() => {
+		// get API here
+		const data = ListRecruitmentModel // fetch data here  
+		setState(data)
+		
+	}, [])
 
 	return (
 		<div className="list">
@@ -14,7 +23,7 @@ export default function ListRecruitment (props) {
 					</div>
 				</div>
 			</div>
-			<TableRecruitment/>
+			<TableRecruitment data={state} />
 		</div>
 	)
 }

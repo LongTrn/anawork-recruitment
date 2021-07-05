@@ -1,8 +1,6 @@
 import React from 'react'
 import "../../styles/Statistics/Statistics.scss"
-import Header from "../Header/Header"
-import TimeSort from "../TimeSort/TimeSort"
-import Chart from "../Chart/Chart"
+import { Header, TimeSort, Chart } from "../index"
 
 export default function Statistics (props) {
 	const { header, } = props

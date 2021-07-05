@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect, } from 'react';
 import "../../styles/MyRecruited/MyRecruited.scss"
-import Header from "../Header/Header"
+import { Header, TableRecruitment } from "../index"
+import { MyRecruitedModel } from "../../models/index"
 
 export default function MyRecruited (props) {
+
+	const [state, setState] = useState([])
+
+	useEffect(() => {
+		// get API here
+		const data = MyRecruitedModel // fetch data here  
+		setState(data)
+		
+	}, [])
 
 	return (
 		<div className="my-list">
@@ -13,6 +23,7 @@ export default function MyRecruited (props) {
 					</div>
 				</div>
 			</div>
+			<TableRecruitment data={state} />
 		</div>
 	)
 }

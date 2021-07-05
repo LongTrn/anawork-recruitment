@@ -1,5 +1,6 @@
 import './styles/App/App.scss';
-import Recruitment from "./components/Recruitment/Recruitment"
+import './styles/index.scss';
+import { Recruitment, } from "./components";
 
 function App() {
 	return (
