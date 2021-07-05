@@ -1,10 +1,6 @@
 import React from 'react'
 import '../../styles/Recruitment/Recruitment.scss';
-import Header from "../Header/Header"
-import Statistics from "../Statistics/Statistics"
-import Recruit from "../Recruit/Recruit"
-import ListRecruitment from "../ListRecruitment/ListRecruitment"
-import MyRecruited from "../MyRecruited/MyRecruited"
+import { Header, Statistics, Recruit, ListRecruitment,MyRecruited } from "../index"
 
 export default function Recruitment () {
 	return(

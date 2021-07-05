@@ -72,8 +72,9 @@
 		align-self: stretch;
 		flex-grow: 0;
 		padding: 0;
-		box-shadow: 2px 2px 4px 0 rgba(82, 63, 105, 0.1);		
-
+		margin-bottom: 4px;
+		box-shadow: 2px 2px 4px 0 rgba(82, 63, 105, 0.1);	
+		
 		&__name {
 
 			width: 247px;
@@ -145,10 +146,12 @@
 
 		&__behavior {
 
-			width: 80px;
+			width: 176px;
 			height: 56px;
 			flex-grow: 0;
-			padding: 18px 37px 18px 35px;
+			padding: 18px 0 18px 35px;
+			margin-right: 0;
+			// margin-left: auto;
 			background-color: var(--ezycheck-white);
 
 			&__button {
@@ -202,24 +205,49 @@
 		text-align: center;
 	}
 
-	&--item-center {
+	&--container-center {
 
 		display: flex;
 		justify-content: stretch;
 	}
+
+	&--item-center {
+
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	& td:last-child {
+	
+		display: flex;
+		text-align: center;
+		justify-content: center;
+		margin: auto;
+	}
 }
+
+// table td:last-child {
+	
+// 	display: flex;
+// 	text-align: center;
+// 	justify-content: center;
+// 	margin: auto;
+// }
 
 tr.status {
 	
 	&__pending td.status__item {
+		
 		border-left: 4px solid #ffa117;
 	}
 
 	&__accepted td.status__item {
+		
 		border-left: 4px solid #0abb87;
 	}
 
 	&__rejected td.status__item {
+		
 		border-left: 4px solid #e5493a;
 	}
 }

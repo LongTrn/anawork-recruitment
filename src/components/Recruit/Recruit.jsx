@@ -1,5 +1,6 @@
 import React from 'react'
 import "../../styles/Recruit/Recruit.scss"
+import { ButtonRecruit, } from "../index"
 
 export default function Recruit (props) {
 
@@ -7,9 +8,14 @@ export default function Recruit (props) {
 		<div className="recruit">
 			<div>
 				<div className="recruit__action__header">Tuyển dụng của bạn</div>
-				<button 
+				{/* class text-nowrap for avoiding drops few words */}
+				{/* <button 
 					type="button" 
 					className="recruit__action recruit__action--padding  "
+					// Trigger Modal
+					data-bs-toggle="modal" 
+					data-bs-target="#staticBackdrop"
+					onClick={() => console.log("click to opoen modal")}
 					>
 						<svg 
 							xmlns="http://www.w3.org/2000/svg" 
@@ -19,9 +25,11 @@ export default function Recruit (props) {
 							viewBox="0 0 16 16">
 								<path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
 						</svg>
-						{/* class text-nowrap for avoiding drops few words */}
 						<div className="recruit__action__text text-nowrap">YÊU CẦU TUYỂN DỤNG</div>
-				</button>
+				</button> */}
+				<ButtonRecruit 
+					header="Thêm yêu cầu tuyển dụng"
+				/>
 			</div>
 			<div>
 				<div className="recruit__navigators__links">Link kết nhanh:</div>
@@ -40,6 +48,7 @@ export default function Recruit (props) {
 						>Phỏng vấn ứng viên</span>
 				</div>
 			</div>
+			
 		</div>
 	)
 }

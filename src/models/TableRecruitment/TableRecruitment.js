@@ -1,0 +1,128 @@
+export const ListRecruitmentModel = [
+
+	{
+		name: "Tuyển dụng nhân viên kiểm thử",
+		description: "Tuyển dụng nhân viên kiểm thử",
+		creator: "Nguyễn Thế Lữ",
+		dateStart: "20/11/2020",
+		dateEnd: "20/11/2020",
+		count: 2,
+		status: "pending",
+	},
+	{
+		name: "Tuyển dụng nhân viên kiểm thử",
+		description: "Tuyển dụng nhân viên kiểm thử",
+		creator: "Nguyễn Thế Lữ",
+		dateStart: "20/11/2020",
+		dateEnd: "20/11/2020",
+		count: 2,
+		status: "pending",
+	},
+	{
+		name: "Tuyển dụng nhân viên kiểm thử",
+		description: "Tuyển dụng nhân viên kiểm thử",
+		creator: "Nguyễn Thế Lữ",
+		dateStart: "20/11/2020",
+		dateEnd: "20/11/2020",
+		count: 2,
+		status: "pending",
+	},
+	{
+		name: "Tuyển dụng nhân viên kiểm thử",
+		description: "Tuyển dụng nhân viên kiểm thử",
+		creator: "Nguyễn Thế Lữ",
+		dateStart: "20/11/2020",
+		dateEnd: "20/11/2020",
+		count: 2,
+		status: "pending",
+	},
+	{
+		name: "Tuyển dụng nhân viên kiểm thử",
+		description: "Tuyển dụng nhân viên kiểm thử",
+		creator: "Nguyễn Thế Lữ",
+		dateStart: "20/11/2020",
+		dateEnd: "20/11/2020",
+		count: 2,
+		status: "pending",
+	},
+	{
+		name: "Tuyển dụng nhân viên kiểm thử",
+		description: "Tuyển dụng nhân viên kiểm thử",
+		creator: "Nguyễn Thế Lữ",
+		dateStart: "20/11/2020",
+		dateEnd: "20/11/2020",
+		count: 2,
+		status: "pending",
+	},
+	{
+		name: "Tuyển dụng nhân viên kiểm thử",
+		description: "Tuyển dụng nhân viên kiểm thử",
+		creator: "Nguyễn Thế Lữ",
+		dateStart: "20/11/2020",
+		dateEnd: "20/11/2020",
+		count: 2,
+		status: "accepted",
+	},
+	{
+		name: "Tuyển dụng nhân viên kiểm thử",
+		description: "Tuyển dụng nhân viên kiểm thử",
+		creator: "Nguyễn Thế Lữ",
+		dateStart: "20/11/2020",
+		dateEnd: "20/11/2020",
+		count: 2,
+		status: "accepted",
+	},
+	{
+		name: "Tuyển dụng nhân viên kiểm thử",
+		description: "Tuyển dụng nhân viên kiểm thử",
+		creator: "Nguyễn Thế Lữ",
+		dateStart: "20/11/2020",
+		dateEnd: "20/11/2020",
+		count: 2,
+		status: "rejected",
+	},
+	{
+		name: "Tuyển dụng nhân viên kiểm thử",
+		description: "Tuyển dụng nhân viên kiểm thử",
+		creator: "Nguyễn Thế Lữ",
+		dateStart: "20/11/2020",
+		dateEnd: "20/11/2020",
+		count: 2,
+		status: "rejected",
+	},
+]
+
+export const MyRecruitedModel = [
+
+	{
+		name: "Tuyển dụng nhân viên kiểm thử",
+		description: "Tuyển dụng nhân viên kiểm thử",
+		creator: "Nguyễn Thế Lữ",
+		dateStart: "20/11/2020",
+		dateEnd: "20/11/2020",
+		count: 2,
+		status: "pending",
+	},
+	{
+		name: "Tuyển dụng nhân viên kiểm thử",
+		description: "Tuyển dụng nhân viên kiểm thử",
+		creator: "Nguyễn Thế Lữ",
+		dateStart: "20/11/2020",
+		dateEnd: "20/11/2020",
+		count: 2,
+		status: "accepted",
+	},
+	{
+		name: "Tuyển dụng nhân viên kiểm thử",
+		description: "Tuyển dụng nhân viên kiểm thử",
+		creator: "Nguyễn Thế Lữ",
+		dateStart: "20/11/2020",
+		dateEnd: "20/11/2020",
+		count: 2,
+		status: "rejected",
+	},
+]
+
+// export function test () {
+
+// }

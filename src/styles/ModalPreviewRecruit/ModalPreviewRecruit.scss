@@ -1,0 +1,58 @@
+.modalRequest {
+
+	width: 746px;
+	height: 586px;
+	flex-grow: 0;
+	margin: 0 0 0 45px;
+	padding: 16px 0 8px;
+	border-radius: 4px;
+	background-color: var(--ezycheck-white);
+}
+
+.modal-dialog {
+
+	max-width: 746px;
+	margin: auto;
+	margin-top: 93px;
+}
+
+label {
+
+	font-weight: bold;
+	text-align: right;
+	align-items: center;
+}
+
+.close {
+
+	border: none;
+	background-color: initial;
+	padding:
+	
+	span {
+
+		width: 20px;
+		height: 20px;
+	}
+}
+
+input {
+
+	&.input {
+
+		&--borderless {
+
+			border: none;
+			outline: none;
+			border-bottom: 1px solid #e9eaf9;
+		}
+
+	}
+
+	// &.input #name {
+
+	// 	border: none;
+	// 	outline: none;
+	// }
+
+}
