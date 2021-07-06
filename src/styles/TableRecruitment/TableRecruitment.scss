@@ -1,5 +1,9 @@
 .table {
 
+	border-collapse: separate;
+	// width: ;
+	height: 320px;
+	
 	&__header {
 
 		&__name {
@@ -74,6 +78,7 @@
 		padding: 0;
 		margin-bottom: 4px;
 		box-shadow: 2px 2px 4px 0 rgba(82, 63, 105, 0.1);	
+		border-radius: 4px;
 		
 		&__name {
 
@@ -190,6 +195,11 @@
 					text-align: left;
 					color: var(--primary-purple);						
 				}
+
+				&--editable {
+
+					width: 20px;
+				}
 			}
 		}
 	}
@@ -205,16 +215,15 @@
 		text-align: center;
 	}
 
-	&--container-center {
-
-		display: flex;
-		justify-content: stretch;
-	}
-
 	&--item-center {
 
 		display: flex;
 		justify-content: flex-end;
+	}
+
+	&-borderless {
+
+		margin-bottom: 6px;
 	}
 
 	& td:last-child {
@@ -226,16 +235,13 @@
 	}
 }
 
-// table td:last-child {
-	
-// 	display: flex;
-// 	text-align: center;
-// 	justify-content: center;
-// 	margin: auto;
-// }
+table tr td:first-child {
+
+	border-radius: 4px;
+}
 
 tr.status {
-	
+
 	&__pending td.status__item {
 		
 		border-left: 4px solid #ffa117;
@@ -245,9 +251,14 @@ tr.status {
 		
 		border-left: 4px solid #0abb87;
 	}
-
+	
 	&__rejected td.status__item {
 		
 		border-left: 4px solid #e5493a;
 	}
+}
+
+.button--borderless {
+
+	border: none;
 }

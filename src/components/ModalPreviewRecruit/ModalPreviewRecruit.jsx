@@ -3,7 +3,7 @@ import "../../styles/ModalPreviewRecruit/ModalPreviewRecruit.scss"
 import { Row, Col, } from "react-bootstrap"
 
 export default function ModalPreviewRecruit (props) {
-	const time = Date();
+	const time = new Date();
 	const [currentDay, currentMonth, currentYear] = [time.getDate(), time.getMonth(), time.getFullYear()]
 	const today = `${currentYear}-${(currentMonth + 1).length > 1? currentMonth + 1: `0${currentMonth + 1}`}-${currentDay.length > 1? currentDay:`0${currentDay}`}`
 	

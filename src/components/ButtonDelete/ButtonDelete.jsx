@@ -1,9 +1,8 @@
 import React, { useState, } from 'react';
-import "../../styles/ButtonEdit/ButtonEdit.scss"
+import "../../styles/ButtonDelete/ButtonDelete.scss"
 import { Button, Modal, } from "react-bootstrap";
-import { ModalPreviewRecruit, } from "../index"
 
-export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", }) {
+export default function ButtonDelete ({ header = "Yêu cầu tuyển dụng", }) {
 	const { Header, Title, Body, Footer, } = Modal;
 	const [show, setShow] = useState(false);
   
@@ -17,7 +16,7 @@ export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", }) {
 				className="btn table__rows__behavior__button table__rows__behavior__button--editable button--borderless"
 				onClick={handleShow}
 			>
-				<i class="bi bi-pencil-fill table__rows__behavior__button__icon"></i>
+				<i class="bi bi-trash-fill table__rows__behavior__button__icon"/>
 			</button>
 
 			<Modal
@@ -32,14 +31,14 @@ export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", }) {
 					closeLabel=""
 					closeVariant="success"
 				>
-					<Title>{header||"Modal title"}</Title>
+					<Title>{"Xóa yêu cầu tuyển dụng"}</Title>
 				</Header>
 				<Body>
-					<ModalPreviewRecruit/>
+					Bạn có muốn xóa bỏ yêu cầu này không?
 				</Body>
 				<Footer>
-					<Button variant="primary">Thêm</Button>
-					<Button variant="secondary" onClick={handleClose}>Hủy</Button>
+					<Button variant="danger">Xóa</Button>
+					<Button variant="secondary" onClick={handleClose}>Không</Button>
 				</Footer>
 			</Modal>
 
