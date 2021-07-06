@@ -47,36 +47,23 @@ export default function TableRecruitment ({ data }) {
 					</tr>
 				</thead>
 				<tbody>
-					{/* <tr className="table__rows status__pending">
-						<td className="table__rows__name status__item">Tuyển dụng nhân viên kiểm thử</td>
-						<td className="table__rows__description">Tuyển dụng nhân viên kiểm thử</td>
-						<td className="table__rows__creator">Nguyễn Lữ Thế</td>
-						<td className="table__rows__date-start">20/11/2020</td>
-						<td className="table__rows__date-end">20/11/2020</td>
-						<td className="table__rows__count table--text-center">2</td>
-						<td className="table__rows__behavior ">
-							<button
-								type="button"
-								className="btn btn-outline-primary table__rows__behavior__button text-nowrap 
-								"
-							>
-								<i class="bi bi-list-ul table__rows__behavior__button__icon"/>
-								Xem chi tiết</button>
-						</td>
-					</tr> */}
 					{
 						list.map(({status, name, description, creator, dateStart, dateEnd, count,}) => (
-							<tr className={"table__rows status__" + status}>
-								<td className="table__rows__name status__item">{name}</td>
-								<td className="table__rows__description">{description}</td>
-								<td className="table__rows__creator">{creator}</td>
-								<td className="table__rows__date-start">{dateStart}</td>
-								<td className="table__rows__date-end">{dateEnd}</td>
-								<td className="table__rows__count table--text-center">{count}</td>
-								<td className="table__rows__behavior ">
-									<ButtonDetail />
-								</td>
-							</tr>))
+							<>
+								<tr className={"table__rows status__" + status}>
+									<td className="table__rows__name status__item">{name}</td>
+									<td className="table__rows__description">{description}</td>
+									<td className="table__rows__creator">{creator}</td>
+									<td className="table__rows__date-start">{dateStart}</td>
+									<td className="table__rows__date-end">{dateEnd}</td>
+									<td className="table__rows__count table--text-center">{count}</td>
+									<td className="table__rows__behavior ">
+										<ButtonDetail />
+									</td>
+								</tr>
+								<div className="spacing-xs"/>
+							</>
+						))
 					}
 				</tbody>					
 			</table>

@@ -1,5 +1,7 @@
 .table {
 
+	border-collapse: separate;
+	
 	&__header {
 
 		&__name {
@@ -226,28 +228,51 @@
 	}
 }
 
-// table td:last-child {
+// table tr {
+
+// 	border-top-left-radius: 4px;
+// 	border-bottom-left-radius: 4px;
+// 	// background-color: red;
 	
-// 	display: flex;
-// 	text-align: center;
-// 	justify-content: center;
-// 	margin: auto;
 // }
+
+// table td {
+	
+// 	border-top-left-radius: 4px;
+// 	border-bottom-left-radius: 4px;
+// }
+
+// table body {
+	
+// 	border-top-left-radius: 4px;
+// 	border-bottom-left-radius: 4px;
+// }
+
+table td:first-child:before {
+	
+	border-left: 4px solid #ffa117;
+}
 
 tr.status {
 	
+
 	&__pending td.status__item {
 		
 		border-left: 4px solid #ffa117;
+		border-radius: 4px;
+
 	}
 
 	&__accepted td.status__item {
 		
 		border-left: 4px solid #0abb87;
+		border-radius: 4px;
+		
 	}
-
+	
 	&__rejected td.status__item {
 		
 		border-left: 4px solid #e5493a;
+		border-radius: 4px;
 	}
 }
