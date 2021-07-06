@@ -1,55 +1,88 @@
 .button {
-	
-	width: 121px;
-	height: 32px;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	gap: 4px;
-	padding: 8px 16px;
-	border-radius: 30px;
-	border: solid 1px var(--primary-purple);					
 
-	&__icon {
+	&__detail {
 
-		width: 16px;
-		// height: 16px;
-		flex-grow: 0;
-		object-fit: contain;
+
+		width: 114px;
+		height: 32px;
+		margin: 0 0 0 8px;
+		padding: auto 16px;
+		display: flex;
+		justify-content: center;
+		text-align: center;
+		border-radius: 4px;
+		background-color: var(--primary-purple);
 	}
 
+	&__cancel {
+
+		width: 76;
+		height: 32px;
+		display: flex;
+		justify-content: center;
+		text-align: center;
+		border-radius: 4px;
+	}
+	
 	&__text {
 
-		width: 69px;
-		height: 16px;
 		flex-grow: 0;
-		font-family: Roboto;
 		font-size: 13px;
-		font-weight: normal;
-		font-stretch: normal;
-		font-style: normal;
-		line-height: 1.23;
-		letter-spacing: normal;
-		text-align: left;
-		color: var(--primary-purple);	
+
+		&__approval {
+
+			width: 114px;
+			height: 16px;
+		}
+
+		&__cancel {
+
+			font-size: 13px;
+			color: #e5493a;
+		}
 	}
 }
 
 .btn {
-	
+
 	&:focus, &:active:focus, &.active:focus{
 	
 		outline:none;
 		box-shadow:none;
 	}
 	
-	&:hover .table__rows__behavior__button__text, 
-	&:focus .table__rows__behavior__button__text, 
-	&:active .table__rows__behavior__button__text, 
-	&.active .table__rows__behavior__button__text, 
-	&.table__rows__behavior__button__text:hover {
+	&:hover .table__rows__behavior__button__text {
 		
 		color: #fff;
+	}
+	
+	button &, button  &-primary, button  .button__approval {
+
+		width: 114px;
+	}
+}
+
+.modal-preview-recruit {
+
+	&__header {
+
+		height: 51px;
+		
+		&__text {
+
+			width: 161px;
+			height: 16px;
+			flex-grow: 0;
+			margin: 0 143px 0 16px;
+			font-family: Roboto;
+			font-size: 14px;
+			font-weight: 500;
+			font-stretch: normal;
+			font-style: normal;
+			line-height: 1.14;
+			letter-spacing: normal;
+			text-align: left;
+			color: var(--primary-dark-grey);
+		}
 	}
 }

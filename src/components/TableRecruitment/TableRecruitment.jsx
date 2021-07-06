@@ -59,31 +59,35 @@ export default function TableRecruitment ({ data, offset, range, editable = fals
 				</thead>
 				<tbody>
 					{
-						list.map(({status, name, description, creator, dateStart, dateEnd, count,}) => (
-							<>
-								<div className="spacing-xs"/>
-								<tr className={"table__rows status__" + status}>
-									<td className="table__rows__name status__item">{name}</td>
-									<td className="table__rows__description">{description}</td>
-									<td className="table__rows__creator">{creator}</td>
-									<td className="table__rows__date-start">{dateStart}</td>
-									<td className="table__rows__date-end">{dateEnd}</td>
-									<td className="table__rows__count table--text-center">{count}</td>
-									<td className="table__rows__behavior ">
-										{editable? 
-											status === "pending"? 
-												<>
-													<ButtonEdit />
-													<ButtonDelete />
-												</>
+						list.map((data) => {
+							const { status, name, description, creator, dateStart, dateEnd, count, } = data
+
+							return (
+								<>
+									<div className="spacing-xs"/>
+									<tr className={"table__rows status__" + status}>
+										<td className="table__rows__name status__item">{name}</td>
+										<td className="table__rows__description">{description}</td>
+										<td className="table__rows__creator">{creator}</td>
+										<td className="table__rows__date-start">{dateStart}</td>
+										<td className="table__rows__date-end">{dateEnd}</td>
+										<td className="table__rows__count table--text-center">{count}</td>
+										<td className="table__rows__behavior ">
+											{editable? 
+												status === "pending"? 
+													<>
+														<ButtonEdit data={data}/>
+														<ButtonDelete data={data}/>
+													</>
+													:
+													<ButtonView data={data}/>
 												:
-												<ButtonView />
-											:
-											<ButtonDetail />}
-									</td>
-								</tr>
-							</>
-						))
+												<ButtonDetail data={data}/>}
+										</td>
+									</tr>
+								</>
+							)}
+						)
 					}
 				</tbody>					
 			</table>

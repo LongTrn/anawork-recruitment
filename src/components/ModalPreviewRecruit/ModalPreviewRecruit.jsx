@@ -1,62 +1,94 @@
-import React, { useEffect, } from 'react'
+import React, { useState, useEffect, } from 'react'
 import "../../styles/ModalPreviewRecruit/ModalPreviewRecruit.scss"
-import { Row, Col, } from "react-bootstrap"
+import { Container, Row, Col, } from "react-bootstrap"
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
+import { Editor, } from "react-draft-wysiwyg";
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+import { TextEditorToolbarOption } from "../../models/index"
 
-export default function ModalPreviewRecruit (props) {
+export default function ModalPreviewRecruit ({ data }) {
+	const { name, description, creator, dateStart, dateEnd, count, files} = data
+	
+	const [day, setDay] = useState({
+		startDay: dateStart.split("/").reverse().join("-"),
+		endDay: dateEnd.split("/").reverse().join("-"),
+	})
+	const {startDay, endDay} = day;
+
+	const handleDateChange = (event) => {
+		console.log(event.target.name)
+		setDay(prev => {return({
+			...prev,
+			[event.target.name]: event.target.value,
+		})})
+	}
+	
+	
 	const time = new Date();
 	const [currentDay, currentMonth, currentYear] = [time.getDate(), time.getMonth(), time.getFullYear()]
 	const today = `${currentYear}-${(currentMonth + 1).length > 1? currentMonth + 1: `0${currentMonth + 1}`}-${currentDay.length > 1? currentDay:`0${currentDay}`}`
+
+	// 1 create new without data
+    // const [editorState, setEditorState] = useState(EditorState.createEmpty());
+    
+	// 2 create new with existing data
+	const contentBlock = htmlToDraft(description);
+	const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+	const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState));
+    const [content, setContent] = useState('');
 	
+	const handleChangeEditorState = (newState) => {
+		setEditorState(newState);
+		setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
+	}
+	
+	
+	// /** Convert html string to draft JS */
+	// const contentBlock = htmlToDraft(response.data.blog.content);
+	// const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+	// const editorState = EditorState.createWithContent(contentState);
+	// setEditorState(editorState);
+
 	useEffect(() => {
-	}, [])
+		// setEditorState("")
+
+	}, [editorState])
+
+	useEffect(() => {
+
+	}, [ day, ])
 
 	return (
-		<div>
-			<Row>
-				<Col sm={2} >
-					<label for="name" className="label--right">Tên yêu cầu:</label>
-				</Col>
-				<Col sm={8}>
-					<input id="name" type="text" className="input--borderless"/>
-				</Col>
+		<Container className="request-recruit">
+			<Row className="request-recruit__row">
+				<Col sm={3} className="request-recruit__col" ><label for="name" className="label--right text-nowrap">Tên yêu cầu:</label></Col>
+				<Col sm={9} className="request-recruit__col" ><input id="name" type="text" className="input--borderless" value={ name || ""}/></Col>
 			</Row>
-			<Row>
-				<Col sm={2}>
-					<label for="type" ><b className="label--right">Loại tuyển dụng:</b></label>
-				</Col>
-				<Col sm={4}>
+			<Row className="request-recruit__row">
+				<Col sm={3} className="request-recruit__col" ><label for="type" ><b className="label--right text-nowrap">Loại tuyển dụng:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" >
 					<select name="type" id="type-select" className="input--borderless">
-						<option value="">--Chọn loại--</option>
 						<option value="0" selected>Tuyển mới</option>
 						<option value="1">Thực tập</option>
 						<option value="2">Chính thức</option>
 					</select>
 				</Col>
-				<Col sm={2}>
-					<label for="position" className="label--right "><b className="label--right">Chức vụ:</b></label>
-				</Col>
-				<Col sm={4}>
+				<Col sm={3} className="request-recruit__col" ><label for="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" >
 					<select name="position" id="type-select" className="input--borderless">
-						<option value="">--Chọn chức vụ--</option>
 						<option value="0" selected>Nhân viên</option>
 						<option value="1">Chức vụ 1</option>
 						<option value="2">Chức vụ 2</option>
 					</select>
 				</Col>
 			</Row>
-			<Row>
-				<Col sm={2}>
-					<label for="count"  ><b className="label--right">Số lượng:</b></label>
-				</Col>
-				<Col sm={4}>
-					<input id="count" type="number" value={1} className="input--borderless"/>
-				</Col>
-				<Col sm={2}>
-					<label for="salary" ><b className="label--right">Mức lương đề xuất:</b></label>
-				</Col>
-				<Col sm={4}>
+			<Row className="request-recruit__row">
+				<Col sm={3} className="request-recruit__col" ><label for="count"  ><b className="label--right text-nowrap">Số lượng:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><input id="count" type="number" value={count} className="input--borderless"/></Col>
+				<Col sm={3} className="request-recruit__col" ><label for="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" >
 					<select name="salary" id="type-select">
-						<option value="">--Chọn mức lương--</option>
 						<option value="0" selected>Không hỗ trợ</option>
 						<option value="1">2,000,000</option>
 						<option value="2">4,000,000</option>
@@ -66,47 +98,27 @@ export default function ModalPreviewRecruit (props) {
 				</Col>
 			</Row>
 			<Row>
-				<Col sm={2}>
-					<label for="date-start"  ><b className="label--right">Từ ngày:</b></label>
-				</Col>
-				<Col sm={4}>
-					<input type="date" id="date-start" name="date-start"
-						value={today}
-						minValue="2018-01-01" maxValue="2018-12-31"
-						/>
-				</Col>
-				<Col sm={2}>
-					<label for="date-end" ><b className="label--right">Đến ngày:</b></label>
-				</Col>
-				<Col sm={4}>
-					<input type="date" id="date-start" name="date-start"
-						value={today}
-						minValue="2018-01-01" maxValue="2018-12-31"
-						/>
-				</Col>
+				<Col sm={3} className="request-recruit__col" ><label for="date-start"  ><b className="label--right text-nowrap">Từ ngày:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="startDay" value={startDay || today} minValue="2021-01-01" maxValue="2018-12-31" onChange={(event) =>handleDateChange(event)}/></Col>
+				<Col sm={3} className="request-recruit__col" ><label for="date-end" ><b className="label--right text-nowrap">Đến ngày:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><input type="date" id="date-end" name="endDay" value={endDay || today} minValue="2021-01-01" maxValue="2021-12-31" onChange={(event) =>handleDateChange(event)}/></Col>
 			</Row>
-			<Row>
-				<Col sm={2}>
-					<label for="creator" ><b className="label--right">Người duyệt:</b></label>
-				</Col>
-				<Col sm={10}>
-					<input id="creator" type="text" className="input--borderless"/>
-				</Col>
+			<Row className="request-recruit__row">
+				<Col sm={3} className="request-recruit__col" ><label for="creator" ><b className="label--right text-nowrap">Người duyệt:</b></label></Col>
+				<Col sm={9} className="request-recruit__col" ><input id="creator" type="text" className="input--borderless"/>{creator}</Col>
 			</Row>
-			<Row>
-				<Col sm={2}>
-					<label for="description" ><b className="label--right">Mô tả yêu cầu:</b></label>
-				</Col>
-				<Col sm={10}>
-					<textarea id="description" type="text" />
-				</Col>
+			<Row className="request-recruit__row">
+				<Col sm={3} className="request-recruit__col" ><label for="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
+				<Col sm={9} className="request-recruit__col" >
+					<Editor 
+						editorState={editorState} 
+						toolbar={TextEditorToolbarOption} 
+						onEditorStateChange={handleChangeEditorState}/></Col>
 			</Row>
-			<Row>
-				<Col sm={2}>
-					<label for="description" ><b className="label--right">Tệp đính kèm:</b></label>
-				</Col>
+			<Row className="request-recruit__row">
+				<Col sm={3} className="request-recruit__col" ><label for="files" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
+				<Col sm={9} className="request-recruit__col" >{files}</Col>
 			</Row>
-			
-		</div>
+		</Container>
 	)
 }

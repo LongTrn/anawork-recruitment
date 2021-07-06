@@ -1,6 +1,8 @@
 import React, { useEffect, } from 'react'
 import "../../styles/ModalRequestRecruit/ModalRequestRecruit.scss"
-import { Row, Col, } from "react-bootstrap"
+import { Container, Row, Col, } from "react-bootstrap"
+import { Editor } from "react-draft-wysiwyg";
+import { TextEditorToolbarOption } from "../../models/index"
 
 export default function ModalRequestRecruit (props) {
 	const time = new Date();
@@ -11,20 +13,14 @@ export default function ModalRequestRecruit (props) {
 	}, [])
 
 	return (
-		<div>
-			<Row>
-				<Col sm={2} >
-					<label for="name" className="label--right">Tên yêu cầu:</label>
-				</Col>
-				<Col sm={8}>
-					<input id="name" type="text" className="input--borderless"/>
-				</Col>
+		<Container className="request-recruit">
+			<Row className="request-recruit__row">
+				<Col sm={3} className="request-recruit__col" ><label for="name" className="label--right text-nowrap">Tên yêu cầu:</label></Col>
+				<Col sm={9} className="request-recruit__col" ><input id="name" type="text" className="input--borderless"/></Col>
 			</Row>
-			<Row>
-				<Col sm={2}>
-					<label for="type" ><b className="label--right">Loại tuyển dụng:</b></label>
-				</Col>
-				<Col sm={4}>
+			<Row className="request-recruit__row">
+				<Col sm={3} className="request-recruit__col" ><label for="type" ><b className="label--right text-nowrap">Loại tuyển dụng:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" >
 					<select name="type" id="type-select" className="input--borderless">
 						<option value="">--Chọn loại--</option>
 						<option value="0" selected>Tuyển mới</option>
@@ -32,10 +28,8 @@ export default function ModalRequestRecruit (props) {
 						<option value="2">Chính thức</option>
 					</select>
 				</Col>
-				<Col sm={2}>
-					<label for="position" className="label--right "><b className="label--right">Chức vụ:</b></label>
-				</Col>
-				<Col sm={4}>
+				<Col sm={3} className="request-recruit__col" ><label for="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" >
 					<select name="position" id="type-select" className="input--borderless">
 						<option value="">--Chọn chức vụ--</option>
 						<option value="0" selected>Nhân viên</option>
@@ -44,17 +38,11 @@ export default function ModalRequestRecruit (props) {
 					</select>
 				</Col>
 			</Row>
-			<Row>
-				<Col sm={2}>
-					<label for="count"  ><b className="label--right">Số lượng:</b></label>
-				</Col>
-				<Col sm={4}>
-					<input id="count" type="number" value={1} className="input--borderless"/>
-				</Col>
-				<Col sm={2}>
-					<label for="salary" ><b className="label--right">Mức lương đề xuất:</b></label>
-				</Col>
-				<Col sm={4}>
+			<Row className="request-recruit__row">
+				<Col sm={3} className="request-recruit__col" ><label for="count"  ><b className="label--right text-nowrap">Số lượng:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><input id="count" type="number" value={1} className="input--borderless"/></Col>
+				<Col sm={3} className="request-recruit__col" ><label for="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" >
 					<select name="salary" id="type-select">
 						<option value="">--Chọn mức lương--</option>
 						<option value="0" selected>Không hỗ trợ</option>
@@ -66,47 +54,23 @@ export default function ModalRequestRecruit (props) {
 				</Col>
 			</Row>
 			<Row>
-				<Col sm={2}>
-					<label for="date-start"  ><b className="label--right">Từ ngày:</b></label>
-				</Col>
-				<Col sm={4}>
-					<input type="date" id="date-start" name="date-start"
-						value={today}
-						minValue="2018-01-01" maxValue="2018-12-31"
-						/>
-				</Col>
-				<Col sm={2}>
-					<label for="date-end" ><b className="label--right">Đến ngày:</b></label>
-				</Col>
-				<Col sm={4}>
-					<input type="date" id="date-start" name="date-start"
-						value={today}
-						minValue="2018-01-01" maxValue="2018-12-31"
-						/>
-				</Col>
+				<Col sm={3} className="request-recruit__col" ><label for="date-start"  ><b className="label--right text-nowrap">Từ ngày:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="date-start" value={today} minValue="2018-01-01" maxValue="2018-12-31" /></Col>
+				<Col sm={3} className="request-recruit__col" ><label for="date-end" ><b className="label--right text-nowrap">Đến ngày:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="date-start" value={today} minValue="2018-01-01" maxValue="2018-12-31" /></Col>
 			</Row>
-			<Row>
-				<Col sm={2}>
-					<label for="creator" ><b className="label--right">Người duyệt:</b></label>
-				</Col>
-				<Col sm={10}>
-					<input id="creator" type="text" className="input--borderless"/>
-				</Col>
+			<Row className="request-recruit__row">
+				<Col sm={3} className="request-recruit__col" ><label for="creator" ><b className="label--right text-nowrap">Người duyệt:</b></label></Col>
+				<Col sm={9} className="request-recruit__col" ><input id="creator" type="text" className="input--borderless"/></Col>
 			</Row>
-			<Row>
-				<Col sm={2}>
-					<label for="description" ><b className="label--right">Mô tả yêu cầu:</b></label>
-				</Col>
-				<Col sm={10}>
-					<textarea id="description" type="text" />
-				</Col>
+			<Row className="request-recruit__row">
+				<Col sm={3} className="request-recruit__col" ><label for="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
+				<Col sm={9} className="request-recruit__col" ><Editor toolbar={TextEditorToolbarOption} /></Col>
 			</Row>
-			<Row>
-				<Col sm={2}>
-					<label for="description" ><b className="label--right">Tệp đính kèm:</b></label>
-				</Col>
+			<Row className="request-recruit__row">
+				<Col sm={3} className="request-recruit__col" ><label for="description" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
+				<Col sm={9} className="request-recruit__col" >Danh sách tệp đính kèm</Col>
 			</Row>
-			
-		</div>
+		</Container>
 	)
 }
