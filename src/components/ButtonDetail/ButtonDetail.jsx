@@ -11,14 +11,6 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", })
 	const handleShow = () => setShow(true);
 
 	return (
-		// <button
-		// 	type="button"
-		// 	className="btn btn-outline-primary table__rows__behavior__button text-nowrap 
-		// 	"
-		// >
-		// 	<i class="bi bi-list-ul table__rows__behavior__button__icon"/>
-		// 	<span className="table__rows__behavior__button__text">Xem chi tiết</span>
-		// </button>
 		<div>
 			<button
 				type="button"

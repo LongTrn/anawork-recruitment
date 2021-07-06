@@ -32,6 +32,24 @@
 		line-height: 1.23;
 		letter-spacing: normal;
 		text-align: left;
-		color: var(--primary-purple);						
+		color: var(--primary-purple);	
+	}
+}
+
+.btn {
+	
+	&:focus, &:active:focus, &.active:focus{
+	
+		outline:none;
+		box-shadow:none;
+	}
+	
+	&:hover .table__rows__behavior__button__text, 
+	&:focus .table__rows__behavior__button__text, 
+	&:active .table__rows__behavior__button__text, 
+	&.active .table__rows__behavior__button__text, 
+	&.table__rows__behavior__button__text:hover {
+		
+		color: #fff;
 	}
 }

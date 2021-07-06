@@ -16,8 +16,8 @@ export default function Recruitment () {
 				/>
 				<Recruit/>
 			</div>
-			<ListRecruitment></ListRecruitment>
-			<MyRecruited></MyRecruited>
+			<ListRecruitment />
+			<MyRecruited />
 
 			<div></div>
 

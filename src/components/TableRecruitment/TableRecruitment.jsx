@@ -1,19 +1,30 @@
 import React, { useState, useEffect, } from 'react';
 
 import "../../styles/TableRecruitment/TableRecruitment.scss"
-import {  ButtonDetail, } from "../index"
+import {  ButtonDetail, ButtonView, ButtonEdit, ButtonDelete, } from "../index"
 
-export default function TableRecruitment ({ data }) {
+export default function TableRecruitment ({ data, offset, range, editable = false }) {
 	const [list, setList] = useState([])
 
 	useEffect(() => {
+		
 		setList(data.slice(0, 5))
-	}, [data])
+	}, [ data, ])
+
+	// useEffect(() => {
+
+	// 	if (range && data.length) {
+
+	// 		console.log("mutable range ", data.slice(offset, range))
+	// 		setList(prev => {return ({...data.slice(offset, range)})})
+	// 	}
+
+	// }, [ range, ])
 
 	return (
 		
 		<div className="table--padding">
-			<table class="table table-borderless table__data">
+			<table class="table table-borderless">
 				<thead>
 					<tr>
 						<th 
@@ -50,6 +61,7 @@ export default function TableRecruitment ({ data }) {
 					{
 						list.map(({status, name, description, creator, dateStart, dateEnd, count,}) => (
 							<>
+								<div className="spacing-xs"/>
 								<tr className={"table__rows status__" + status}>
 									<td className="table__rows__name status__item">{name}</td>
 									<td className="table__rows__description">{description}</td>
@@ -58,10 +70,18 @@ export default function TableRecruitment ({ data }) {
 									<td className="table__rows__date-end">{dateEnd}</td>
 									<td className="table__rows__count table--text-center">{count}</td>
 									<td className="table__rows__behavior ">
-										<ButtonDetail />
+										{editable? 
+											status === "pending"? 
+												<>
+													<ButtonEdit />
+													<ButtonDelete />
+												</>
+												:
+												<ButtonView />
+											:
+											<ButtonDetail />}
 									</td>
 								</tr>
-								<div className="spacing-xs"/>
 							</>
 						))
 					}
