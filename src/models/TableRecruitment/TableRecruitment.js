@@ -8,87 +8,9 @@ export const ListRecruitmentModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "pending",
-	},
-	{
-		name: "Tuyển dụng nhân viên kiểm thử",
-		description: "Tuyển dụng nhân viên kiểm thử",
-		creator: "Nguyễn Thế Lữ",
-		dateStart: "20/11/2020",
-		dateEnd: "20/11/2020",
-		count: 2,
-		status: "pending",
-	},
-	{
-		name: "Tuyển dụng nhân viên kiểm thử",
-		description: "Tuyển dụng nhân viên kiểm thử",
-		creator: "Nguyễn Thế Lữ",
-		dateStart: "20/11/2020",
-		dateEnd: "20/11/2020",
-		count: 2,
-		status: "pending",
-	},
-	{
-		name: "Tuyển dụng nhân viên kiểm thử",
-		description: "Tuyển dụng nhân viên kiểm thử",
-		creator: "Nguyễn Thế Lữ",
-		dateStart: "20/11/2020",
-		dateEnd: "20/11/2020",
-		count: 2,
-		status: "pending",
-	},
-	{
-		name: "Tuyển dụng nhân viên kiểm thử",
-		description: "Tuyển dụng nhân viên kiểm thử",
-		creator: "Nguyễn Thế Lữ",
-		dateStart: "20/11/2020",
-		dateEnd: "20/11/2020",
-		count: 2,
-		status: "pending",
-	},
-	{
-		name: "Tuyển dụng nhân viên kiểm thử",
-		description: "Tuyển dụng nhân viên kiểm thử",
-		creator: "Nguyễn Thế Lữ",
-		dateStart: "20/11/2020",
-		dateEnd: "20/11/2020",
-		count: 2,
-		status: "pending",
-	},
-	{
-		name: "Tuyển dụng nhân viên kiểm thử",
-		description: "Tuyển dụng nhân viên kiểm thử",
-		creator: "Nguyễn Thế Lữ",
-		dateStart: "20/11/2020",
-		dateEnd: "20/11/2020",
-		count: 2,
-		status: "accepted",
-	},
-	{
-		name: "Tuyển dụng nhân viên kiểm thử",
-		description: "Tuyển dụng nhân viên kiểm thử",
-		creator: "Nguyễn Thế Lữ",
-		dateStart: "20/11/2020",
-		dateEnd: "20/11/2020",
-		count: 2,
-		status: "accepted",
-	},
-	{
-		name: "Tuyển dụng nhân viên kiểm thử",
-		description: "Tuyển dụng nhân viên kiểm thử",
-		creator: "Nguyễn Thế Lữ",
-		dateStart: "20/11/2020",
-		dateEnd: "20/11/2020",
-		count: 2,
-		status: "rejected",
-	},
-	{
-		name: "Tuyển dụng nhân viên kiểm thử",
-		description: "Tuyển dụng nhân viên kiểm thử",
-		creator: "Nguyễn Thế Lữ",
-		dateStart: "20/11/2020",
-		dateEnd: "20/11/2020",
-		count: 2,
-		status: "rejected",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
 
 	{
@@ -99,7 +21,11 @@ export const ListRecruitmentModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "pending",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
+
 	{
 		name: "Tuyển dụng nhân viên kiểm thử",
 		description: "Tuyển dụng nhân viên kiểm thử",
@@ -108,7 +34,11 @@ export const ListRecruitmentModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "pending",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
+
 	{
 		name: "Tuyển dụng nhân viên kiểm thử",
 		description: "Tuyển dụng nhân viên kiểm thử",
@@ -117,7 +47,11 @@ export const ListRecruitmentModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "pending",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
+
 	{
 		name: "Tuyển dụng nhân viên kiểm thử",
 		description: "Tuyển dụng nhân viên kiểm thử",
@@ -126,7 +60,11 @@ export const ListRecruitmentModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "pending",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
+
 	{
 		name: "Tuyển dụng nhân viên kiểm thử",
 		description: "Tuyển dụng nhân viên kiểm thử",
@@ -135,7 +73,11 @@ export const ListRecruitmentModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "pending",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
+
 	{
 		name: "Tuyển dụng nhân viên kiểm thử",
 		description: "Tuyển dụng nhân viên kiểm thử",
@@ -144,7 +86,11 @@ export const ListRecruitmentModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "pending",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
+
 	{
 		name: "Tuyển dụng nhân viên kiểm thử",
 		description: "Tuyển dụng nhân viên kiểm thử",
@@ -153,7 +99,11 @@ export const ListRecruitmentModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "accepted",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
+
 	{
 		name: "Tuyển dụng nhân viên kiểm thử",
 		description: "Tuyển dụng nhân viên kiểm thử",
@@ -162,7 +112,11 @@ export const ListRecruitmentModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "accepted",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
+
 	{
 		name: "Tuyển dụng nhân viên kiểm thử",
 		description: "Tuyển dụng nhân viên kiểm thử",
@@ -171,7 +125,11 @@ export const ListRecruitmentModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "rejected",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
+
 	{
 		name: "Tuyển dụng nhân viên kiểm thử",
 		description: "Tuyển dụng nhân viên kiểm thử",
@@ -180,6 +138,9 @@ export const ListRecruitmentModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "rejected",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
 ]
 
@@ -193,7 +154,11 @@ export const MyRecruitedModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "pending",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
+
 	{
 		name: "Tuyển dụng nhân viên kiểm thử",
 		description: "Tuyển dụng nhân viên kiểm thử",
@@ -202,7 +167,11 @@ export const MyRecruitedModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "accepted",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
+
 	{
 		name: "Tuyển dụng nhân viên kiểm thử",
 		description: "Tuyển dụng nhân viên kiểm thử",
@@ -211,5 +180,8 @@ export const MyRecruitedModel = [
 		dateEnd: "20/11/2020",
 		count: 2,
 		status: "rejected",
+		type: "0",
+		position: "1",
+		files: "Danh sách file đính kèm",
 	},
 ]

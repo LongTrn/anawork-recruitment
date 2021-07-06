@@ -1,3 +1,8 @@
+* {
+	
+	font-family: Roboto;
+}
+
 .modalRequest {
 
 	width: 746px;
@@ -19,8 +24,9 @@
 label {
 
 	font-weight: bold;
-	text-align: right;
+	display: flex;
 	align-items: center;
+	justify-content: flex-end;
 }
 
 .close {
@@ -48,11 +54,53 @@ input {
 		}
 
 	}
+}
 
-	// &.input #name {
+.request-recruit {
 
-	// 	border: none;
-	// 	outline: none;
-	// }
+	&__row {
 
+	}
+
+	&__row:first-child {
+
+		margin-top: 8px;
+		height: 100%;
+	}
+
+	&__col {
+
+		margin-bottom: 15px;
+		flex-grow: 0;
+		font-family: Roboto;
+		font-size: 13px;
+		font-stretch: normal;
+		font-style: normal;
+		line-height: normal;
+		letter-spacing: normal;
+		text-align: right;
+		color: var(--primary-dark-grey);
+
+		input, select, textarea {
+
+			width: 100%;
+			border: none;
+			outline: none;
+		}
+
+		&:nth-child(odd) {
+
+			font-weight: 500;
+		}
+
+		&:nth-child(even) {
+
+			text-align: left;
+		}
+	}
+}
+
+.rdw-editor-main {
+
+	height: 200px;
 }

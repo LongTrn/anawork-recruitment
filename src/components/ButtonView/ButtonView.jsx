@@ -3,7 +3,7 @@ import "../../styles/ButtonView/ButtonView.scss"
 import { Button, Modal, } from "react-bootstrap";
 import { ModalPreviewRecruit, } from "../index"
 
-export default function ButtonView ({ header = "Yêu cầu tuyển dụng", }) {
+export default function ButtonView ({ header = "Yêu cầu tuyển dụng", data }) {
 	const { Header, Title, Body, Footer, } = Modal;
 	const [show, setShow] = useState(false);
   
@@ -40,18 +40,18 @@ export default function ButtonView ({ header = "Yêu cầu tuyển dụng", }) {
 					closeButton
 					closeLabel=""
 					closeVariant="success"
+					className="modal-preview-recruit__header"
 				>
-					<Title>{header||"Yêu cầu tuyển dụng"}</Title>
+					<Title className="modal-preview-recruit__header__text">{header||"Yêu cầu tuyển dụng"}</Title>
 				</Header>
 				<Body>
-					<ModalPreviewRecruit/>
+					<ModalPreviewRecruit data={data}/>
 				</Body>
 				<Footer>
-					<Button variant="primary">Thêm</Button>
-					<Button variant="secondary" onClick={handleClose}>Hủy</Button>
+					<button className="btn btn-white button__cancel" onClick={handleClose}><span className="button__text__cancel">Từ chối</span></button>
+					<button className="btn btn-primary button__detail "><span className="button__text button__text">Duyệt yêu cầu</span></button>
 				</Footer>
 			</Modal>
-
 		</div>
 
 	)
