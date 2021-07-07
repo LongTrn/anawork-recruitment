@@ -13,26 +13,26 @@
 .timeline {
 
 	display: flex;
-	flex-direction: row;
-	justify-content: center;
+	// flex-direction: row;
 	align-items: center;
+	vertical-align: middle;
 	gap: 8px;
-	margin: 0 35px 12px 457px;
+	margin: auto;
 	padding: 0;
 
 	&__value {
 
-		// width: 30px;
-		// height: 15px;
+		display: flex;
 		flex-grow: 0;
 		font-family: Roboto;
 		font-size: 13px;
 		font-weight: 500;
-		font-stretch: normal;
-		font-style: normal;
-		line-height: normal;
-		letter-spacing: normal;
-		text-align: center;
 		color: var(--primary-dark-grey);
+		align-content: flex-end;
+	}
+
+	&--middle-vertically {
+
+		align-items: flex-end;
 	}
 }

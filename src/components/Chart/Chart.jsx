@@ -55,7 +55,7 @@ export default function Chart (props) {
 
 	const options = {
 		responsive: true,
-		maintainAspectRatio: true,
+		maintainAspectRatio: false,
 		scales: {
 			yAxes: {
 				display: true,

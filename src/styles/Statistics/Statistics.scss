@@ -7,7 +7,8 @@
 
 	// width: 851px;
 	// height: 229px;
-	height: 100%;
+	// width: calc(100% - 273px);
+	// width: calc(100vw - 273px - 16px -300px);
 	margin: 22px 16px 16px 150px;
 	padding: 0 0 12px;
 	border-radius: 4px;
@@ -17,7 +18,8 @@
 
 	&__header {
 
-		width: 851px;
+		// width: 851px;
+		width: 100%;
 		height: 40px;
 		margin: 0 0 12px;
 		padding: 11px 0 0;
@@ -31,24 +33,31 @@
 			font-family: Roboto;
 			font-size: 15px;
 			font-weight: 500;
-			font-stretch: normal;
-			font-style: normal;
-			line-height: 1.07;
-			letter-spacing: normal;
 			text-align: left;
 			color: #323234;
+			display: flex;
+			justify-content: flex-start;
 		}
 
+		&__time-sort {
+
+			display: flex;
+			justify-content: flex-end;
+		}
+		
 		&--left-padding {
 
 			display: flex;
 			padding-left: 16px;
+			justify-content: space-between; 
 		}
 		
 		&--middle-vertically {
 			
-			// vertical-align: middle;
+			display: flex;
+			justify-content: flex-end;
 			padding-top: 1px;
+			padding-right: 35px;
 		}
 	}
 

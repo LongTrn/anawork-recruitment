@@ -11,7 +11,7 @@ export default function Statistics (props) {
 					<div className="stats__header__text">
 						<Header main={header} flag={false}/>	
 					</div>
-					<div className="stats__header--middle-vertically">
+					<div className="stats__header--middle-vertically stats__header__time-sort">
 						<TimeSort/>
 					</div>
 				</div>

@@ -1,10 +1,14 @@
 .chart {
 
+	display: flex;
+	justify-content: center;
+
 	&__table {
 		
-		width: 801px;
-		height: 136px;
-		margin: 12px 34px 29px 16px;
-		padding: 0 13px 12px 18px;
+		// width: 801px;
+		width: 90%;
+		// height: 136px;
+		// margin: 12px 34px 29px 16px;
+		// padding: 0 13px 12px 18px;
 	}
 }
