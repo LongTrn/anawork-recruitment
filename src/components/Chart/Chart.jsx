@@ -1,12 +1,16 @@
 import React from 'react'
 import "../../styles/Chart/Chart.scss"
-import { Bar, } from "react-chartjs-2"
+import { Bar, defaults } from "react-chartjs-2"
+
+defaults.font.family = "Roboto"
 
 export default function Chart (props) {
 	const data = {
 		labels: ['Kế toán', 'Trưởng phòng kỹ thuật', 'Nhân viên kinh doanh', 'Hồ trợ kỹ thuật', 'Marketing', ],
 		datasets: [
 			{
+				barThickness: 16,
+				barPercentage: 0.5,
 				label: 'Cần Tuyển',
 				data: [12, 12, 12, 16, 2, ],
 				backgroundColor: [
@@ -26,6 +30,8 @@ export default function Chart (props) {
 				borderWidth: 1,
 			},
 			{
+				barThickness: 16,
+				barPercentage: 0.5,
 				label: 'Đã Tuyển',
 				data: [6, 14, 13, 16, 6, ],
 				backgroundColor: [
@@ -48,15 +54,20 @@ export default function Chart (props) {
 	};
 
 	const options = {
+		responsive: true,
+		maintainAspectRatio: false,
 		scales: {
-			yAxes: [
-				{
-					display: true,
-					ticks: {
-						beginAtZero: true,
-					},
+			yAxes: {
+				display: true,
+				min: 0,
+				max: 20,	
+				ticks: {
+					beginAtZero: true,
+					reverse: false,
+					stepSize: 10,
+					maxTicksLimit: 10,
 				},
-			],
+			},
 		},
 		plugins: {
 
@@ -73,8 +84,6 @@ export default function Chart (props) {
 				}
 			},
 		},
-
-		
 	}
 
 	return(
@@ -84,7 +93,7 @@ export default function Chart (props) {
 					data={data}
 					options={options}
 					width={801}
-					height={136}
+					height={180}
 				/>
 			</div>
 		</div>

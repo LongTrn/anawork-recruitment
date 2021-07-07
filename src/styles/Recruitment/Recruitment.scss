@@ -1,11 +1,19 @@
 .recruitment {
 	
 	// width: 1440px;
-	height: 1266px;
+	// height: 1266px;
+	width: 100%;
+	height: 100%;
 	background-color: #f9f9fc;
 }
 
 .hanging {
 
+	// width: 100vw;
 	display: flex;
+	// justify-content: ;
+
+	&__head { 
+
+	}
 }

@@ -2,9 +2,8 @@
 
 	display: flex;
 	justify-content: flex-end;
-	margin: auto 80px;
+	margin: auto 10%;
 	align-items:baseline;
-
 
 	&__text {
 
@@ -26,11 +25,23 @@
 		
 		border: none;
 		outline: none;
+		font-family: Poppins;
+		font-size: 13px;
+		text-align: center;
+		color: #4a4a4a;	
 
 		&.page__range {
 
 			width: 40px;
 			height: 20px;
+		}
+
+		.page__range__value, #paging__ListRecruitment {
+
+			// font-family: Poppins;
+			// font-size: 13px;
+			text-align: center;
+			// color: #4a4a4a;			
 		}
 	}
 
@@ -63,4 +74,11 @@
 			height: 12px;
 		}
 	}
+}
+
+
+.center { 
+	
+	display: flex;
+	justify-content: center;
 }

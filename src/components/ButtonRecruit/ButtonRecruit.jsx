@@ -42,14 +42,14 @@ export default function ButtonRecruit ({ header, }) {
 					closeLabel=""
 					closeVariant="success"
 				>
-					<Title className="modal-request-recruit__header__text">{header||"Modal title"}</Title>
+					<Title className="modal-request-recruit__header__text text-nowrap">{header||"Modal title"}</Title>
 				</Header>
 				<Body>
 					<ModalRequestRecruit/>
 				</Body>
-				<Footer>
-					<Button variant="primary">Thêm</Button>
-					<Button variant="secondary" onClick={handleClose}>Hủy</Button>
+				<Footer className="gap-2">
+					<button className="btn btn-primary button__recruit "><span className="button__recruit__text">Thêm</span></button>
+					<button className="btn btn-white button__recruit__cancel" onClick={handleClose}><span className="button__recruit__text__cancel">Hủy</span></button>
 				</Footer>
 			</Modal>
 		</div>

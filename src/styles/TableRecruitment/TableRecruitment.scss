@@ -1,8 +1,21 @@
+* {
+
+	font-family: Roboto;
+}
+
 .table {
 
 	border-collapse: separate;
 	
 	&__header {
+
+		&__text {
+
+			font-family: Roboto;
+			font-size: 13px;
+			font-weight: 500;
+			color: #757575;			
+		}
 
 		&__name {
 
@@ -77,6 +90,14 @@
 		margin-bottom: 4px;
 		box-shadow: 2px 2px 4px 0 rgba(82, 63, 105, 0.1);	
 		border-radius: 4px;
+
+		&__text {
+
+			font-family: Roboto;
+			font-size: 13px;
+			font-weight: 500;
+			color: #757575;			
+		}
 		
 		&__name {
 

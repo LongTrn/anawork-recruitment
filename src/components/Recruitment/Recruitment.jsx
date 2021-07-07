@@ -10,16 +10,14 @@ export default function Recruitment () {
 				sub="Yêu cầu tuyển dụng của tôi"
 				flag={true}
 			/>
-			<div className="hanging">
+			<div className="hanging hanging__head">
 				<Statistics
 					header="Thống kê số lượng cần tuyển / đã tuyển"
 				/>
 				<Recruit/>
 			</div>
-			<ListRecruitment />
-			<MyRecruited />
-
-			<div></div>
+			<div className="hanging"><ListRecruitment /></div>
+			<div className="hanging"><MyRecruited /></div>
 
 		</div>
 	)

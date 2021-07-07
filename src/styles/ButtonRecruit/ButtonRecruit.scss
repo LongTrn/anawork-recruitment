@@ -55,6 +55,52 @@
 		color: var(--ezycheck-white);
 	}
 
+	button &__recruit {
+		
+		width: 10%;
+		height: 32px;
+		margin: 0 0 0 8px;
+		padding: auto 16px;
+		font-size: 13px;
+		display: flex;  
+		justify-content: center;
+		text-align: center;
+		border-radius: 4px;
+		background-color: var(--primary-purple);
+
+		&__cancel {
+
+			width: 76;
+			height: 32px;
+			display: flex;
+			font-size: 13px;
+			justify-content: center;
+			text-align: center;
+			border-radius: 4px;
+			background-color: #e9eaf9;
+		}
+		
+		&__text {
+	
+			flex-grow: 0;
+			font-size: 13px;
+	
+			&__approval {
+	
+				width: 114px;
+				height: 16px;
+			}
+	
+			&__cancel {
+	
+				font-size: 13px;
+				color: var(--primary-purple);
+			}
+		}
+	}
+
+	
+
 	&--padding {
 
 		// padding: 11.5px 25px;
