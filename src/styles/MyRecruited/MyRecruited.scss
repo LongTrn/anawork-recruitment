@@ -1,9 +1,12 @@
 .my-list {
 
-	width: 1140px;
-	height: 347px;
+	// width: 1140px;
+	// height: 347px;
+	width: 80vmax;
+	height: 100%;
 	margin: 16px 142.1px 46px 150px;
-	padding: 15px 21px 24px 10.7px;
+	// padding: 15px 21px 24px 10.7px;
+	padding: 0 0 23px;
 	border-radius: 4px;
 	box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.1);
 	background-color: var(--ezycheck-white);

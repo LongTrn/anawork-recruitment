@@ -37,11 +37,11 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", da
 					<Title className="modal-preview-recruit__header__text">{header||"Yêu cầu tuyển dụng"}</Title>
 				</Header>
 				<Body>
-					<ModalPreviewRecruit data={data}/>
+					<ModalPreviewRecruit data={data} view/>
 				</Body>
-				<Footer>
-					<button className="btn btn-white button__cancel" onClick={handleClose}><span className="button__text__cancel">Từ chối</span></button>
-					<button className="btn btn-primary button__detail "><span className="button__text button__text">Duyệt yêu cầu</span></button>
+				<Footer classNamem="gap-2">
+					<button className="btn btn-white button__cancel" onClick={handleClose}><span className="button__detail__text__cancel">Từ chối</span></button>
+					<button className="btn btn-primary button__detail "><span className="button__detail__text">Duyệt yêu cầu</span></button>
 				</Footer>
 			</Modal>
 		</div>

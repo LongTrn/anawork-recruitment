@@ -16,10 +16,8 @@ export default function Recruitment () {
 				/>
 				<Recruit/>
 			</div>
-			<ListRecruitment />
-			<MyRecruited />
-
-			<div></div>
+			<div className="hanging"><ListRecruitment /></div>
+			<div className="hanging"><MyRecruited /></div>
 
 		</div>
 	)

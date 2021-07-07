@@ -29,32 +29,37 @@ export default function TableRecruitment ({ data, offset, range, editable = fals
 					<tr>
 						<th 
 							scope="col"
-							className="table__header__name"
-						>Yêu cầu tuyển dụng</th>
+							className="text-nowrap table__header__name"
+							colspan={editable? 2:1}
+						><span className="table__header__text">Yêu cầu tuyển dụng</span></th>
+						{
+							!editable && (
+								<th 
+									scope="col"
+									className="text-nowrap table__header__description"
+								><span className="table__header__text">Mô tả yêu cầu</span></th>
+							)
+						}
 						<th 
 							scope="col"
-							className="table__header__description"
-						>Mô tả yêu cầu</th>
+							className="text-nowrap table__header__creator"
+						><span className="table__header__text">Người tạo</span></th>
 						<th 
 							scope="col"
-							className="table__header__creator"
-						>Người tạo</th>
+							className="text-nowrap table__header__date-start"
+						><span className="table__header__text">Bắt đầu</span></th>
 						<th 
 							scope="col"
-							className="table__header__date-start"
-						>Bắt đầu</th>
+							className="text-nowrap table__header__date-end"
+						><span className="table__header__text">Kết thúc</span></th>
 						<th 
 							scope="col"
-							className="table__header__date-end"
-						>Kết thúc</th>
+							className="text-nowrap table__header__count table--text-center"
+						><span className="table__header__text">Số lượng</span></th>
 						<th 
 							scope="col"
-							className="table__header__count table--text-center"
-						>Số lượng</th>
-						<th 
-							scope="col"
-							className="table__header__behavior table--text-center"
-						>Thao tác</th>
+							className="text-nowrap table__header__behavior table--text-center"
+						><span className="table__header__text">Thao tác</span></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -66,12 +71,12 @@ export default function TableRecruitment ({ data, offset, range, editable = fals
 								<>
 									<div className="spacing-xs"/>
 									<tr className={"table__rows status__" + status}>
-										<td className="table__rows__name status__item">{name}</td>
-										<td className="table__rows__description">{description}</td>
-										<td className="table__rows__creator">{creator}</td>
-										<td className="table__rows__date-start">{dateStart}</td>
-										<td className="table__rows__date-end">{dateEnd}</td>
-										<td className="table__rows__count table--text-center">{count}</td>
+										<td className="table__rows__name status__item" colspan={editable? 2:1}><span className="table__rows__text">{name}</span></td>
+										{!editable&&<td className="table__rows__description"><span className="table__rows__text">{description}</span></td>}
+										<td className="table__rows__creator"><span className="table__rows__text">{creator}</span></td>
+										<td className="table__rows__date-start"><span className="table__rows__text">{dateStart}</span></td>
+										<td className="table__rows__date-end"><span className="table__rows__text">{dateEnd}</span></td>
+										<td className="table__rows__count table--text-center"><span className="table__rows__text">{count}</span></td>
 										<td className="table__rows__behavior ">
 											{editable? 
 												status === "pending"? 

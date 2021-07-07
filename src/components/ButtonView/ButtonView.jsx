@@ -11,14 +11,6 @@ export default function ButtonView ({ header = "Yêu cầu tuyển dụng", data
 	const handleShow = () => setShow(true);
 
 	return (
-		// <button
-		// 	type="button"
-		// 	className="btn btn-outline-primary table__rows__behavior__button text-nowrap 
-		// 	"
-		// >
-		// 	<i class="bi bi-list-ul table__rows__behavior__button__icon"/>
-		// 	<span className="table__rows__behavior__button__text">Xem chi tiết</span>
-		// </button>
 		<div>
 			<button
 				type="button"
@@ -45,11 +37,10 @@ export default function ButtonView ({ header = "Yêu cầu tuyển dụng", data
 					<Title className="modal-preview-recruit__header__text">{header||"Yêu cầu tuyển dụng"}</Title>
 				</Header>
 				<Body>
-					<ModalPreviewRecruit data={data}/>
+					<ModalPreviewRecruit data={data} view={true}/>
 				</Body>
 				<Footer>
-					<button className="btn btn-white button__cancel" onClick={handleClose}><span className="button__text__cancel">Từ chối</span></button>
-					<button className="btn btn-primary button__detail "><span className="button__text button__text">Duyệt yêu cầu</span></button>
+					<button className="btn btn-primary button__detail " onClick={handleClose}><span className="button__text button__text">Xong</span></button>
 				</Footer>
 			</Modal>
 		</div>

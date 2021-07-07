@@ -9,7 +9,7 @@ export default function TimeSort (props) {
 				alt="previousTime"
 				src="img/chevron-left.svg"
 				class="arrow__left"/>
-			<span className="timeline__value">2000</span>
+			<span className="timeline__value">{2020}</span>
 			<img 
 				alt="forwardTime"
 				src="img/chevron-left.svg"

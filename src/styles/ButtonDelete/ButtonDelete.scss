@@ -7,6 +7,54 @@
 		flex-grow: 0;
 		object-fit: contain;
 	}
+
+	&__delete, .modal-body {
+
+		height: 100%;
+	}
+	
+	button &__delete {
+
+
+		// width: 114px;
+		height: 32px;
+		margin: 0 0 0 8px;
+		padding: auto 16px;
+		display: flex;
+		justify-content: center;
+		text-align: center;
+		border-radius: 4px;
+		// background-color: var(--primary-purple);
+
+		&__cancel {
+
+			width: 76;
+			height: 32px;
+			display: flex;
+			justify-content: center;
+			text-align: center;
+			border-radius: 4px;
+			// background-color: var(--primary-purple);
+		}
+		
+		&__text {
+
+			flex-grow: 0;
+			font-size: 13px;
+
+			&__approval {
+
+				width: 114px;
+				height: 16px;
+			}
+
+			&__cancel {
+
+				font-size: 13px;
+				color: var(--ezycheck-white);
+			}
+		}
+	}
 }
 
 .btn {

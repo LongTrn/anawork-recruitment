@@ -17,7 +17,7 @@ export default function Statistics (props) {
 				</div>
 			</div>
 			<div className="stats__charts">
-			 	<Chart/>
+			 	<Chart className="stats__charts__design"/>
 			</div>
 		</div>
 	)

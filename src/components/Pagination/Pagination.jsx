@@ -1,7 +1,7 @@
 import React, { useState, useEffect, } from 'react';
 import "../../styles/Pagination/Pagination.scss"
 
-export default function Pagination ({ offset, number, range, select, first, previous, next, last}) {
+export default function Pagination ({ offset, number, range, select, first, previous, next, last, classes }) {
 
 	const [state, setState] = useState({
 		offsets: offset || 0,
@@ -29,16 +29,16 @@ export default function Pagination ({ offset, number, range, select, first, prev
 	}, [ number ])
 
 	return (
-		<div className="page">
+		<div className={classes? "page center" :"page"}>
 			<span className="page__text">Số dòng trên mỗi trang: </span>
 			<select 
 				name="type" 
-				className="page__range"
+				className="page__range page__range__value"
 				id="paging__ListRecruitment"
 				onChange={e => select(e.target.value)}
 			>
 				{numbersList.map(val => (
-					<option value={val} selected={val === ranges} key={val}>{val}</option>
+					<option value={val} selected={val === ranges} key={val} className="page__range__value">{val}</option>
 				))}
 			</select>
 			<span className="page__number ">{offsets} - {(ranging) > numbers? numbers: ranging} của {numbers}</span>

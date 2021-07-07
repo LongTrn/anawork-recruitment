@@ -90,6 +90,7 @@ export default function MyRecruited (props) {
 				previous={previous}
 				next={next}
 				last={last}
+				classes={"center"}
 			/>
 		</div>
 	)

@@ -3,7 +3,7 @@ import "../../styles/ButtonEdit/ButtonEdit.scss"
 import { Button, Modal, } from "react-bootstrap";
 import { ModalPreviewRecruit, } from "../index"
 
-export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", }) {
+export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", data}) {
 	const { Header, Title, Body, Footer, } = Modal;
 	const [show, setShow] = useState(false);
   
@@ -32,14 +32,14 @@ export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", }) {
 					closeLabel=""
 					closeVariant="success"
 				>
-					<Title>{header||"Modal title"}</Title>
+					<Title>{header||"Yêu cầu tuyển dụng"}</Title>
 				</Header>
 				<Body>
-					<ModalPreviewRecruit/>
+					<ModalPreviewRecruit data={data}/>
 				</Body>
-				<Footer>
-					<Button variant="primary">Thêm</Button>
-					<Button variant="secondary" onClick={handleClose}>Hủy</Button>
+				<Footer classNamem="gap-2">
+					<button className="btn btn-primary button__edit "><span className="button__edit__text">Chỉnh sửa</span></button>
+					<button className="btn btn-white button__cancel" onClick={handleClose}><span className="button__edit__text__cancel">Hủy bỏ</span></button>
 				</Footer>
 			</Modal>
 

@@ -1,12 +1,19 @@
+* {
+
+	font-family: Roboto;
+}
+
 .stats {
 
-	width: 851px;
-	height: 229px;
+	// width: 851px;
+	// height: 229px;
+	height: 100%;
 	margin: 22px 16px 16px 150px;
 	padding: 0 0 12px;
 	border-radius: 4px;
 	background-color: var(--ezycheck-white);
 	box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.1);
+	flex-grow: 4;
 
 	&__header {
 
@@ -42,6 +49,14 @@
 			
 			// vertical-align: middle;
 			padding-top: 1px;
+		}
+	}
+
+	&__charts {
+
+		&__design {
+
+			font-family: Roboto;
 		}
 	}
 }
