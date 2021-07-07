@@ -77,6 +77,10 @@ export default function ListRecruitment (props) {
 					<div className="list__header__text">
 						<Header main="Duyệt yêu cầu tuyển dụng" />
 					</div>
+					<div className="list__header__button">
+						<label for="list-show-all-request" className="list__header__button__text">Hiện tất cả</label>
+						<input id="list-show-all-request" type="checkbox" className="list__header__button__checkbox"/>
+					</div>
 				</div>
 			</div>
 			<TableRecruitment data={state} offset={offset} range={range} />
