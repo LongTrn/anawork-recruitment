@@ -1,6 +1,6 @@
 import React, { useState, } from 'react';
 import "../../styles/ButtonDelete/ButtonDelete.scss"
-import { Button, Modal, } from "react-bootstrap";
+import { Modal, } from "react-bootstrap";
 
 export default function ButtonDelete ({ header = "Yêu cầu tuyển dụng", }) {
 	const { Header, Title, Body, Footer, } = Modal;

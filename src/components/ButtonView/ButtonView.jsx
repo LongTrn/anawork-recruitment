@@ -1,6 +1,6 @@
 import React, { useState, } from 'react';
 import "../../styles/ButtonView/ButtonView.scss"
-import { Button, Modal, } from "react-bootstrap";
+import { Modal, } from "react-bootstrap";
 import { ModalPreviewRecruit, } from "../index"
 
 export default function ButtonView ({ header = "Yêu cầu tuyển dụng", data }) {
