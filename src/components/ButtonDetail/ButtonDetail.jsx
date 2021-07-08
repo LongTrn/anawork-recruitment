@@ -1,6 +1,6 @@
 import React, { useState, } from 'react';
 import "../../styles/ButtonDetail/ButtonDetail.scss"
-import { Button, Modal, } from "react-bootstrap";
+import { Modal, } from "react-bootstrap";
 import { ModalPreviewRecruit, } from "../index"
 
 export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", data}) {

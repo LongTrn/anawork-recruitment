@@ -83,8 +83,7 @@ export default function ListRecruitment (props) {
 					</div>
 				</div>
 			</div>
-			<TableRecruitment data={state} offset={offset} range={range} />
-			
+			<TableRecruitment data={state} offset={offset} range={range} filter={"all"} />
 			<Pagination 
 				offset={offset} 
 				range={range} 

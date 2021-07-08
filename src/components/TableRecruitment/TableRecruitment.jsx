@@ -3,7 +3,7 @@ import React, { useState, useEffect, } from 'react';
 import "../../styles/TableRecruitment/TableRecruitment.scss"
 import {  ButtonDetail, ButtonView, ButtonEdit, ButtonDelete, } from "../index"
 
-export default function TableRecruitment ({ data, offset, range, editable = false }) {
+export default function TableRecruitment ({ data, offset, range, editable = false, filter = "pending"}) {
 	const [list, setList] = useState([])
 
 	useEffect(() => {
@@ -11,15 +11,16 @@ export default function TableRecruitment ({ data, offset, range, editable = fals
 		setList(data.slice(0, 5))
 	}, [ data, ])
 
-	// useEffect(() => {
+	useEffect(() => {
 
-	// 	if (range && data.length) {
+		if (range && data.length) {
 
-	// 		console.log("mutable range ", data.slice(offset, range))
-	// 		setList(prev => {return ({...data.slice(offset, range)})})
-	// 	}
+			let tmp =  data.slice(offset, range);
+			console.log("mutable range ", tmp)
+			setList(tmp)
+		}
 
-	// }, [ range, ])
+	}, [ range, ])
 
 	return (
 		
@@ -64,7 +65,10 @@ export default function TableRecruitment ({ data, offset, range, editable = fals
 				</thead>
 				<tbody>
 					{
-						list.map((data) => {
+						list.filter(data => !editable && filter === "all" && data.status !== "pending").map((data) => {
+							// if (!editable && filter === "all" && data.status !== "pending") {
+							// 	continue;
+							// }
 							const { status, name, description, creator, dateStart, dateEnd, count, } = data
 
 							return (

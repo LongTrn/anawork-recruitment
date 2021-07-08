@@ -79,8 +79,7 @@ export default function MyRecruited (props) {
 					</div>
 				</div>
 			</div>
-			<TableRecruitment data={state} editable />
-			
+			<TableRecruitment editable data={state} offset={offset} range={range} />
 			<Pagination 
 				offset={offset} 
 				range={range} 

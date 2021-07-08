@@ -17,7 +17,6 @@ export default function ModalRequestRecruit (props) {
 		dateEnd: '', 
 		count: '', 
 		files: '',
-		salary: '',
 	})
 	const { name, description, creator, salary, dateStart, dateEnd, count, files} = state
 
@@ -77,7 +76,7 @@ export default function ModalRequestRecruit (props) {
 				<Col sm={3} className="request-recruit__col" ><input id="count" type="number" value={count||1} min={0} className="input--borderless" name="count" onChange={handleChange}/></Col>
 				<Col sm={3} className="request-recruit__col" ><label for="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<select name="salary" id="type-select"  onChange={handleChange}>
+					<select name="salary" id="type-select" value={salary} onChange={handleChange}>
 						<option value="" selected>--Chọn mức lương--</option>
 						<option value="0">Không hỗ trợ</option>
 						<option value="1">2,000,000</option>
