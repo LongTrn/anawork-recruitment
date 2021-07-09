@@ -2,36 +2,57 @@ import React, { useState, useEffect, } from 'react';
 
 import "../../styles/TableRecruitment/TableRecruitment.scss"
 import {  ButtonDetail, ButtonView, ButtonEdit, ButtonDelete, } from "../index"
+import moment from "moment"
+import { axios } from "../../config/index"
 
-export default function TableRecruitment ({ data, offset, range, editable = false, filter = "pending"}) {
+export default function TableRecruitment ({ data, pageIndex, pagesize, editable = false, all = false}) {
 	const [list, setList] = useState([])
 
+
+	const fetchData = async ( index = 1, size = 10, ) => {
+		
+		const url = `/api/recruits/${!editable?`pendingRequests?Filters=${encodeURIComponent("extend_request_status==Chờ duyệt")}&`:`myPendingRequest?Filters=&`}Sorts=&Page=${index}&PageSize=${size}`
+		const response = await axios.get(url)
+		
+		if (!response.data.success) { return []}
+		
+		const { pageIndex, pagesize, total, collection } = response.data.data
+		console.log("test table res", collection)
+		
+		setList(prev => collection)
+	}
 	useEffect(() => {
 		
-		setList(data.slice(0, 5))
+		setList(data)
 	}, [ data, ])
 
 	useEffect(() => {
 
-		if (range && data.length) {
+		if (pagesize && data.length) {
 
-			let tmp =  data.slice(offset, range);
-			console.log("mutable range ", tmp)
-			setList(tmp)
+			// let tmp =  data.slice(pageIndex, pagesize);
+			// console.log("mutable pagesize ", tmp)
+			setList(data)
 		}
 
-	}, [ range, ])
+		fetchData(pageIndex, pagesize)
+
+	}, [ pagesize, ])
+
+	useEffect(() => { setList(data) }, [ all, ])
+
+	// useEffect(() => console.log(moment().format()), [])
 
 	return (
 		
 		<div className="table--padding">
-			<table class="table table-borderless">
+			<table className="table table-borderless">
 				<thead>
 					<tr>
 						<th 
 							scope="col"
 							className="text-nowrap table__header__name"
-							colspan={editable? 2:1}
+							colSpan={editable? 2:1}
 						><span className="table__header__text">Yêu cầu tuyển dụng</span></th>
 						{
 							!editable && (
@@ -65,33 +86,33 @@ export default function TableRecruitment ({ data, offset, range, editable = fals
 				</thead>
 				<tbody>
 					{
-						list.filter(data => !editable && filter === "all" && data.status !== "pending").map((data) => {
-							// if (!editable && filter === "all" && data.status !== "pending") {
-							// 	continue;
-							// }
-							const { status, name, description, creator, dateStart, dateEnd, count, } = data
+						list.filter(data => all || (!all && (data.extend_request_status === "Chờ duyệt"|| editable))).map((data) => {
+							const { id, extend_request_status, name, description, extend_creator_fullname, plan_start, plan_end, quantity, } = data
+							const status = extend_request_status !== "Chờ duyệt"? extend_request_status === "Duyệt"? "accepted" : "rejected": "pending"
+							let dateStart = moment(plan_start).format('DD-MM-YYYY')
+							let dateEnd = moment(plan_end).format('DD-MM-YYYY')
 
 							return (
 								<>
 									<div className="spacing-xs"/>
 									<tr className={"table__rows status__" + status}>
-										<td className="table__rows__name status__item" colspan={editable? 2:1}><span className="table__rows__text">{name}</span></td>
+										<td className="table__rows__name status__item" colSpan={editable? 2:1}><span className="table__rows__text">{name}</span></td>
 										{!editable&&<td className="table__rows__description"><span className="table__rows__text">{description}</span></td>}
-										<td className="table__rows__creator"><span className="table__rows__text">{creator}</span></td>
+										<td className="table__rows__creator"><span className="table__rows__text">{extend_creator_fullname}</span></td>
 										<td className="table__rows__date-start"><span className="table__rows__text">{dateStart}</span></td>
 										<td className="table__rows__date-end"><span className="table__rows__text">{dateEnd}</span></td>
-										<td className="table__rows__count table--text-center"><span className="table__rows__text">{count}</span></td>
+										<td className="table__rows__count table--text-center"><span className="table__rows__text">{quantity}</span></td>
 										<td className="table__rows__behavior ">
 											{editable? 
 												status === "pending"? 
 													<>
-														<ButtonEdit data={data}/>
-														<ButtonDelete data={data}/>
+														<ButtonEdit data={data} id={id}/>
+														<ButtonDelete data={data} id={id}/>
 													</>
 													:
-													<ButtonView data={data}/>
+													<ButtonView data={data} id={id}/>
 												:
-												<ButtonDetail data={data}/>}
+												<ButtonDetail data={data} id={id}/>}
 										</td>
 									</tr>
 								</>

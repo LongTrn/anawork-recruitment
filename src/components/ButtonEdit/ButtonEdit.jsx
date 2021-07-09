@@ -17,7 +17,7 @@ export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", data
 				className="btn table__rows__behavior__button table__rows__behavior__button--editable button--borderless"
 				onClick={handleShow}
 			>
-				<i class="bi bi-pencil-fill table__rows__behavior__button__icon"></i>
+				<i className="bi bi-pencil-fill table__rows__behavior__button__icon"></i>
 			</button>
 
 			<Modal

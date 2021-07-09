@@ -17,7 +17,7 @@ export default function ButtonView ({ header = "Yêu cầu tuyển dụng", data
 				className="btn table__rows__behavior__button text-nowrap button--borderless"
 				onClick={handleShow}
 			>
-				<i class="bi bi-list-ul table__rows__behavior__button__icon"/>
+				<i className="bi bi-list-ul table__rows__behavior__button__icon"/>
 				{/* <span className="table__rows__behavior__button__text">Xem chi tiết</span> */}
 			</button>
 

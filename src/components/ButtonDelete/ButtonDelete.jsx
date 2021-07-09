@@ -16,7 +16,7 @@ export default function ButtonDelete ({ header = "Yêu cầu tuyển dụng", })
 				className="btn table__rows__behavior__button table__rows__behavior__button--editable button--borderless"
 				onClick={handleShow}
 			>
-				<i class="bi bi-trash-fill table__rows__behavior__button__icon"/>
+				<i className="bi bi-trash-fill table__rows__behavior__button__icon"/>
 			</button>
 
 			<Modal
