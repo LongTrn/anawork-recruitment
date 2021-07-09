@@ -17,14 +17,14 @@ export default function Recruit (props) {
 				<div>
 					<div className="recruit__navigators__links">Link kết nhanh:</div>
 					<div>
-						<i class="bi bi-newspaper recruit__navigators__news"/>
+						<i className="bi bi-newspaper recruit__navigators__news"/>
 						<span 
 							href="localhost"
 							className="recruit__navigators__news__text"
 							>Tin tuyển dụng</span>
 					</div>
 					<div>
-						<i class="bi bi-person-fill recruit__navigators__interview"></i>
+						<i className="bi bi-person-fill recruit__navigators__interview"></i>
 						<span 
 							href="localhost"
 							className="recruit__navigators__interview__text "
