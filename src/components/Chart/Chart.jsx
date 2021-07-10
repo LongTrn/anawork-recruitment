@@ -1,31 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect, } from 'react'
 import "../../styles/Chart/Chart.scss"
 import { Bar, defaults } from "react-chartjs-2"
+import {axios} from "../../config/index"
 
 defaults.font.family = "Roboto"
+const orangeBar = "#ffa12d";
+const dodgerBlueBar = "#1399fb";
 
-export default function Chart (props) {
-	const data = {
-		labels: ['Kế toán', 'Trưởng phòng kỹ thuật', 'Nhân viên kinh doanh', 'Hồ trợ kỹ thuật', 'Marketing', ],
+export default function Chart ({year}) {
+
+
+	const [state, setState] = useState({
+		labels: ['Kế toán', ],
 		datasets: [
 			{
 				barThickness: 16,
 				barPercentage: 0.5,
 				label: 'Cần Tuyển',
-				data: [12, 12, 12, 16, 2, ],
+				data: [12,],
 				backgroundColor: [
-					"#ffa12d",
-					"#ffa12d",
-					"#ffa12d",
-					"#ffa12d",
-					"#ffa12d",
-				],
-				borderColor: [
-					"#ffa12d",
-					"#ffa12d",
-					"#ffa12d",
-					"#ffa12d",
-					"#ffa12d",
+					orangeBar,
 				],
 				borderWidth: 1,
 			},
@@ -33,25 +27,14 @@ export default function Chart (props) {
 				barThickness: 16,
 				barPercentage: 0.5,
 				label: 'Đã Tuyển',
-				data: [6, 14, 13, 16, 6, ],
+				data: [6, ],
 				backgroundColor: [
-					"#1399fb",
-					"#1399fb",
-					"#1399fb",
-					"#1399fb",
-					"#1399fb",
-				],
-				borderColor: [
-					"#1399fb",
-					"#1399fb",
-					"#1399fb",
-					"#1399fb",
-					"#1399fb",
+					dodgerBlueBar,
 				],
 				borderWidth: 1,
 			},
 		],
-	};
+	});
 
 	const options = {
 		responsive: true,
@@ -86,11 +69,50 @@ export default function Chart (props) {
 		},
 	}
 
+	const fetchData = async (year) => {
+		const response = await axios.get(`/api/recruits/rescruitStatistic?year=${year}`)
+
+		if(!response.data.success) { return []}
+		let data = (response.data.data)
+		console.log(data)
+		const labelList = data.map(label => label.job_title)
+		const datasets = Object.keys(data[0]).slice(1).map(type => {
+			console.log("dataset typeof", type)
+			const label = type==="recruited_quantity"? 'Đã Tuyển': 'Cần Tuyển'
+			const tempData = data.map(job => {
+				return job[type]
+			})
+			const bgColor = type==="recruited_quantity"? orangeBar: dodgerBlueBar;
+			return {
+				barThickness: 16,
+				barPercentage: 0.5,
+				label,
+				data: tempData,
+				backgroundColor: [
+					bgColor,
+				],
+				borderWidth: 1,
+			}
+		})
+		setState({
+			labels: labelList,
+			datasets
+		})
+		// console.log(test)
+		console.log(datasets)
+
+	}
+
+	useEffect(() => {
+	
+		fetchData(year)
+	}, [ year ])
+
 	return(
 		<div className="chart">
 			<div className="chart__table">
 				<Bar
-					data={data}
+					data={state}
 					options={options}
 					width={801}
 					height={180}

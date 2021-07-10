@@ -16,11 +16,10 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 		
 		if (!response.data.success) { return []}
 		
-		const { pageIndex, pagesize, total, collection } = response.data.data
-		console.log("test table res", collection)
-		
-		setList(prev => collection)
+		const { collection } = response.data.data
+		setList(collection)
 	}
+
 	useEffect(() => {
 		
 		setList(data)

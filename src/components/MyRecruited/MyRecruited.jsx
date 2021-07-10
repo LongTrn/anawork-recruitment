@@ -1,7 +1,7 @@
 import React, { useState, useEffect, } from 'react';
 import "../../styles/MyRecruited/MyRecruited.scss"
 import { Header, TableRecruitment, Pagination, } from "../index"
-import { MyRecruitedModel,} from "../../models/index"
+// import { MyRecruitedModel,} from "../../models/index"
 import { axios } from "../../config/index"
 
 export default function MyRecruited (props) {

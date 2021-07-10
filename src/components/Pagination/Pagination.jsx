@@ -39,8 +39,6 @@ export default function Pagination ({ pageIndex, total, pageSize, select, first,
 
 	}, [pageIndexes, pageSizes, ])
 
-	useEffect(() => { console.log(state)}, [state])
-
 	return (
 		<div className={classes? "page center" :"page"}>
 			<span className="page__text">Số dòng trên mỗi trang: </span>
