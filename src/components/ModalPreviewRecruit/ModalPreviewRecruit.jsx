@@ -6,18 +6,27 @@ import { Editor, } from "react-draft-wysiwyg";
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import { TextEditorToolbarOption } from "../../models/index"
+import moment from 'moment';
+import { axios } from "../../config/index"
 
 export default function ModalPreviewRecruit ({ data, view = false, }) {
-	const [state, setState] = useState({
-		...data,
-		salary: "",
-		view,
-	})
-	const { name, description, creator, salary, dateStart, dateEnd, count, files} = state
+	const [state, setState] = useState(data)
+	const { 
+		name,
+		category_id,
+		extend_position_name,
+		quantity,
+		salary,
+		plan_start,
+		plan_end,
+		extend_approver_fullname_email,
+		job_description,
+		code,
+	} = state
 	
 	const [day, setDay] = useState({
-		startDay: dateStart.split("/").reverse().join("-"),
-		endDay: dateEnd.split("/").reverse().join("-"),
+		startDay: moment(plan_start).format('YYYY-MM-DD'),
+		endDay: moment(plan_end).format('YYYY-MM-DD'),
 	})
 	const {startDay, endDay} = day;
 	
@@ -29,14 +38,14 @@ export default function ModalPreviewRecruit ({ data, view = false, }) {
     // const [editorState, setEditorState] = useState(EditorState.createEmpty());
     
 	// 2 create new with existing data
-	const contentBlock = htmlToDraft(description);
-	const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-	const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState));
-    const [content, setContent] = useState('');
+	// const contentBlock = htmlToDraft(description);
+	// const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+	// const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState));
+    // const [content, setContent] = useState('');
 	
 	const handleChangeEditorState = (newState) => {
-		setEditorState(newState);
-		setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
+		// setEditorState(newState);
+		// setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
 	}
 
 	const handleDateChange = (event) => {
@@ -63,14 +72,18 @@ export default function ModalPreviewRecruit ({ data, view = false, }) {
 	// const editorState = EditorState.createWithContent(contentState);
 	// setEditorState(editorState);
 
-	useEffect(() => {
-		// setEditorState("")
+	// useEffect(() => {
+	// 	// setEditorState("")
 
-	}, [editorState])
+	// }, [editorState])
 
 	useEffect(() => {
 
 	}, [ day, ])
+
+	useEffect(() => {
+		console.log(data)
+	}, [ data, ])
 
 	return (
 		<Container className="request-recruit">
@@ -81,24 +94,23 @@ export default function ModalPreviewRecruit ({ data, view = false, }) {
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label for="type" ><b className="label--right text-nowrap">Loại tuyển dụng:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<select name="type" id="type-select" className="input--borderless" disabled={view} onChange={handleChange}>
-						<option value="0" selected>Tuyển mới</option>
-						<option value="1">Thực tập</option>
-						<option value="2">Chính thức</option>
+					<select name="type" id="type-select" className="input--borderless" disabled={view} value={category_id} onChange={handleChange}>
+						<option value="1">Tuyển mới</option>
+						<option value="2">Thay thế</option>
 					</select>
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label for="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<select name="position" id="type-select" className="input--borderless" disabled={view} onChange={handleChange}>
-						<option value="0" selected>Nhân viên</option>
+					<select name="position" id="type-select" className="input--borderless" disabled={view} value={extend_position_name} onChange={handleChange}>
+						<option value="0">Nhân viên</option>
 						<option value="1">Chức vụ 1</option>
 						<option value="2">Chức vụ 2</option>
 					</select>
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label for="count"  ><b className="label--right text-nowrap">Số lượng:</b></label></Col>
-				<Col sm={3} className="request-recruit__col" ><input id="count" type="number" value={count} className="input--borderless" disabled={view} name="count" min={0} onChange={handleChange}/></Col>
+				<Col sm={3} className="request-recruit__col" ><label for="quantity"  ><b className="label--right text-nowrap">Số lượng:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><input id="quantity" type="number" value={parseInt(quantity)} className="input--borderless" disabled={view} name="quantity" min={0} onChange={handleChange}/></Col>
 				<Col sm={3} className="request-recruit__col" ><label for="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
 					<select name="salary" id="type-select" onChange={handleChange} value={salary} disabled={view}>
@@ -118,20 +130,21 @@ export default function ModalPreviewRecruit ({ data, view = false, }) {
 			</Row>
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label for="creator" ><b className="label--right text-nowrap">Người duyệt:</b></label></Col>
-				<Col sm={9} className="request-recruit__col" ><input id="creator" type="text" className="input--borderless" value={creator} name="creator" onChange={handleChange} disabled={view}/></Col>
+				<Col sm={9} className="request-recruit__col" ><input id="creator" type="text" className="input--borderless" value={extend_approver_fullname_email} name="creator" onChange={handleChange} disabled={view}/></Col>
 			</Row>
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label for="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >
-					<Editor 
+					{/* <Editor 
 						readOnly={view}
 						editorState={editorState} 
 						toolbar={TextEditorToolbarOption} 
-						onEditorStateChange={handleChangeEditorState}/></Col>
+						onEditorStateChange={handleChangeEditorState}/> */}
+				</Col>
 			</Row>
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label for="files" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
-				<Col sm={9} className="request-recruit__col" >{files}</Col>
+				<Col sm={9} className="request-recruit__col" >{code}</Col>
 			</Row>
 		</Container>
 	)

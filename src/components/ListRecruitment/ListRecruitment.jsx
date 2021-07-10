@@ -1,7 +1,7 @@
 import React, { useState, useEffect, } from 'react';
 import "../../styles/ListRecruitment/ListRecruitment.scss"
 import { Header, TableRecruitment, Pagination, } from "../index"
-import { ListRecruitmentModel } from "../../models/index"
+// import { ListRecruitmentModel } from "../../models/index"
 import { axios } from "../../config/index"
 
 export default function ListRecruitment (props) {
