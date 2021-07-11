@@ -47,9 +47,10 @@ export default function Pagination ({ pageIndex, total, pageSize, select, first,
 				className="page__pageSize page__pageSize__value"
 				id="paging__ListRecruitment"
 				onChange={e => select(e.target.value)}
+				value={pageSizes}
 			>
 				{numbersList.map(val => (
-					<option value={val} selected={val === pageSizes} key={val} className="page__pageSize__value">{val}</option>
+					<option value={val} key={val} className="page__pageSize__value">{val}</option>
 				))}
 			</select>
 			<span className="page__number ">{(pageIndexes - 1) * pageSizes + 1} - {ranging > totals? totals: ranging} của {totals}</span>

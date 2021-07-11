@@ -11,7 +11,6 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 	const handleClose = () => setShow(false);
 	const handleShow = (event) => {
 		console.log(event.target)
-		fetchData(event.target.id)
 		setShow(true)
 	};
 
@@ -65,7 +64,11 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 	useEffect(() => {
 		
 		console.log(data)
-	}, [data])
+		if (show) {
+			
+			fetchData(id)
+		}
+	}, [show])
 
 	return (
 		<div>

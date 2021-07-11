@@ -1,3 +1,4 @@
+"use strict"
 import React, { useState, useEffect, } from 'react'
 import "../../styles/ModalPreviewRecruit/ModalPreviewRecruit.scss"
 import { Container, Row, Col, } from "react-bootstrap"
@@ -9,8 +10,21 @@ import { TextEditorToolbarOption } from "../../models/index"
 import moment from 'moment';
 import { axios } from "../../config/index"
 
-export default function ModalPreviewRecruit ({ data, view = false, }) {
-	const [state, setState] = useState(data)
+export default function ModalPreviewRecruit ({ data, view = false, id}) {
+
+
+	const [state, setState] = useState({ 
+		name: "",
+		category_id: 1,
+		extend_position_name: "",
+		quantity: 1,
+		salary: "",
+		plan_start: moment().format('YYYY-MM-DD'),
+		plan_end: moment().format('YYYY-MM-DD'),
+		extend_approver_fullname_email: "",
+		job_description: "",
+		code: "",
+	})
 	const { 
 		name,
 		category_id,
@@ -23,16 +37,16 @@ export default function ModalPreviewRecruit ({ data, view = false, }) {
 		job_description,
 		code,
 	} = state
-	
 	const [day, setDay] = useState({
 		startDay: moment(plan_start).format('YYYY-MM-DD'),
 		endDay: moment(plan_end).format('YYYY-MM-DD'),
+
 	})
 	const {startDay, endDay} = day;
 	
-	const time = new Date();
-	const [currentDay, currentMonth, currentYear] = [time.getDate(), time.getMonth(), time.getFullYear()]
-	const today = `${currentYear}-${(currentMonth + 1).length > 1? currentMonth + 1: `0${currentMonth + 1}`}-${currentDay.length > 1? currentDay:`0${currentDay}`}`
+	// const time = new Date();
+	// const [currentDay, currentMonth, currentYear] = [time.getDate(), time.getMonth(), time.getFullYear()]
+	const today = moment().format("YYYY-MM-DD");
 
 	// 1 create new without data
     // const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -43,28 +57,79 @@ export default function ModalPreviewRecruit ({ data, view = false, }) {
 	// const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState));
     // const [content, setContent] = useState('');
 	
-	const handleChangeEditorState = (newState) => {
+	// const handleChangeEditorState = (newState) => {
 		// setEditorState(newState);
 		// setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
-	}
+	// }
 
 	const handleDateChange = (event) => {
 		console.log(event.target.name)
-		setDay(prev => {return({
-			...prev,
-			[event.target.name]: event.target.value,
-		})})
-	}
+		setDay(prev => {
+			return({
+				...prev,
+				[event.target.name]: event.target.value,
+			})
+		})
+	};
 
 	const handleChange = (event) => {
 
 		console.log('handleChange', event.target.name, event.target.value);
-		setState(prev => {return({
-			...prev,
-			[event.target.name]: event.target.value
-		})})
+		setState(prev => {
+			return({
+				...prev,
+				[event.target.name]: event.target.value
+			})
+		})
+	};
+
+	const fetchData = async ( id ) => {
+		const response = await axios.get(`/api/recruits/requests/${id}`)
+		
+		if (!response.data.success) { return []}
+		console.log(response.data)
+
+		const {
+			name,
+			category_id,
+			extend_position_name,
+			quantity,
+			salary,
+			plan_start,
+			plan_end,
+			extend_approver_fullname_email,
+			job_description,
+			code,
+		} = response.data.data
+
+		setState(prev => {return{
+			name,
+			category_id,
+			extend_position_name,
+			quantity,
+			salary,
+			plan_start,
+			plan_end,
+			extend_approver_fullname_email,
+			job_description,
+			code,
+		}})
+		
+		// console.log({
+		// 	name,
+		// 	category_id,
+		// 	extend_position_name,
+		// 	quantity,
+		// 	salary,
+		// 	plan_start,
+		// 	plan_end,
+		// 	extend_approver_fullname_email,
+		// 	job_description,
+		// 	code,
+		// })
+		// console.log(state)
+		
 	}
-	
 	
 	// /** Convert html string to draft JS */
 	// const contentBlock = htmlToDraft(response.data.blog.content);
@@ -82,8 +147,13 @@ export default function ModalPreviewRecruit ({ data, view = false, }) {
 	}, [ day, ])
 
 	useEffect(() => {
+		// console.log(data)
+	}, [ state, ])
+
+	useEffect(() => {
+		fetchData(id)
 		console.log(data)
-	}, [ data, ])
+	}, [])
 
 	return (
 		<Container className="request-recruit">
@@ -94,14 +164,20 @@ export default function ModalPreviewRecruit ({ data, view = false, }) {
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label for="type" ><b className="label--right text-nowrap">Loại tuyển dụng:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<select name="type" id="type-select" className="input--borderless" disabled={view} value={category_id} onChange={handleChange}>
-						<option value="1">Tuyển mới</option>
-						<option value="2">Thay thế</option>
-					</select>
+					{view?
+						(<input type="text" className="input--borderless" disabled={true} >{category_id}</input>)
+						:
+						(<select name="type" id="type-select" className="input--borderless" value={1} onChange={handleChange}>
+							<option value="1">Tuyển mới</option>
+							<option value="2">Thay thế</option>
+						</select>)
+					}
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label for="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<select name="position" id="type-select" className="input--borderless" disabled={view} value={extend_position_name} onChange={handleChange}>
+
+					<select name="position" id="type-select" className="input--borderless" disabled={view} onChange={handleChange}>
+					{/* <select name="position" id="type-select" className="input--borderless" disabled={view} value={extend_position_name} onChange={handleChange}> */}
 						<option value="0">Nhân viên</option>
 						<option value="1">Chức vụ 1</option>
 						<option value="2">Chức vụ 2</option>
@@ -110,11 +186,13 @@ export default function ModalPreviewRecruit ({ data, view = false, }) {
 			</Row>
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label for="quantity"  ><b className="label--right text-nowrap">Số lượng:</b></label></Col>
-				<Col sm={3} className="request-recruit__col" ><input id="quantity" type="number" value={parseInt(quantity)} className="input--borderless" disabled={view} name="quantity" min={0} onChange={handleChange}/></Col>
+				<Col sm={3} className="request-recruit__col" ><input id="quantity" type="number" className="input--borderless" disabled={view} name="quantity" min={0} onChange={handleChange}/></Col>
+				{/* <Col sm={3} className="request-recruit__col" ><input id="quantity" type="number" value={parseInt(quantity)} className="input--borderless" disabled={view} name="quantity" min={0} onChange={handleChange}/></Col> */}
 				<Col sm={3} className="request-recruit__col" ><label for="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<select name="salary" id="type-select" onChange={handleChange} value={salary} disabled={view}>
-						<option value="0" selected>Không hỗ trợ</option>
+					{/* <select name="salary" id="type-select" onChange={handleChange} value={salary} disabled={view}> */}
+					<select name="salary" id="type-select" value={0} onChange={handleChange} disabled={view}>
+						<option value="0">Không hỗ trợ</option>
 						<option value="1">2,000,000</option>
 						<option value="2">4,000,000</option>
 						<option value="3">6,000,000</option>
@@ -130,7 +208,8 @@ export default function ModalPreviewRecruit ({ data, view = false, }) {
 			</Row>
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label for="creator" ><b className="label--right text-nowrap">Người duyệt:</b></label></Col>
-				<Col sm={9} className="request-recruit__col" ><input id="creator" type="text" className="input--borderless" value={extend_approver_fullname_email} name="creator" onChange={handleChange} disabled={view}/></Col>
+				<Col sm={9} className="request-recruit__col" ><input id="creator" type="text" className="input--borderless" name="creator" onChange={handleChange} disabled={view}/></Col>
+				{/* <Col sm={9} className="request-recruit__col" ><input id="creator" type="text" className="input--borderless" value={extend_approver_fullname_email} name="creator" onChange={handleChange} disabled={view}/></Col> */}
 			</Row>
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label for="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
@@ -144,7 +223,8 @@ export default function ModalPreviewRecruit ({ data, view = false, }) {
 			</Row>
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label for="files" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
-				<Col sm={9} className="request-recruit__col" >{code}</Col>
+				<Col sm={9} className="request-recruit__col" >{"code"}</Col>
+				{/* <Col sm={9} className="request-recruit__col" >{code}</Col> */}
 			</Row>
 		</Container>
 	)
