@@ -54,17 +54,14 @@ export default function ModalRequestRecruit (props) {
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label for="type" ><b className="label--right text-nowrap">Loại tuyển dụng:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<select name="type" id="type-select" className="input--borderless"  onChange={handleChange}>
-						<option value="">--Chọn loại--</option>
-						<option value="0" selected>Tuyển mới</option>
-						<option value="1">Thực tập</option>
-						<option value="2">Chính thức</option>
+					<select name="type" id="type-select" className="input--borderless" value={1} onChange={handleChange}>
+						<option value="1">Tuyển mới</option>
+						<option value="2">Thay thế</option>
 					</select>
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label for="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<select name="position" id="type-select" className="input--borderless" onChange={handleChange}>
-						<option value="" selected>--Chọn chức vụ--</option>
+					<select name="position" id="type-select" className="input--borderless" value={0} onChange={handleChange}>
 						<option value="0">Nhân viên</option>
 						<option value="1">Chức vụ 1</option>
 						<option value="2">Chức vụ 2</option>
@@ -76,8 +73,7 @@ export default function ModalRequestRecruit (props) {
 				<Col sm={3} className="request-recruit__col" ><input id="count" type="number" value={count||1} min={0} className="input--borderless" name="count" onChange={handleChange}/></Col>
 				<Col sm={3} className="request-recruit__col" ><label for="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<select name="salary" id="type-select" value={salary} onChange={handleChange}>
-						<option value="" selected>--Chọn mức lương--</option>
+					<select name="salary" id="type-select" value={salary} value={0} onChange={handleChange}>
 						<option value="0">Không hỗ trợ</option>
 						<option value="1">2,000,000</option>
 						<option value="2">4,000,000</option>

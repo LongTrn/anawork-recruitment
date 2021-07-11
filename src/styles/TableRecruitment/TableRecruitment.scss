@@ -6,7 +6,70 @@
 .table {
 
 	border-collapse: separate;
+	border-spacing: 0 0.2em;
+	display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 100%;
+
+	& thead {
+		
+		/* head takes the height it requires, 
+		and it's not scaled when table is resized */
+		display: flex; 
+		flex: 0 0 auto;
+
+		tr {
+
+			width: calc(100%);
+		}
+		
+	}
+
+	& tbody {
+		/* body takes all the remaining available space */
+		flex: 1 1 auto;
+		display: flex;
+		flex-direction: column;
+		overflow-y: scroll;
+
+		& tr {
+		
+			width: 100%;
+		}
+	}
 	
+	& thead, 
+	& tbody tr {
+			
+		display: flex;
+		table-layout: fixed;
+
+		tr th:first-child, td:first-child {
+
+			flex: 1 1 auto;
+		}
+	}
+	
+
+	tbody {
+		
+		overflow-y: auto;    /* Trigger vertical scroll    */
+		overflow-x: hidden;  /* Hide the horizontal scroll */
+
+		height: 250px;
+
+		&.list-scrollable {
+			
+			height: 250px;
+		}
+
+		&.my-list-scrollable {
+
+			height: 250px;
+		}
+	}
+
 	&__header {
 
 		&__text {
@@ -276,11 +339,3 @@ tr.status {
 
 	border: none;
 }
-
-// thead, tbody { display: block; }
-
-// tbody {
-//     height: 300px;       /* Just for the demo          */
-//     overflow-y: auto;    /* Trigger vertical scroll    */
-//     overflow-x: hidden;  /* Hide the horizontal scroll */
-// }

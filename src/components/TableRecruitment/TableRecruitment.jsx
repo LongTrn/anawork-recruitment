@@ -50,7 +50,7 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 					<tr>
 						<th 
 							scope="col"
-							className="text-nowrap table__header__name"
+							className={editable? "text-nowrap table__header__name col-span--2":"text-nowrap table__header__name"}
 							colSpan={editable? 2:1}
 						><span className="table__header__text">Yêu cầu tuyển dụng</span></th>
 						{
@@ -83,19 +83,19 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 						><span className="table__header__text">Thao tác</span></th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody className={editable? "my-list-scrollable" : "list-scrollable"}>
 					{
 						list.filter(data => all || (!all && (data.extend_request_status === "Chờ duyệt"|| editable))).map((data) => {
 							const { id, extend_request_status, name, description, extend_creator_fullname, plan_start, plan_end, quantity, } = data
 							const status = extend_request_status !== "Chờ duyệt"? extend_request_status === "Duyệt"? "accepted" : "rejected": "pending"
-							let dateStart = moment(plan_start).format('DD-MM-YYYY')
-							let dateEnd = moment(plan_end).format('DD-MM-YYYY')
+							const dateStart = moment(plan_start).format('DD-MM-YYYY')
+							const dateEnd = moment(plan_end).format('DD-MM-YYYY')
 
 							return (
-								<>
-									<div className="spacing-xs"/>
-									<tr className={"table__rows status__" + status}>
+								<React.Fragment key={id}>
+									<tr className={"table__rows status__" + status }>
 										<td className="table__rows__name status__item" colSpan={editable? 2:1}><span className="table__rows__text">{name}</span></td>
+										{/* {<td className={editable? "table__rows__name status__item col-span--2" : "table__rows__name status__item"} colSpan={editable? 2:1}><span className="table__rows__text">{name}</span></td>} */}
 										{!editable&&<td className="table__rows__description"><span className="table__rows__text">{description}</span></td>}
 										<td className="table__rows__creator"><span className="table__rows__text">{extend_creator_fullname}</span></td>
 										<td className="table__rows__date-start"><span className="table__rows__text">{dateStart}</span></td>
@@ -114,7 +114,7 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 												<ButtonDetail data={data} id={id}/>}
 										</td>
 									</tr>
-								</>
+								</React.Fragment>
 							)}
 						)
 					}
