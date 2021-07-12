@@ -1,10 +1,10 @@
 import React, { useState, useEffect, } from 'react'
 import "../../styles/ModalPreviewRecruit/ModalPreviewRecruit.scss"
 import { Container, Row, Col, } from "react-bootstrap"
-import { EditorState, ContentState, convertToRaw } from 'draft-js';
-import { Editor, } from "react-draft-wysiwyg";
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
+// import { EditorState, ContentState, convertToRaw } from 'draft-js';
+// import { Editor, } from "react-draft-wysiwyg";
+// import draftToHtml from 'draftjs-to-html';
+// import htmlToDraft from 'html-to-draftjs';
 import { TextEditorToolbarOption } from "../../models/index"
 import moment from 'moment';
 import { axios } from "../../config/index"

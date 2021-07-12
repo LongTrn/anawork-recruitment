@@ -70,10 +70,9 @@ export default function ListRecruitment (props) {
 		setPage({
 			pageIndex, pagesize, total,
 		})
-		
 		setState(prev => collection)
 	}
-
+	
 	const fetchAllData = async ( index = 1, size = 10, ) => {
 		const response = await axios.get(`/api/recruits/pendingRequests?Filters=&Sorts=&Page=${index}&PageSize=${size}`)
 		
@@ -101,6 +100,7 @@ export default function ListRecruitment (props) {
 
 	useEffect(() => {
 		console.log("PAGE ", page)
+		console.log(state)
 	}, [page])
 
 	useEffect(() => {

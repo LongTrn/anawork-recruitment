@@ -1,11 +1,15 @@
 import React, { useState, useEffect, } from 'react'
 import "../../styles/ModalRequestRecruit/ModalRequestRecruit.scss"
 import { Container, Row, Col, } from "react-bootstrap"
-import { EditorState, ContentState, convertToRaw } from 'draft-js';
-import { Editor } from "react-draft-wysiwyg";
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
-import { TextEditorToolbarOption } from "../../models/index"
+// import { EditorState, ContentState, convertToRaw } from 'draft-js';
+// import { Editor } from "react-draft-wysiwyg";
+// import draftToHtml from 'draftjs-to-html';
+// import htmlToDraft from 'html-to-draftjs';
+// import { TextEditorToolbarOption } from "../../models/index"
+import ReactSummernote from 'react-summernote';
+import SummerNote from '../SummerNote/SummerNote';
+import $ from "jquery";
+window.jQuery = $;
 
 export default function ModalRequestRecruit (props) {
 	const [state, setState] = useState({
@@ -24,21 +28,24 @@ export default function ModalRequestRecruit (props) {
 	const [currentDay, currentMonth, currentYear] = [time.getDate(), time.getMonth(), time.getFullYear()]
 	const today = `${currentYear}-${(currentMonth + 1).length > 1? currentMonth + 1: `0${currentMonth + 1}`}-${currentDay.length > 1? currentDay:`0${currentDay}`}`
 	
-	const contentBlock = htmlToDraft(description);
-	const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-	const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState));
+	// const contentBlock = htmlToDraft(description);
+	// const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+	// const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState));
     const [content, setContent] = useState('');
 	
-	const handleChangeEditorState = (newState) => {
-		setEditorState(newState);
-		setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
-	}
+	// const handleChangeEditorState = (newState) => {
+	// 	setEditorState(newState);
+	// 	setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
+	// }
 
 	const handleChange = (event) => {
 		setState(prev => {return({
 			...prev,
 			[event.target.name]: event.target.value
 		})})
+	}
+	const changeDescriptionEditor = (content) => {
+		console.log("change des ", content);
 	}
 
 	useEffect(() => {
@@ -95,10 +102,32 @@ export default function ModalRequestRecruit (props) {
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >
-					<Editor 
+					{/* <Editor 
 						editorState={editorState} 
 						onEditorStateChange={handleChangeEditorState}
-						toolbar={TextEditorToolbarOption} /></Col>
+						toolbar={TextEditorToolbarOption} /> */}
+						{/* <ReactSummernote
+							value="Default value"
+							options={{
+							lang: 'ru-RU',
+							height: 350,
+							dialogsInBody: true,
+							toolbar: [
+								['style', ['style']],
+								['font', ['bold', 'underline', 'clear']],
+								['fontname', ['fontname']],
+								['para', ['ul', 'ol', 'paragraph']],
+								['table', ['table']],
+								['insert', ['link', 'picture', 'video']],
+								['view', ['fullscreen', 'codeview']]
+							]
+							}}
+							onChange={changeDescriptionEditor}
+						/> */}
+						{/* <ReactSummernote /> */}
+						{/* <SummerNote/> */}
+						{/* <div class="summernote">summernote 1</div> */}
+				</Col>
 			</Row>
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
