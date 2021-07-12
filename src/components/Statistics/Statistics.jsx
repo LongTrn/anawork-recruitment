@@ -10,6 +10,7 @@ export default function Statistics (props) {
 
 	const previousYear = () => setYear(prev => year - 1)
 	const nextYear = () => setYear(prev => year + 1)
+	
 	return(
 		<div className="stats">
 			<div className="stats__header">

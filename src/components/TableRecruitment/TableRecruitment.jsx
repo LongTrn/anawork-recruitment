@@ -12,12 +12,12 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 	const fetchData = async ( index = 1, size = 10, ) => {
 		
 		const url = `/api/recruits/${!editable?`pendingRequests?Filters=${encodeURIComponent("extend_request_status==Chờ duyệt")}&`:`myPendingRequest?Filters=&`}Sorts=&Page=${index}&PageSize=${size}`
-		// const response = await axios.get(url)
+		const response = await axios.get(url)
 		
-		// if (!response.data.success) { return []}
+		if (!response.data.success) { return []}
 		
-		// const { collection } = response.data.data
-		// setList(collection)
+		const { collection } = response.data.data
+		setList(collection)
 	}
 
 	useEffect(() => {
