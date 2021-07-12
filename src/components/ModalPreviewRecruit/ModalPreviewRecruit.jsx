@@ -1,4 +1,3 @@
-"use strict"
 import React, { useState, useEffect, } from 'react'
 import "../../styles/ModalPreviewRecruit/ModalPreviewRecruit.scss"
 import { Container, Row, Col, } from "react-bootstrap"
