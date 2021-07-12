@@ -13,11 +13,12 @@ export default function Chart ({year}) {
 	const [state, setState] = useState({
 		labels: ['Kế toán', ],
 		datasets: [
+			
 			{
 				barThickness: 16,
 				barPercentage: 0.5,
 				label: 'Cần Tuyển',
-				data: [12,],
+				data: [1,],
 				backgroundColor: [
 					orangeBar,
 				],
@@ -27,7 +28,7 @@ export default function Chart ({year}) {
 				barThickness: 16,
 				barPercentage: 0.5,
 				label: 'Đã Tuyển',
-				data: [6, ],
+				data: [1, ],
 				backgroundColor: [
 					dodgerBlueBar,
 				],
