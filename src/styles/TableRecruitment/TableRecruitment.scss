@@ -17,13 +17,8 @@
 		/* head takes the height it requires, 
 		and it's not scaled when table is resized */
 		display: flex; 
-		flex: 0 0 auto;
-
-		tr {
-
-			width: calc(100%);
-		}
-		
+		flex-direction: column;
+		flex: 1 1 auto;
 	}
 
 	& tbody {
@@ -32,45 +27,49 @@
 		display: flex;
 		flex-direction: column;
 		overflow-y: scroll;
-
-		& tr {
-		
-			width: 100%;
-		}
 	}
 	
-	& thead, 
-	& tbody tr {
+	thead tr, 
+	tbody tr {
 			
 		display: flex;
-		table-layout: fixed;
+		table-layout: auto;
 
-		tr th:first-child, td:first-child {
+		th.table__header__name:first-child {
 
-			flex: 1 1 auto;
+			&.col-span--2 {
+
+				flex: 0.5 1 auto;
+			}
+		}
+
+		th.table__header__behavior:last-child {
+
+			&.col-span--2 {
+
+				flex: 0.5 1 auto;
+				margin-right: 16px;
+			}
+		}
+
+		td:first-child {
+			
+			&.col-span--2 {
+
+				flex: 0.5 1 auto;
+			}
 		}
 	}
 	
-
 	tbody {
 		
-		overflow-y: auto;    /* Trigger vertical scroll    */
-		overflow-x: hidden;  /* Hide the horizontal scroll */
-
+		// overflow-y: auto;    /* Trigger vertical scroll    */
+		// overflow-x: hidden;  /* Hide the horizontal scroll */
 		height: 250px;
-
-		&.list-scrollable {
-			
-			height: 250px;
-		}
-
-		&.my-list-scrollable {
-
-			height: 250px;
-		}
 	}
 
 	&__header {
+
 
 		&__text {
 
@@ -141,6 +140,8 @@
 			height: 40px;
 			padding: 12px 70px 12px 71px;
 			background-color: var(--ezycheck-white);
+			max-width: 100%;
+			white-space:nowrap;
 		}
 	}
 
@@ -153,13 +154,14 @@
 		margin-bottom: 4px;
 		box-shadow: 2px 2px 4px 0 rgba(82, 63, 105, 0.1);	
 		border-radius: 4px;
+		display: flex;		
 
 		&__text {
 
 			font-family: Roboto;
 			font-size: 13px;
 			font-weight: 500;
-			color: #757575;			
+			color: #757575;	
 		}
 		
 		&__name {
@@ -169,6 +171,8 @@
 			flex-grow: 0;
 			padding: 18px 42px 18px 12px;
 			background-color: var(--ezycheck-white);	
+			display: flex;
+			align-items: center;
 			
 			&__text {
 				
@@ -192,7 +196,9 @@
 			height: 56px;
 			flex-grow: 0;
 			padding: 18px 46px 18px 12px;
-			background-color: var(--ezycheck-white);				
+			background-color: var(--ezycheck-white);	
+			display: flex;
+			align-items: center;			
 		}
 
 		&__creator {
@@ -202,6 +208,8 @@
 			flex-grow: 0;
 			padding: 18px 44px 18px 12px;
 			background-color: var(--ezycheck-white);
+			display: flex;
+			align-items: center;
 		}
 
 		&__date-start {
@@ -211,6 +219,8 @@
 			flex-grow: 0;
 			padding: 18px 3px 18px 12px;
 			background-color: var(--ezycheck-white);
+			display: flex;
+			align-items: center;
 		}
 
 		&__date-end {
@@ -221,14 +231,19 @@
 			flex-grow: 0;
 			padding: 18px 23px 18px 12px;
 			background-color: var(--ezycheck-white);
+			display: flex;
+			align-items: center;
 		}
 
 		&__count {
 
 			width: 80px;
-			height: 40px;
+			height: 56px;
 			padding: 12px 14px;
 			background-color: var(--ezycheck-white);
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 
 		&__behavior {
@@ -240,6 +255,8 @@
 			margin-right: 0;
 			// margin-left: auto;
 			background-color: var(--ezycheck-white);
+			display: flex;
+			align-items: center;
 
 			&__button {
 	
@@ -250,14 +267,14 @@
 				justify-content: center;
 				align-items: center;
 				gap: 4px;
-				padding: 8px 16px;
+				padding: 0 16px 8px 16px;
 				border-radius: 30px;
 				border: solid 1px var(--primary-purple);					
 
 				&__icon {
 
 					width: 16px;
-					// height: 16px;
+					height: 16px;
 					flex-grow: 0;
 					object-fit: contain;
 				}
@@ -270,7 +287,8 @@
 					font-family: Roboto;
 					font-size: 13px;
 					text-align: left;
-					color: var(--primary-purple);						
+					color: var(--primary-purple);	
+					padding-top: 1px;					
 				}
 
 				&--editable {
@@ -298,9 +316,23 @@
 		justify-content: flex-end;
 	}
 
+	&--align-text {
+
+		display: flex;
+		align-items: center;
+	}
+
 	&-borderless {
 
 		margin-bottom: 6px;
+	}
+
+	& th:last-child {
+	
+		display: flex;
+		text-align: center;
+		justify-content: center;
+		margin: auto;
 	}
 
 	& td:last-child {

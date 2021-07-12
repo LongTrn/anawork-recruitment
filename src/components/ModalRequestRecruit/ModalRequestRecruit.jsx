@@ -48,18 +48,18 @@ export default function ModalRequestRecruit (props) {
 	return (
 		<Container className="request-recruit">
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label for="name" className="label--right text-nowrap">Tên yêu cầu:</label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="name" className="label--right text-nowrap">Tên yêu cầu:</label></Col>
 				<Col sm={9} className="request-recruit__col" ><input id="name" type="text" className="input--borderless" name="name" onChange={handleChange} value={name}/></Col>
 			</Row>
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label for="type" ><b className="label--right text-nowrap">Loại tuyển dụng:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="type" ><b className="label--right text-nowrap">Loại tuyển dụng:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
 					<select name="type" id="type-select" className="input--borderless" value={1} onChange={handleChange}>
 						<option value="1">Tuyển mới</option>
 						<option value="2">Thay thế</option>
 					</select>
 				</Col>
-				<Col sm={3} className="request-recruit__col" ><label for="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
 					<select name="position" id="type-select" className="input--borderless" value={0} onChange={handleChange}>
 						<option value="0">Nhân viên</option>
@@ -69,9 +69,9 @@ export default function ModalRequestRecruit (props) {
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label for="count"  ><b className="label--right text-nowrap">Số lượng:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="count"  ><b className="label--right text-nowrap">Số lượng:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" ><input id="count" type="number" value={count||1} min={0} className="input--borderless" name="count" onChange={handleChange}/></Col>
-				<Col sm={3} className="request-recruit__col" ><label for="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
 					<select name="salary" id="type-select" value={salary} value={0} onChange={handleChange}>
 						<option value="0">Không hỗ trợ</option>
@@ -83,17 +83,17 @@ export default function ModalRequestRecruit (props) {
 				</Col>
 			</Row>
 			<Row>
-				<Col sm={3} className="request-recruit__col" ><label for="date-start"  ><b className="label--right text-nowrap">Từ ngày:</b></label></Col>
-				<Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="dateStart" value={dateStart||today} minValue="2018-01-01" maxValue="2018-12-31"  onChange={handleChange} /></Col>
-				<Col sm={3} className="request-recruit__col" ><label for="date-end" ><b className="label--right text-nowrap">Đến ngày:</b></label></Col>
-				<Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="dateEnd" value={dateEnd||today} minValue="2018-01-01" maxValue="2018-12-31"  onChange={handleChange} /></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-start"  ><b className="label--right text-nowrap">Từ ngày:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="dateStart" value={dateStart||today} minvalue="2018-01-01" maxvalue="2018-12-31"  onChange={handleChange} /></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-end" ><b className="label--right text-nowrap">Đến ngày:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="dateEnd" value={dateEnd||today} minvalue="2018-01-01" maxvalue="2018-12-31"  onChange={handleChange} /></Col>
 			</Row>
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label for="creator" ><b className="label--right text-nowrap">Người duyệt:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="creator" ><b className="label--right text-nowrap">Người duyệt:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" ><input id="creator" type="text" className="input--borderless" value={creator} name="creator" onChange={handleChange}/></Col>
 			</Row>
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label for="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >
 					<Editor 
 						editorState={editorState} 
@@ -101,7 +101,7 @@ export default function ModalRequestRecruit (props) {
 						toolbar={TextEditorToolbarOption} /></Col>
 			</Row>
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label for="description" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >Danh sách tệp đính kèm</Col>
 			</Row>
 		</Container>

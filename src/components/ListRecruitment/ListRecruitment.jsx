@@ -9,8 +9,8 @@ export default function ListRecruitment (props) {
 	const [state, setState] = useState([])
 	const [page, setPage] = useState({
 
-		pageIndex: 0,
-		pagesize: 0,
+		pageIndex: 1,
+		pagesize: 10,
 		total: 0,
 	})
 	const { pageIndex, pagesize, total } = page;
@@ -28,21 +28,24 @@ export default function ListRecruitment (props) {
 
 	const first = () => {
 
-		fetchData(1, pagesize);
+		if (allRequest) fetchAllData(1, pagesize);
+		else fetchData(1, pagesize);
 		console.log("first button", page)
 
 	}
 
 	const previous = () => {
 
-		fetchData(pageIndex - 1, pagesize);
+		if (allRequest) fetchAllData(pageIndex - 1, pagesize);
+		else fetchData(pageIndex - 1, pagesize);
 		console.log("previous button", page)
 
 	}
 
 	const next = () => {
 
-		fetchData(pageIndex + 1, pagesize);
+		if (allRequest) fetchAllData(pageIndex + 1, pagesize)
+		else fetchData(pageIndex + 1, pagesize)
 		console.log("next button", page)
 
 	}
@@ -50,7 +53,9 @@ export default function ListRecruitment (props) {
 	const last = () => {
 
 		const lastPage = Math.ceil(total / pagesize)
-		fetchData(lastPage, pagesize)
+		
+		if (allRequest) fetchAllData(lastPage, pagesize)
+		else fetchData(lastPage, pagesize)
 		console.log("last button", page)
 
 	}
@@ -70,7 +75,7 @@ export default function ListRecruitment (props) {
 	}
 
 	const fetchAllData = async ( index = 1, size = 10, ) => {
-		const response = await axios.get(`/api/recruits/pendingRequests`)
+		const response = await axios.get(`/api/recruits/pendingRequests?Filters=&Sorts=&Page=${index}&PageSize=${size}`)
 		
 		if (!response.data.success) { return []}
 
@@ -83,8 +88,8 @@ export default function ListRecruitment (props) {
 	}
 
 	const getAllRequest = ()=>{
-		setAllRequest(prev=>!prev)
 		
+		setAllRequest(prev=>!prev)
 	}
 
 	useEffect(() => {
@@ -94,13 +99,16 @@ export default function ListRecruitment (props) {
 		// const data = ListRecruitmentModel // fetch data here
 	}, [])
 
-	// useEffect(() => {
-	// }, [state])
+	useEffect(() => {
+		console.log("PAGE ", page)
+	}, [page])
 
 	useEffect(() => {
 
-		if (allRequest) fetchAllData()
-		else fetchData()
+		if (allRequest) fetchAllData(pageIndex, pagesize)
+		else fetchData(pageIndex, pagesize)
+
+		console.log(allRequest)
 	} , [allRequest])
 
 	return (
@@ -111,8 +119,9 @@ export default function ListRecruitment (props) {
 						<Header main="Duyệt yêu cầu tuyển dụng" />
 					</div>
 					<div className="list__header__button" >
-						<label htmlFor="list-show-all-request" className="list__header__button__text" >Hiện tất cả</label>
-						<input id="list-show-all-request" type="checkbox" className="list__header__button__checkbox" onClick={getAllRequest} />
+						<button className="btn " ><span className="list__header__button__text" onClick={getAllRequest}>Hiện tất cả</span></button>
+						{/* <button htmlFor="list-show-all-request" className="btn " ><span className="list__header__button__text" onClick={getAllRequest}>Hiện tất cả</span></button> */}
+						<input id="list-show-all-request" type="checkbox" className="list__header__button__checkbox" onClick={getAllRequest} onChange={getAllRequest} checked={allRequest} />
 						{/* <input id="list-show-all-request" type="checkbox" className="list__header__button__checkbox" checked={allRequest} /> */}
 					</div>
 				</div>

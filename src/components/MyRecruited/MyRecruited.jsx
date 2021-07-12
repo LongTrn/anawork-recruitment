@@ -9,8 +9,8 @@ export default function MyRecruited (props) {
 	const [state, setState] = useState([])
 	const [page, setPage] = useState({
 
-		pageIndex: 0,
-		pagesize: 0,
+		pageIndex: 1,
+		pagesize: 10,
 		total: 0,
 	})
 	const { pageIndex, pagesize, total } = page;
