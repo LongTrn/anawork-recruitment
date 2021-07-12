@@ -12,12 +12,12 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 	const fetchData = async ( index = 1, size = 10, ) => {
 		
 		const url = `/api/recruits/${!editable?`pendingRequests?Filters=${encodeURIComponent("extend_request_status==Chờ duyệt")}&`:`myPendingRequest?Filters=&`}Sorts=&Page=${index}&PageSize=${size}`
-		const response = await axios.get(url)
+		// const response = await axios.get(url)
 		
-		if (!response.data.success) { return []}
+		// if (!response.data.success) { return []}
 		
-		const { collection } = response.data.data
-		setList(collection)
+		// const { collection } = response.data.data
+		// setList(collection)
 	}
 
 	useEffect(() => {
@@ -106,16 +106,17 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 										<td className="table__rows--align-text table__rows__date-end"><span className="table__rows__text">{dateEnd}</span></td>
 										<td className="table__rows--align-text table__rows__count table--text-center"><span className="table__rows__text">{quantity}</span></td>
 										<td className="table__rows--align-text table__rows__behavior ">
-											{editable? 
+											{
+											editable? 
 												status === "pending"? 
 													<>
-														<ButtonEdit data={data} id={id}/>
-														<ButtonDelete data={data} id={id}/>
+														<ButtonEdit id={id}/>
+														<ButtonDelete id={id}/>
 													</>
 													:
-													<ButtonView data={data} id={id}/>
+													<ButtonView id={id}/>
 												:
-												<ButtonDetail data={data} id={id}/>}
+												<ButtonDetail id={id}/>}
 										</td>
 									</tr>
 								</React.Fragment>

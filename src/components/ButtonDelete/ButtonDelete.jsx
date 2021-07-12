@@ -36,7 +36,7 @@ export default function ButtonDelete ({ header = "Yêu cầu tuyển dụng", })
 				<Body className="button__delete">
 					Bạn có muốn xóa bỏ yêu cầu này không?
 				</Body>
-				<Footer classNamem="gap-2">
+				<Footer className="gap-2">
 					<button className="btn btn-danger button__delete "><span className="button__delete__text">Chỉnh sửa</span></button>
 					<button className="btn btn-primary button__delete__cancel" onClick={handleClose}><span className="button__delete__text__cancel">Hủy bỏ</span></button>
 				</Footer>

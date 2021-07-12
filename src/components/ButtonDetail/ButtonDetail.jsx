@@ -6,7 +6,7 @@ import { axios } from "../../config/index"
 export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id, }) {
 	const { Header, Title, Body, Footer, } = Modal;
 	const [show, setShow] = useState(false);
-	const [data, setData] = useState({});
+	const [data, setData] = useState(null);
   
 	const handleClose = () => setShow(false);
 	const handleShow = (event) => {
@@ -66,7 +66,7 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 		console.log(data)
 		if (show) {
 			
-			fetchData(id)
+			// fetchData(id)
 		}
 	}, [show])
 
@@ -92,7 +92,7 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 				<Header 
 					closeButton
 					closeLabel=""
-					closeVariant="success"
+					// closeVariant="success"
 					className="modal-preview-recruit__header"
 				>
 					<Title className="modal-preview-recruit__header__text">{header||"Yêu cầu tuyển dụng"}</Title>
@@ -100,7 +100,7 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 				<Body>
 					<ModalPreviewRecruit id={id} view/>
 				</Body>
-				<Footer classNamem="gap-2">
+				<Footer className="gap-2">
 					<button className="btn btn-white button__cancel" onClick={handleClose}><span className="button__detail__text__cancel">Từ chối</span></button>
 					<button className="btn btn-primary button__detail "><span className="button__detail__text">Duyệt yêu cầu</span></button>
 				</Footer>

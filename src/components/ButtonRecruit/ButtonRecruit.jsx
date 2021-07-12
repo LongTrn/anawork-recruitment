@@ -40,7 +40,6 @@ export default function ButtonRecruit ({ header, }) {
 				<Header 
 					closeButton
 					closeLabel=""
-					closeVariant="success"
 				>
 					<Title className="modal-request-recruit__header__text text-nowrap">{header||"Modal title"}</Title>
 				</Header>

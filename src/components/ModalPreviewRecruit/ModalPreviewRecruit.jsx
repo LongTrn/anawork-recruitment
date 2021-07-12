@@ -10,8 +10,6 @@ import moment from 'moment';
 import { axios } from "../../config/index"
 
 export default function ModalPreviewRecruit ({ data, view = false, id}) {
-
-
 	const [state, setState] = useState({ 
 		name: "",
 		category_id: 1,
@@ -36,11 +34,12 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 		job_description,
 		code,
 	} = state
+
 	const [day, setDay] = useState({
 		startDay: moment(plan_start).format('YYYY-MM-DD'),
 		endDay: moment(plan_end).format('YYYY-MM-DD'),
-
 	})
+
 	const {startDay, endDay} = day;
 	
 	// const time = new Date();
@@ -60,20 +59,9 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 		// setEditorState(newState);
 		// setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
 	// }
-
-	const handleDateChange = (event) => {
-		console.log(event.target.name)
-		setDay(prev => {
-			return({
-				...prev,
-				[event.target.name]: event.target.value,
-			})
-		})
-	};
-
 	const handleChange = (event) => {
 
-		console.log('handleChange', event.target.name, event.target.value);
+		// console.log('handleChange', event.target.name, event.target.value);
 		setState(prev => {
 			return({
 				...prev,
@@ -113,21 +101,7 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 			job_description,
 			code,
 		}})
-		
-		// console.log({
-		// 	name,
-		// 	category_id,
-		// 	extend_position_name,
-		// 	quantity,
-		// 	salary,
-		// 	plan_start,
-		// 	plan_end,
-		// 	extend_approver_fullname_email,
-		// 	job_description,
-		// 	code,
-		// })
-		// console.log(state)
-		
+		console.log(state)
 	}
 	
 	// /** Convert html string to draft JS */
@@ -147,83 +121,83 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 
 	useEffect(() => {
 		// console.log(data)
+		setDay({
+			startDay: moment(state.plan_start).format('YYYY-MM-DD'),
+			endDay: moment(state.plan_end).format('YYYY-MM-DD'),
+		})
 	}, [ state, ])
 
 	useEffect(() => {
-		fetchData(id)
-		console.log(data)
-	}, [])
+
+		if (id) fetchData(id)
+	}, [id,])
 
 	return (
 		<Container className="request-recruit">
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label for="name" className="label--right text-nowrap">Tên yêu cầu:</label></Col>
-				<Col sm={9} className="request-recruit__col" ><input id="name" type="text" className="input--borderless" value={ name || ""} name="name" onChange={handleChange} disabled={view}/></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="name" className="label--right text-nowrap">Tên yêu cầu:</label></Col>
+				{/* <Col sm={9} className="request-recruit__col" ><input id="name" type="text" className="input--borderless" name="name"  value={name}/></Col> */}
+				<Col sm={9} className="request-recruit__col" ><p>{name}</p></Col>
+				
 			</Row>
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label for="type" ><b className="label--right text-nowrap">Loại tuyển dụng:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="type" ><b className="label--right text-nowrap">Loại tuyển dụng:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					{view?
-						(<input type="text" className="input--borderless" disabled={true} >{category_id}</input>)
-						:
-						(<select name="type" id="type-select" className="input--borderless" value={1} onChange={handleChange}>
-							<option value="1">Tuyển mới</option>
-							<option value="2">Thay thế</option>
-						</select>)
-					}
+					{/* <select name="type" id="type-select" className="input--borderless" value={category_id} >
+						<option value="1">Tuyển mới</option>
+						<option value="2">Thay thế</option>
+					</select> */}
+					<p>{category_id === 1?"Tuyển mới": "Thay thế"}</p>
 				</Col>
-				<Col sm={3} className="request-recruit__col" ><label for="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-
-					<select name="position" id="type-select" className="input--borderless" disabled={view} onChange={handleChange}>
-					{/* <select name="position" id="type-select" className="input--borderless" disabled={view} value={extend_position_name} onChange={handleChange}> */}
-						<option value="0">Nhân viên</option>
-						<option value="1">Chức vụ 1</option>
-						<option value="2">Chức vụ 2</option>
-					</select>
+					{/* <select name="position" id="type-select" className="input--borderless" value={extend_position_name} >
+						<option value={extend_position_name}>{extend_position_name}</option>
+					</select> */}
+					<p>{extend_position_name}</p>
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label for="quantity"  ><b className="label--right text-nowrap">Số lượng:</b></label></Col>
-				<Col sm={3} className="request-recruit__col" ><input id="quantity" type="number" className="input--borderless" disabled={view} name="quantity" min={0} onChange={handleChange}/></Col>
-				{/* <Col sm={3} className="request-recruit__col" ><input id="quantity" type="number" value={parseInt(quantity)} className="input--borderless" disabled={view} name="quantity" min={0} onChange={handleChange}/></Col> */}
-				<Col sm={3} className="request-recruit__col" ><label for="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="count"  ><b className="label--right text-nowrap">Số lượng:</b></label></Col>
+				{/* <Col sm={3} className="request-recruit__col" ><input id="count" type="number" value={quantity || 1} min={0} className="input--borderless" name="count" /></Col> */}
+				<Col sm={3} className="request-recruit__col" ><p>{quantity}</p></Col>
+				
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					{/* <select name="salary" id="type-select" onChange={handleChange} value={salary} disabled={view}> */}
-					<select name="salary" id="type-select" value={0} onChange={handleChange} disabled={view}>
+					{/* <select name="salary" id="type-select" value={salary} >
 						<option value="0">Không hỗ trợ</option>
 						<option value="1">2,000,000</option>
 						<option value="2">4,000,000</option>
 						<option value="3">6,000,000</option>
 						<option value="4">9,000,000</option>
-					</select>
+					</select> */}
+					<p>{salary || "---"}</p>
 				</Col>
 			</Row>
 			<Row>
-				<Col sm={3} className="request-recruit__col" ><label for="date-start"  ><b className="label--right text-nowrap">Từ ngày:</b></label></Col>
-				<Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="startDay" value={startDay || today} minValue="2021-01-01" maxValue="2018-12-31" onChange={handleDateChange} disabled={view}/></Col>
-				<Col sm={3} className="request-recruit__col" ><label for="date-end" ><b className="label--right text-nowrap">Đến ngày:</b></label></Col>
-				<Col sm={3} className="request-recruit__col" ><input type="date" id="date-end" name="endDay" value={endDay || today} minValue="2021-01-01" maxValue="2021-12-31" onChange={handleDateChange} disabled={view}/></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-start"  ><b className="label--right text-nowrap">Từ ngày:</b></label></Col>
+				{/* <Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="dateStart" value={startDay || today} minvalue="2018-01-01" maxvalue="2018-12-31"   /></Col> */}
+				<Col sm={3} className="request-recruit__col" ><p>{moment(startDay).format('DD/MM/YYYY')}</p></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-end" ><b className="label--right text-nowrap">Đến ngày:</b></label></Col>
+				{/* <Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="dateEnd" value={endDay || today} minvalue="2018-01-01" maxvalue="2018-12-31"   /></Col> */}
+				<Col sm={3} className="request-recruit__col" ><p>{moment(endDay).format("DD/MM/YYYY")}</p></Col>
 			</Row>
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label for="creator" ><b className="label--right text-nowrap">Người duyệt:</b></label></Col>
-				<Col sm={9} className="request-recruit__col" ><input id="creator" type="text" className="input--borderless" name="creator" onChange={handleChange} disabled={view}/></Col>
-				{/* <Col sm={9} className="request-recruit__col" ><input id="creator" type="text" className="input--borderless" value={extend_approver_fullname_email} name="creator" onChange={handleChange} disabled={view}/></Col> */}
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="creator" ><b className="label--right text-nowrap">Người duyệt:</b></label></Col>
+				<Col sm={9} className="request-recruit__col" ><input id="creator" type="text" className="input--borderless" value={extend_approver_fullname_email} name="creator" /></Col>
 			</Row>
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label for="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >
 					{/* <Editor 
-						readOnly={view}
 						editorState={editorState} 
-						toolbar={TextEditorToolbarOption} 
-						onEditorStateChange={handleChangeEditorState}/> */}
+						onEditorStateChange={handleChangeEditorState}
+						toolbar={TextEditorToolbarOption} /> */}
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label for="files" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
-				<Col sm={9} className="request-recruit__col" >{"code"}</Col>
-				{/* <Col sm={9} className="request-recruit__col" >{code}</Col> */}
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
+				<Col sm={9} className="request-recruit__col" >{!code || "Danh sách tệp đính kèm"}</Col>
 			</Row>
 		</Container>
 	)
