@@ -5,7 +5,11 @@ import { Container, Row, Col, } from "react-bootstrap"
 // import { Editor } from "react-draft-wysiwyg";
 // import draftToHtml from 'draftjs-to-html';
 // import htmlToDraft from 'html-to-draftjs';
-import { TextEditorToolbarOption } from "../../models/index"
+// import { TextEditorToolbarOption } from "../../models/index"
+import ReactSummernote from 'react-summernote';
+import SummerNote from '../SummerNote/SummerNote';
+import $ from "jquery";
+window.jQuery = $;
 
 export default function ModalRequestRecruit (props) {
 	const [state, setState] = useState({
@@ -39,6 +43,9 @@ export default function ModalRequestRecruit (props) {
 			...prev,
 			[event.target.name]: event.target.value
 		})})
+	}
+	const changeDescriptionEditor = (content) => {
+		console.log("change des ", content);
 	}
 
 	useEffect(() => {
@@ -99,6 +106,27 @@ export default function ModalRequestRecruit (props) {
 						editorState={editorState} 
 						onEditorStateChange={handleChangeEditorState}
 						toolbar={TextEditorToolbarOption} /> */}
+						{/* <ReactSummernote
+							value="Default value"
+							options={{
+							lang: 'ru-RU',
+							height: 350,
+							dialogsInBody: true,
+							toolbar: [
+								['style', ['style']],
+								['font', ['bold', 'underline', 'clear']],
+								['fontname', ['fontname']],
+								['para', ['ul', 'ol', 'paragraph']],
+								['table', ['table']],
+								['insert', ['link', 'picture', 'video']],
+								['view', ['fullscreen', 'codeview']]
+							]
+							}}
+							onChange={changeDescriptionEditor}
+						/> */}
+						{/* <ReactSummernote /> */}
+						{/* <SummerNote/> */}
+						{/* <div class="summernote">summernote 1</div> */}
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">

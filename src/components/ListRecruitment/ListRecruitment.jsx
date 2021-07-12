@@ -62,24 +62,21 @@ export default function ListRecruitment (props) {
 
 	const fetchData = async ( index = 1, size = 10, ) => {
 		
-		// const response = await axios.get(`/api/recruits/pendingRequests?Filters=${encodeURIComponent("extend_request_status==Chờ duyệt")}&Sorts=&Page=${index}&PageSize=${size}`)
-		const response = await axios.get('https://jsonplaceholder.typicode.com/todos/1')
+		const response = await axios.get(`/api/recruits/pendingRequests?Filters=${encodeURIComponent("extend_request_status==Chờ duyệt")}&Sorts=&Page=${index}&PageSize=${size}`)
 
-		// if (!response.data.success) { return []}
+		if (!response.data.success) { return []}
 
-		console.log("test", response.data)
-		// const { pageIndex, pagesize, total, collection } = response.data.data
-		// setPage({
-		// 	pageIndex, pagesize, total,
-		// })
-		// setState(prev => collection)
+		const { pageIndex, pagesize, total, collection } = response.data.data
+		setPage({
+			pageIndex, pagesize, total,
+		})
+		setState(prev => collection)
 	}
 	
 	const fetchAllData = async ( index = 1, size = 10, ) => {
 		const response = await axios.get(`/api/recruits/pendingRequests?Filters=&Sorts=&Page=${index}&PageSize=${size}`)
 		
 		if (!response.data.success) { return []}
-		console.log(response.data)
 
 		const { pageIndex, pagesize, total, collection } = response.data.data
 		setPage({
