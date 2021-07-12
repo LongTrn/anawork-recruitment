@@ -87,43 +87,48 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 						><span className="table__header__text">Thao tác</span></th>
 					</tr>
 				</thead>
-				<tbody className={editable? "my-list-scrollable" : "list-scrollable"}>
-					{
-						list.filter(data => all || editable || (!all && (data.extend_request_status === "Chờ duyệt"))).map((data) => {
-							const { id, extend_request_status, name, description, extend_creator_fullname, plan_start, plan_end, quantity, } = data
-							const status = extend_request_status !== "Chờ duyệt"? extend_request_status === "Duyệt"? "accepted" : "rejected": "pending"
-							const dateStart = moment(plan_start).format('DD-MM-YYYY')
-							const dateEnd = moment(plan_end).format('DD-MM-YYYY')
+				{
+					list.length?
+					<tbody className={editable? "my-list-scrollable" : "list-scrollable"}>
+						{
+							list.filter(data => all || editable || (!all && (data.extend_request_status === "Chờ duyệt"))).map((data) => {
+								const { id, extend_request_status, name, description, extend_creator_fullname, plan_start, plan_end, quantity, } = data
+								const status = extend_request_status !== "Chờ duyệt"? extend_request_status === "Duyệt"? "accepted" : "rejected": "pending"
+								const dateStart = moment(plan_start).format('DD-MM-YYYY')
+								const dateEnd = moment(plan_end).format('DD-MM-YYYY')
 
-							return (
-								<React.Fragment key={id}>
-									<tr className={"table__rows status__" + status }>
-										<td className={editable?"table__rows__name status__item col-span--2" : "table__rows__name status__item"} colSpan={editable? 2:1}><span className="table__rows__text">{name}</span></td>
-										{/* {<td className={editable? "table__rows__name status__item col-span--2" : "table__rows__name status__item"} colSpan={editable? 2:1}><span className="table__rows__text">{name}</span></td>} */}
-										{!editable&&<td className="table__rows__description"><span className="table__rows__text">{description}</span></td>}
-										<td className="table__rows--align-text table__rows__creator"><span className="table__rows__text">{extend_creator_fullname}</span></td>
-										<td className="table__rows--align-text table__rows__date-start"><span className="table__rows__text">{dateStart}</span></td>
-										<td className="table__rows--align-text table__rows__date-end"><span className="table__rows__text">{dateEnd}</span></td>
-										<td className="table__rows--align-text table__rows__count table--text-center"><span className="table__rows__text">{quantity}</span></td>
-										<td className="table__rows--align-text table__rows__behavior ">
-											{
-											editable? 
-												status === "pending"? 
-													<>
-														<ButtonEdit id={id}/>
-														<ButtonDelete id={id}/>
-													</>
+								return (
+									<React.Fragment key={id}>
+										<tr className={"table__rows status__" + status }>
+											<td className={editable?"table__rows__name status__item col-span--2" : "table__rows__name status__item"} colSpan={editable? 2:1}><span className="table__rows__text">{name}</span></td>
+											{/* {<td className={editable? "table__rows__name status__item col-span--2" : "table__rows__name status__item"} colSpan={editable? 2:1}><span className="table__rows__text">{name}</span></td>} */}
+											{!editable&&<td className="table__rows__description"><span className="table__rows__text">{description}</span></td>}
+											<td className="table__rows--align-text table__rows__creator"><span className="table__rows__text">{extend_creator_fullname}</span></td>
+											<td className="table__rows--align-text table__rows__date-start"><span className="table__rows__text">{dateStart}</span></td>
+											<td className="table__rows--align-text table__rows__date-end"><span className="table__rows__text">{dateEnd}</span></td>
+											<td className="table__rows--align-text table__rows__count table--text-center"><span className="table__rows__text">{quantity}</span></td>
+											<td className="table__rows--align-text table__rows__behavior ">
+												{
+												editable? 
+													status === "pending"? 
+														<>
+															<ButtonEdit id={id}/>
+															<ButtonDelete id={id}/>
+														</>
+														:
+														<ButtonView id={id}/>
 													:
-													<ButtonView id={id}/>
-												:
-												<ButtonDetail id={id}/>}
-										</td>
-									</tr>
-								</React.Fragment>
-							)}
-						)
-					}
-				</tbody>					
+													<ButtonDetail id={id}/>}
+											</td>
+										</tr>
+									</React.Fragment>
+								)}
+							)
+						}
+					</tbody>
+					:
+					<span className="no-content">{"Không có dữ liệu"}</span>		
+				}
 			</table>
 		</div>
 	)
