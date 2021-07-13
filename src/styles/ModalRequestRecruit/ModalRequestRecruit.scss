@@ -148,7 +148,6 @@ input {
 	&__div {
 
 		position: relative;
-		background-color: white;
 		border-bottom: 1px solid #ccc;
 
 		&:active, &:focus-within, &:visited {
@@ -165,7 +164,6 @@ input {
 		&__error {
 
 			position: relative;
-			background-color: white;
 			border-bottom: 1px solid rgb(211, 84, 84);
 		}
 	}
