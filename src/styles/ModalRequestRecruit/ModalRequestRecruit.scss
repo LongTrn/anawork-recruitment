@@ -79,6 +79,7 @@ input {
 		line-height: normal;
 		letter-spacing: normal;
 		text-align: right;
+		// height: 42px;
 		color: var(--primary-dark-grey);
 
 		input, select, textarea {
@@ -97,10 +98,83 @@ input {
 
 			text-align: left;
 		}
+
+		.name {
+
+			&__div {
+
+				position: relative;
+				background-color: white;
+				border-bottom: 1px solid #ccc;
+				
+				&__input {
+					
+					width: 100%;
+					border: 0;
+					// padding: 20px 20
+					background: #eee;
+					
+					div .name__input__label {
+			
+						opacity: 0.3;
+						font-weight: bold;
+						position: absolute;
+					}
+
+					&:focus {
+				
+						// removing default focus style
+						outline: 0;
+						// adding new one
+						background: white;
+						
+						& label.name__input__label {
+						opacity: 0;
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
 .rdw-editor-main {
 
 	height: 200px;
+}
+
+.input {
+
+	&__div {
+
+		position: relative;
+		border-bottom: 1px solid #ccc;
+
+		&:active, &:focus-within, &:visited {
+
+			transition: 0.23s;
+			border-bottom: 2px solid #007bff;
+		}
+
+		&.border__error {
+
+			border-bottom: 1px solid #ccc;
+		}
+
+		&__error {
+
+			position: relative;
+			border-bottom: 1px solid rgb(211, 84, 84);
+		}
+	}
+}
+
+.error-message {
+
+	color: rgb(211, 84, 84);
+}
+
+.label__error::placeholder {
+
+	color: rgb(211, 84, 84);
 }

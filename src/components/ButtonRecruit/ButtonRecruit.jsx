@@ -10,6 +10,10 @@ export default function ButtonRecruit ({ header, }) {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
+	const onSubmit = () => {
+		console.log('onSubmit')
+	}
+
 	return (
 		<div>
 			<Button 
@@ -27,7 +31,7 @@ export default function ButtonRecruit ({ header, }) {
 							<path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
 					</svg>
 					{/* className text-nowrap for avoiding drops few words */}
-					<div className="button__text text-nowrap">YÊU CẦU TUYỂN DỤNG</div>
+					<span className="button__text text-nowrap">YÊU CẦU TUYỂN DỤNG</span>
 			</Button>
 
 			<Modal
@@ -44,10 +48,10 @@ export default function ButtonRecruit ({ header, }) {
 					<Title className="modal-request-recruit__header__text text-nowrap">{header||"Modal title"}</Title>
 				</Header>
 				<Body>
-					<ModalRequestRecruit/>
+					<ModalRequestRecruit onSubmit={onSubmit}/>
 				</Body>
 				<Footer className="gap-2">
-					<button className="btn btn-primary button__recruit "><span className="button__recruit__text">Thêm</span></button>
+					<button className="btn btn-primary button__recruit "><span className="button__recruit__text" onClick={onSubmit}>Thêm</span></button>
 					<button className="btn btn-white button__recruit__cancel" onClick={handleClose}><span className="button__recruit__text__cancel">Hủy</span></button>
 				</Footer>
 			</Modal>
