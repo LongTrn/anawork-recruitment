@@ -1,10 +1,10 @@
 import React, { useState, useEffect, } from 'react'
 import "../../styles/ModalPreviewRecruit/ModalPreviewRecruit.scss"
 import { Container, Row, Col, } from "react-bootstrap"
-// import { EditorState, ContentState, convertToRaw } from 'draft-js';
-// import { Editor, } from "react-draft-wysiwyg";
-// import draftToHtml from 'draftjs-to-html';
-// import htmlToDraft from 'html-to-draftjs';
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
+import { Editor, } from "react-draft-wysiwyg";
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 import { TextEditorToolbarOption } from "../../models/index"
 import moment from 'moment';
 import { axios } from "../../config/index"
@@ -42,23 +42,22 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 
 	const {startDay, endDay} = day;
 	
-	// const time = new Date();
-	// const [currentDay, currentMonth, currentYear] = [time.getDate(), time.getMonth(), time.getFullYear()]
 	const today = moment().format("YYYY-MM-DD");
 
 	// 1 create new without data
     // const [editorState, setEditorState] = useState(EditorState.createEmpty());
     
 	// 2 create new with existing data
-	// const contentBlock = htmlToDraft(description);
-	// const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-	// const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState));
-    // const [content, setContent] = useState('');
+	// const contentBlock = htmlToDraft("description");
+	const contentBlock = htmlToDraft(job_description);
+	const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+	const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState));
+    const [content, setContent] = useState('');
 	
-	// const handleChangeEditorState = (newState) => {
-		// setEditorState(newState);
-		// setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
-	// }
+	const handleChangeEditorState = (newState) => {
+		setEditorState(newState);
+		setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
+	}
 	const handleChange = (event) => {
 
 		// console.log('handleChange', event.target.name, event.target.value);
@@ -189,10 +188,11 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >
-					{/* <Editor 
+					<Editor 
 						editorState={editorState} 
 						onEditorStateChange={handleChangeEditorState}
-						toolbar={TextEditorToolbarOption} /> */}
+						toolbar={TextEditorToolbarOption} 
+					/>
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">
