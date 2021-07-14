@@ -23,7 +23,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 window.jQuery = $;
 require('bootstrap');
 
-const {Control, Text, } = Form;
+const { Text, } = Form;
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -39,6 +39,11 @@ const useStyles = makeStyles((theme) => ({
 	select: {
 		height: 20,
 		fontSize: 13,
+	},
+	selectError: {
+		height: 20,
+		fontSize: 13,
+		color: "rgb(211, 84, 84)",
 	},
 	selectItem: {
 		paddingLeft: 0,
@@ -62,7 +67,6 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 		extend_approver_fullname_email: '',
 		files: '',
 	})
-
 	const [touched, setTouched] = useState({
 		name: false, 
 		type: false,
@@ -77,22 +81,11 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 		files: false,
 	})
 	const { name, type, position, description, creator, salary, dateStart, dateEnd, quantity, extend_approver_fullname_email, files} = state
-	const today = moment().format('YYYY-MM-DD');
-
 	const [error, setError] = useState({});
-
-	// const contentBlock = htmlToDraft(description);
-	// const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-	// const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState));
     const [content, setContent] = useState('');
-	
-	// const handleChangeEditorState = (newState) => {
-	// 	setEditorState(newState);
-	// 	setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
-	// }
-
 	const matClasses = useStyles()
-	const heightControlError = 30
+	const heightControlError = 60
+	const formatter = new Intl.NumberFormat('vi-VN', {style: 'decimal',});
 
 	const handleChange = (event) => {
 		setState(prev => {return({
@@ -122,134 +115,158 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 
 		if (touched.name) {
 			if (!name || name === "") {
-				return setError(prev=> {
+				setError(prev=> {
 					return({
 						...prev,
 						name: "Tên yêu cầu là bắt buộc"
 					})
 				})
-			} else return setError(({name, ...prev}) => prev)
-		} else if (!type || isNaN(parseInt(type))) {
-			return setError(prev=> {
+			} else setError(({name, ...prev}) => prev)
+		} 
+
+		if (!type || isNaN(parseInt(type))) {
+			setError(prev=> {
 				return({
 					...prev,
 					type: "Loại tuyển dụng là bắt buộc"
 				})
 			})
-		} else if (touched.position) {
+		} 
+
+		if (touched.position) {
 			if (!position || position === "") {
-				return setError(prev=> {
+				setError(prev=> {
 					return({
 						...prev,
 						position: "Chức vụ là bắt buộc"
 					})
 				})
-			} else return setError(({position, ...prev}) => prev)
-		} else if (!quantity || isNaN(parseInt(quantity))) {
-			return setError(prev=> {
-				return({
-					...prev,
-					quantity: "Số lượng bắt buộc là số"
+			} else setError(({position, ...prev}) => prev)
+		} 
+
+		if (touched.quantity) {
+			if (!quantity || isNaN(parseInt(quantity))) {
+				setError(prev=> {
+					return({
+						...prev,
+						quantity: "Số lượng bắt buộc là số"
+					})
 				})
-			})
-		} else if (Number.isInteger(parseInt(quantity))) {
-			if (parseInt(quantity) < 1) {
-				return setError(prev=> {
+			} else if (Number.isInteger(parseInt(quantity)) && parseInt(quantity) < 1) {
+				setError(prev=> {
 					return({
 						...prev,
 						quantity: "Số lượng lớn hơn 0 "
 					})
 				})
-			} else return setError(({quantity, ...prev}) => prev)
-		} else if (!salary || isNaN(parseInt(salary))) {
-			const salaryValue = salary.split(".").join()
-			console.log("test")
-			if (salary !== formatter.format(salary)) {
-				return setError(prev=> {
+			} else setError(({quantity, ...prev}) => prev)
+		} 
+
+		if (touched.salary) {
+			// const salaryValue = salary.split(".").join()
+			// if (salary !== formatter.format(salaryValue) && salary !== "") {
+			// 	setError(prev=> {
+			// 		return({
+			// 			...prev,
+			// 			salary: "Mức lương phải đúng định dạng"
+			// 		})
+			// 	})
+			// } else 
+			if ((salary && isNaN(parseInt(salary))) &&!Number.isInteger(parseInt(salary))) {
+				setError(prev=> {
 					return({
 						...prev,
 						salary: "Mức lương phải đúng định dạng"
 					})
 				})
-			} else if (Number.isInteger(parseInt(salaryValue)) && parseInt(salaryValue) < 0) {
-				return setError(prev=> {
+			} else if (Number.isInteger(parseInt(salary)) && parseInt(salary) < 0) {
+				setError(prev=> {
 					return({
 						...prev,
 						salary: "Mức lương phải lớn hơn 0"
 					})
 				})
-			} else return setError(({salary, ...prev}) => prev)
-		} else if (!dateStart || dateStart === "") {
-			return setError(prev=> {
-				return({
-					...prev,
-					dateStart: "Ngày bắt đầu là bắt buộc"
+			} else if (Number.isInteger(parseInt(salary)) && parseInt(salary) % 500 !== 0) {
+				setError(prev=> {
+					return({
+						...prev,
+						salary: "Mức lương phải phù hợp"
+					})
 				})
-			})
-		} else if (!moment(dateStart).isValid()) {
-			return setError(prev=> {
-				return({
-					...prev,
-					dateStart: "Ngày bắt đầu không hợp lệ"
+			} else setError(({salary, ...prev}) => prev)
+		} 
+
+		if (touched.dateStart) {
+			if (!dateStart || dateStart === "") {
+				setError(prev=> {
+					return({
+						...prev,
+						dateStart: "Ngày bắt đầu là bắt buộc"
+					})
 				})
-			})
-		} else if (dateStart !== moment(dateStart).format('YYYY-MM-DD')) {
-			return setError(prev=> {
-				return({
-					...prev,
-					dateStart: "Ngày bắt đầu không phù hợp định dạng"
+			} else if (!moment(dateStart).isValid()) {
+				setError(prev=> {
+					return({
+						...prev,
+						dateStart: "Ngày bắt đầu không hợp lệ"
+					})
 				})
-			})
-		} else if (!dateEnd || dateEnd === "") {
-			return setError(prev=> {
-				return({
-					...prev,
-					dateEnd: "Ngày kết thúc là bắt buộc"
+			} else if (dateStart !== moment(dateStart).format('YYYY-MM-DD')) {
+				setError(prev=> {
+					return({
+						...prev,
+						dateStart: "Ngày bắt đầu không phù hợp định dạng"
+					})
 				})
-			})
-		} else if (!moment(dateEnd).isValid()) {
-			return setError(prev=> {
-				return({
-					...prev,
-					dateEnd: "Ngày kết thúc không hợp lệ"
+			} 
+		}
+
+		if (touched.dateEnd) {
+			if (!touched.dateStart) {
+				setError(prev=> {
+					return({
+						...prev,
+						dateEnd: "Ngày bắt đầu không tồn tại"
+					})
 				})
-			})
-		} else if (dateEnd !== moment(dateEnd).format('YYYY-MM-DD')) {
-			return setError(prev=> {
-				return({
-					...prev,
-					dateEnd: "Ngày kết thúc không phù hợp định dạng"
+			} else if (!dateEnd || dateEnd === "") {
+				setError(prev=> {
+					return({
+						...prev,
+						dateEnd: "Ngày kết thúc là bắt buộc"
+					})
 				})
-			})
-		} else if (touched.extend_approver_fullname_email) {
-			console.log("log")
+			} else if (!moment(dateEnd).isValid()) {
+				setError(prev=> {
+					return({
+						...prev,
+						dateEnd: "Ngày kết thúc không hợp lệ"
+					})
+				})
+			} else if (dateEnd !== moment(dateEnd).format('YYYY-MM-DD')) {
+				setError(prev=> {
+					return({
+						...prev,
+						dateEnd: "Ngày kết thúc không phù hợp định dạng"
+					})
+				})
+			} 
+		}
+
+		if (touched.extend_approver_fullname_email) {
 			if (!extend_approver_fullname_email || extend_approver_fullname_email === "") {
-				return setError(prev=> {
+				setError(prev=> {
 					return({
 						...prev,
 						extend_approver_fullname_email: "Người duyệt là bắt buộc"
 					})
 				})
-			} else return setError(({extend_approver_fullname_email, ...prev}) => prev)
-		} else {
-
-			console.log("CLEAR ERRORS")
-		}
-		
-		return setError({})
+			} else setError(({extend_approver_fullname_email, ...prev}) => prev)
+		} 
 	}
 	
-	const formatter = new Intl.NumberFormat('vi-VN', {
-		style: 'decimal',
-	  
-		// These options are needed to round to whole numbers if that's what you want.
-		//minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-		//maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
-	});
-
 	useEffect(() => {
 		const {dateEnd, dateStart} = state;
-		console.log(dateStart, dateEnd)
 		if (dateStart !== "" && dateEnd === "") {
 			return setState(prev=> {
 				return({
@@ -258,7 +275,6 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 				})
 			})
 		}
-
 	}, [ dateStart, dateEnd ])
 
 	useEffect(() => {
@@ -268,26 +284,16 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 	useEffect(() => {
 
 		validation()
-		console.log(touched.extend_approver_fullname_email)
-	}, [ touched,  ])
+		return () => setError({})
+	}, [ state, touched ])
 
 	useEffect(() => {
-
-		validation()
-		// console.log(salary !== formatter.format(salary))
-	}, [ state, ])
-
-	useEffect(() => {
-        // if (Object.keys(error).length > 0) {
-        // }
-        // else {
-        // }
-		console.log("error", error)
+        if (Object.keys(error).length > 0) console.log("validation", error)
 	}, [ error ])
 
 	return (
 		<>
-		<Container className="request-recruit">
+			<Container className="request-recruit">
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="name" className="label--right text-nowrap">Tên yêu cầu*:</label></Col>
 				<Col sm={9} className="request-recruit__col" >
@@ -300,10 +306,6 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="type" ><b className="label--right text-nowrap">Loại tuyển dụng*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					{/* <select name="type" id="type-select" className="input--borderless" value={type} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}>
-						<option value="1">Tuyển mới</option>
-						<option value="2">Thay thế</option>
-					</select> */}
 					<FormControl className={!error.type?matClasses.formControl:{...matClasses.formControl, height: heightControlError}}>
 						<Select
 							labelId="type-select-label"
@@ -327,12 +329,6 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					{/* <select name="position" id="position-select" className="input--borderless" value={position} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}>
-						<option value="">--- Chọn chức vụ ---</option>
-						<option value="Nhân viên">Nhân viên</option>
-						<option value="Chức vụ 1">Chức vụ 1</option>
-						<option value="Chức vụ 2">Chức vụ 2</option>
-					</select> */}
 					<FormControl className={!error.type?matClasses.formControl:{...matClasses.formControl, height: heightControlError}}>
 						<Select
 							labelId="position-select-label"
@@ -341,7 +337,8 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 							value={position}
 							displayEmpty={true}
 							renderValue={() => position || "Chọn chức vụ"}
-							className={matClasses.select}
+							// className={matClasses.select}
+							className={(error&&error.position)? `${matClasses.select} ${matClasses.selectError}`:`${matClasses.select}`}
 							onClick={() => 
 								setTouched(prev => {return({
 									...prev,
@@ -368,39 +365,31 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					{/* <select name="salary" id="type-select" value={salary} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}>
-						<option value="0">Không hỗ trợ</option>
-						<option value="2,000,000">2,000,000</option>
-						<option value="4,000,000">4,000,000</option>
-						<option value="6,000,000">6,000,000</option>
-						<option value="9,000,000">9,000,000</option>
-					</select> */}
-					<div className={error&&error.salary?"input__div__error ":"input__div"}>
+					<div className={error&&error.salary?"input__div__warn ":"input__div"}>
 						<input id="salary" type="text" value={salary} min={1} className="input--borderless" name="salary" onClick={(event) => handleClick(event)} placeholder="vd: 10.000.000" onChange={(event) => handleChange(event)}/>
-						{(<Text className="text-muted"><span className="error-message">{error.salary}</span></Text>)}
+						{(<Text className="text-muted"><span className="warn-message">{error.salary}</span></Text>)}
 					</div>
 				</Col>
 			</Row>
 			<Row>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-start"  ><b className="label--right text-nowrap">Từ ngày*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<input type="date" id="date-start" name="dateStart" value={dateStart} min="2018-01-01" max="2021-12-31"  onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} 
-					/>
+					<div className={error&&error.dateStart?"input__div__error ":"input__div"}>
+						<input type="date" id="date-start" className={error&&error.dateStart?"error__input":""} name="dateStart" value={dateStart} min="2018-01-01" max="2021-12-31" onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} />
+						{(<Text className="text-muted"><span className="error-message">{error.dateStart}</span></Text>)}
+					</div>
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-end" ><b className="label--right text-nowrap">Đến ngày*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<input type="date" id="date-end" name="dateEnd" value={dateEnd} min={moment(dateStart).add(1, 'days').format("YYYY-MM-DD")} max="2021-12-31"  onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} 
-					/>
+					<div className={error&&error.dateEnd?"input__div__error ":"input__div"}>
+						<input type="date" id="date-end" className={error&&error.dateEnd?"error__input":""}  name="dateEnd" value={dateEnd} min={moment(dateStart).add(1, 'days').format("YYYY-MM-DD")} max="2021-12-31"  onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} />
+						{(<Text className="text-muted"><span className="error-message">{error.dateEnd}</span></Text>)}
+					</div>
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="extend_approver_fullname_email" ><b className="label--right text-nowrap">Người duyệt*:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >
-					{/* <select name="extend_approver_fullname_email" id="extend_approver_fullname_email" value={extend_approver_fullname_email} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}>
-						<option value="">--- Bỏ chọn ---</option>
-						<option value="0">Phượng Thị Minh Nguyễn | phuongnguyen@meu-solutions.com</option>
-						<option value="1">Thiên Đình Võ | thienvo@meu-solutions.com</option>
-					</select> */}
 					<FormControl className={!error.type?matClasses.formControl:{...matClasses.formControl, height: heightControlError}}>
 						<Select
 							labelId="extend_approver_fullname_email-select-label"
@@ -409,7 +398,7 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 							value={extend_approver_fullname_email}
 							displayEmpty={true}
 							renderValue={() => extend_approver_fullname_email || "Cấp trên duyệt yêu cầu"}
-							className={matClasses.select}
+							className={(error&&error.extend_approver_fullname_email)? `${matClasses.select} ${matClasses.selectError}`:`${matClasses.select}`}
 							onClick={() => 
 								setTouched(prev => {return({
 									...prev,
@@ -429,32 +418,24 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >
-					{/* <Editor 
-						editorState={editorState} 
-						onEditorStateChange={handleChangeEditorState}
-						toolbar={TextEditorToolbarOption} 
-					/> */}
-						<ReactSummernote
-							value="Default value"
-							options={{
-							// lang: 'ru-RU',
-							height: 100,
-							dialogsInBody: true,
-							toolbar: [
-								['style', ['style']],
-								['font', ['bold', 'underline', 'clear']],
-								['fontname', ['fontname']],
-								['para', ['ul', 'ol', 'paragraph']],
-								['table', ['table']],
-								['insert', ['link', 'picture', 'video']],
-								['view', ['fullscreen', 'codeview']]
-							]
-							}}
-							onClick={(event) => handleClick(event)} onChange={changeDescriptionEditor}
-						/>
-						{/* <ReactSummernote /> */}
-						{/* <SummerNote/> */}
-						{/* <div class="summernote">summernote 1</div> */}
+					<ReactSummernote
+						value="Default value"
+						options={{
+						// lang: 'ru-RU',
+						height: 100,
+						dialogsInBody: true,
+						toolbar: [
+							['style', ['style']],
+							['font', ['bold', 'underline', 'clear']],
+							['fontname', ['fontname']],
+							['para', ['ul', 'ol', 'paragraph']],
+							['table', ['table']],
+							['insert', ['link', 'picture', 'video']],
+							['view', ['fullscreen', 'codeview']]
+						]
+						}}
+						onClick={(event) => handleClick(event)} onChange={changeDescriptionEditor}
+					/>
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">

@@ -166,6 +166,12 @@ input {
 			position: relative;
 			border-bottom: 1px solid rgb(211, 84, 84);
 		}
+
+		&__warn {
+
+			position: relative;
+			border-bottom: 1px solid rgb(0, 162, 255);
+		}
 	}
 }
 
@@ -174,7 +180,20 @@ input {
 	color: rgb(211, 84, 84);
 }
 
+.warn-message {
+
+	color: rgb(0, 162, 255);
+}
+
 .label__error::placeholder {
 
 	color: rgb(211, 84, 84);
+}
+
+input[type=date] {
+	
+	&.error__input {
+
+		color: rgb(211, 84, 84);
+	}
 }
