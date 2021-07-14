@@ -7,11 +7,16 @@ import { Container, Row, Col, Form} from "react-bootstrap"
 // import htmlToDraft from 'html-to-draftjs';
 // import { TextEditorToolbarOption } from "../../models/index"
 import moment from "moment";
+import {
+	makeStyles,
+	InputLabel,
+	MenuItem,
+	Select,
+	FormControl,
+	FormHelperText,
+} from '@material-ui/core'
 
 import ReactSummernote from 'react-summernote';
-// import SummerNote from '../SummerNote/SummerNote';
-// import $ from "jquery";
-// window.jQuery = $;
 
 import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -19,6 +24,28 @@ window.jQuery = $;
 require('bootstrap');
 
 const {Control, Text, } = Form;
+
+const useStyles = makeStyles((theme) => ({
+	formControl: {
+		height: 30,
+		width: "100%",
+	},
+	label: {
+		padding: 0, 
+		margin: 0,
+		marginBottom: 20,
+		height: 20,
+	},
+	select: {
+		height: 20,
+		fontSize: 13,
+	},
+	selectItem: {
+		paddingLeft: 0,
+		fontFamily: "Roboto",
+		fontSize: 13,
+	}
+}))
 
 export default function ModalRequestRecruit ({ onSubmit, }) {
 	
@@ -29,12 +56,13 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 		position: "",
 		description: '', 
 		creator: '', 
-		salary: 0, 
+		salary: '', 
 		dateStart: '', 
 		dateEnd: '', 
 		extend_approver_fullname_email: '',
 		files: '',
 	})
+
 	const [touched, setTouched] = useState({
 		name: false, 
 		type: false,
@@ -62,6 +90,9 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 	// 	setEditorState(newState);
 	// 	setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
 	// }
+
+	const matClasses = useStyles()
+	const heightControlError = 30
 
 	const handleChange = (event) => {
 		setState(prev => {return({
@@ -98,13 +129,22 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 					})
 				})
 			} else return setError(({name, ...prev}) => prev)
-		} else if (!type || isNaN(type)) {
+		} else if (!type || isNaN(parseInt(type))) {
 			return setError(prev=> {
 				return({
 					...prev,
 					type: "Loại tuyển dụng là bắt buộc"
 				})
 			})
+		} else if (touched.position) {
+			if (!position || position === "") {
+				return setError(prev=> {
+					return({
+						...prev,
+						position: "Chức vụ là bắt buộc"
+					})
+				})
+			} else return setError(({position, ...prev}) => prev)
 		} else if (!quantity || isNaN(parseInt(quantity))) {
 			return setError(prev=> {
 				return({
@@ -121,6 +161,24 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 					})
 				})
 			} else return setError(({quantity, ...prev}) => prev)
+		} else if (!salary || isNaN(parseInt(salary))) {
+			const salaryValue = salary.split(".").join()
+			console.log("test")
+			if (salary !== formatter.format(salary)) {
+				return setError(prev=> {
+					return({
+						...prev,
+						salary: "Mức lương phải đúng định dạng"
+					})
+				})
+			} else if (Number.isInteger(parseInt(salaryValue)) && parseInt(salaryValue) < 0) {
+				return setError(prev=> {
+					return({
+						...prev,
+						salary: "Mức lương phải lớn hơn 0"
+					})
+				})
+			} else return setError(({salary, ...prev}) => prev)
 		} else if (!dateStart || dateStart === "") {
 			return setError(prev=> {
 				return({
@@ -163,18 +221,46 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 					dateEnd: "Ngày kết thúc không phù hợp định dạng"
 				})
 			})
-		} else if (!extend_approver_fullname_email || extend_approver_fullname_email === "") {
-			return setError(prev=> {
-				return({
-					...prev,
-					extend_approver_fullname_email: "Người duyệt là bắt buộc"
+		} else if (touched.extend_approver_fullname_email) {
+			console.log("log")
+			if (!extend_approver_fullname_email || extend_approver_fullname_email === "") {
+				return setError(prev=> {
+					return({
+						...prev,
+						extend_approver_fullname_email: "Người duyệt là bắt buộc"
+					})
 				})
-			})
+			} else return setError(({extend_approver_fullname_email, ...prev}) => prev)
+		} else {
+
+			console.log("CLEAR ERRORS")
 		}
 		
 		return setError({})
 	}
 	
+	const formatter = new Intl.NumberFormat('vi-VN', {
+		style: 'decimal',
+	  
+		// These options are needed to round to whole numbers if that's what you want.
+		//minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+		//maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+	});
+
+	useEffect(() => {
+		const {dateEnd, dateStart} = state;
+		console.log(dateStart, dateEnd)
+		if (dateStart !== "" && dateEnd === "") {
+			return setState(prev=> {
+				return({
+					...prev,
+					dateEnd: moment(dateStart).add(1, "days").format("YYYY-MM-DD"),
+				})
+			})
+		}
+
+	}, [ dateStart, dateEnd ])
+
 	useEffect(() => {
 
 	}, [ content ])
@@ -182,19 +268,21 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 	useEffect(() => {
 
 		validation()
+		console.log(touched.extend_approver_fullname_email)
 	}, [ touched,  ])
 
 	useEffect(() => {
 
 		validation()
-	}, [ state,  ])
+		// console.log(salary !== formatter.format(salary))
+	}, [ state, ])
 
 	useEffect(() => {
         // if (Object.keys(error).length > 0) {
         // }
         // else {
         // }
-		console.log(error)
+		console.log("error", error)
 	}, [ error ])
 
 	return (
@@ -212,38 +300,85 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="type" ><b className="label--right text-nowrap">Loại tuyển dụng*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<select name="type" id="type-select" className="input--borderless" value={type} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}>
+					{/* <select name="type" id="type-select" className="input--borderless" value={type} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}>
 						<option value="1">Tuyển mới</option>
 						<option value="2">Thay thế</option>
-					</select>
+					</select> */}
+					<FormControl className={!error.type?matClasses.formControl:{...matClasses.formControl, height: heightControlError}}>
+						<Select
+							labelId="type-select-label"
+							id="type-select"
+							name="type"
+							value={type}
+							onClick={() => 
+								setTouched(prev => {return({
+									...prev,
+									type: true,
+								})})
+							} 
+							onChange={(event) => handleChange(event)}
+							className={matClasses.select}
+						>
+							<MenuItem value={1} className={matClasses.selectItem}>Tuyển mới</MenuItem>
+							<MenuItem value={2} className={matClasses.selectItem}>Thay thế</MenuItem>
+						</Select>
+						{<FormHelperText><span className="error-message">{error.type}</span></FormHelperText>}
+					</FormControl>
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<select name="position" id="type-select" className="input--borderless" value={position} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}>
+					{/* <select name="position" id="position-select" className="input--borderless" value={position} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}>
 						<option value="">--- Chọn chức vụ ---</option>
 						<option value="Nhân viên">Nhân viên</option>
 						<option value="Chức vụ 1">Chức vụ 1</option>
 						<option value="Chức vụ 2">Chức vụ 2</option>
-					</select>
+					</select> */}
+					<FormControl className={!error.type?matClasses.formControl:{...matClasses.formControl, height: heightControlError}}>
+						<Select
+							labelId="position-select-label"
+							id="position-select"
+							name="position"
+							value={position}
+							displayEmpty={true}
+							renderValue={() => position || "Chọn chức vụ"}
+							className={matClasses.select}
+							onClick={() => 
+								setTouched(prev => {return({
+									...prev,
+									position: true,
+								})})
+							} 
+							onChange={(event) => handleChange(event)}
+						>
+							<MenuItem value={"Nhân viên"} className={matClasses.selectItem}>Nhân viên</MenuItem>
+							<MenuItem value={"Chức vụ 1"} className={matClasses.selectItem}>Chức vụ 1</MenuItem>
+							<MenuItem value={"Chức vụ 2"} className={matClasses.selectItem}>Chức vụ 2</MenuItem>
+						</Select>
+						{<FormHelperText><span className="error-message">{error.position}</span></FormHelperText>}
+					</FormControl>
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="quantity"  ><b className="label--right text-nowrap">Số lượng*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
 					<div className={error&&error.quantity?"input__div__error ":"input__div"}>
-						<input id="quantity" type="number" value={quantity} min={1} className="input--borderless label__error" name="quantity" onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}/>
+						<input id="quantity" type="number" value={quantity} min={1} className="input--borderless label__error" name="quantity" onClick={(event) => handleClick(event)} placeholder="Số lượng là bắt buộc" onChange={(event) => handleChange(event)}/>
 						{(<Text className="text-muted"><span className="error-message">{error.quantity}</span></Text>)}
 					</div>
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<select name="salary" id="type-select" value={salary} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}>
+					{/* <select name="salary" id="type-select" value={salary} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}>
 						<option value="0">Không hỗ trợ</option>
 						<option value="2,000,000">2,000,000</option>
 						<option value="4,000,000">4,000,000</option>
 						<option value="6,000,000">6,000,000</option>
 						<option value="9,000,000">9,000,000</option>
-					</select>
+					</select> */}
+					<div className={error&&error.salary?"input__div__error ":"input__div"}>
+						<input id="salary" type="text" value={salary} min={1} className="input--borderless" name="salary" onClick={(event) => handleClick(event)} placeholder="vd: 10.000.000" onChange={(event) => handleChange(event)}/>
+						{(<Text className="text-muted"><span className="error-message">{error.salary}</span></Text>)}
+					</div>
 				</Col>
 			</Row>
 			<Row>
@@ -261,11 +396,34 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="extend_approver_fullname_email" ><b className="label--right text-nowrap">Người duyệt*:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >
-					<select name="extend_approver_fullname_email" id="extend_approver_fullname_email" value={extend_approver_fullname_email} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}>
+					{/* <select name="extend_approver_fullname_email" id="extend_approver_fullname_email" value={extend_approver_fullname_email} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}>
 						<option value="">--- Bỏ chọn ---</option>
 						<option value="0">Phượng Thị Minh Nguyễn | phuongnguyen@meu-solutions.com</option>
 						<option value="1">Thiên Đình Võ | thienvo@meu-solutions.com</option>
-					</select>
+					</select> */}
+					<FormControl className={!error.type?matClasses.formControl:{...matClasses.formControl, height: heightControlError}}>
+						<Select
+							labelId="extend_approver_fullname_email-select-label"
+							id="extend_approver_fullname_email-select"
+							name="extend_approver_fullname_email"
+							value={extend_approver_fullname_email}
+							displayEmpty={true}
+							renderValue={() => extend_approver_fullname_email || "Cấp trên duyệt yêu cầu"}
+							className={matClasses.select}
+							onClick={() => 
+								setTouched(prev => {return({
+									...prev,
+									extend_approver_fullname_email: true,
+								})})
+							} 
+							onChange={(event) => handleChange(event)}
+						>
+							<MenuItem value="" className={matClasses.selectItem}>--- Bỏ chọn ---</MenuItem>
+							<MenuItem value={"Phượng Thị Minh Nguyễn | phuongnguyen@meu-solutions.com"} className={matClasses.selectItem}>Phượng Thị Minh Nguyễn | phuongnguyen@meu-solutions.com</MenuItem>
+							<MenuItem value={"Thiên Đình Võ | thienvo@meu-solutions.com"} className={matClasses.selectItem}>Thiên Đình Võ | thienvo@meu-solutions.com</MenuItem>
+						</Select>
+						{<FormHelperText><span className="error-message">{error.extend_approver_fullname_email}</span></FormHelperText>}
+					</FormControl>
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">
