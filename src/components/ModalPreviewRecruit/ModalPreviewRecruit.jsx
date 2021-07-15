@@ -9,6 +9,13 @@ import { TextEditorToolbarOption } from "../../models/index"
 import moment from 'moment';
 import { axios } from "../../config/index"
 
+import ReactSummernote from 'react-summernote';
+
+import $ from 'jquery';
+import 'bootstrap/dist/css/bootstrap.css';
+window.jQuery = $;
+require('bootstrap');
+
 export default function ModalPreviewRecruit ({ data, view = false, id}) {
 	const [state, setState] = useState({ 
 		name: "",
@@ -69,6 +76,22 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 			})
 		})
 	};
+
+	const handleClick = (event) => {
+		// setTouched(prev => {return({
+		// 	...prev,
+		// 	[event.target.name]: true,
+		// })})
+	}
+
+	const changeDescriptionEditor = (content) => {
+
+		setContent(content)
+		setState(prev => {return({
+			...prev,
+			description: content,
+		})})
+	}
 
 	const fetchData = async ( id ) => {
 		const response = await axios.get(`/api/recruits/requests/${id}`)
@@ -194,6 +217,24 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 						onEditorStateChange={handleChangeEditorState}
 						toolbar={TextEditorToolbarOption} 
 					/> */}
+					<ReactSummernote
+						value="Default value"
+						options={{
+						// lang: 'ru-RU',
+						height: 100,
+						dialogsInBody: true,
+						toolbar: [
+							['style', ['style']],
+							['font', ['bold', 'underline', 'clear']],
+							['fontname', ['fontname']],
+							['para', ['ul', 'ol', 'paragraph']],
+							['table', ['table']],
+							['insert', ['link', 'picture', 'video']],
+							['view', ['fullscreen', 'codeview']]
+						]
+						}}
+						onClick={(event) => handleClick(event)} onChange={changeDescriptionEditor}
+					/>
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">

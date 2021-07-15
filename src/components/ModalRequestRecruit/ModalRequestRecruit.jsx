@@ -2,6 +2,7 @@ import React, { useState, useEffect, } from 'react'
 import "../../styles/ModalRequestRecruit/ModalRequestRecruit.scss"
 import { Container, Row, Col, Form} from "react-bootstrap"
 import moment from "moment";
+
 import {
 	// makeStyles,
 	MenuItem,
@@ -17,6 +18,9 @@ import { makeStyles } from '@material-ui/styles';
 // 	DatePicker,
 // } from "@material-ui/lab";
 // import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
+
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
 
 import ReactSummernote from 'react-summernote';
 
@@ -125,6 +129,11 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 		params.inputProps.value=params.inputProps.value === ""? "":moment(params.inputProps.value).format("DD/MM/YYYY");
 		return(<TextField {...params} />)
 	}
+	
+	const validDateTime = (date) => {
+		return date.isBefore(moment().add(1, "years").format("YYYY-MM-DD")) && date.isAfter(moment().subtract(1, "days").format("YYYY-MM-DD"));
+	}
+
 	const validation = () => {
 		const {name, type, position, description, creator, salary, dateStart, dateEnd, quantity, extend_approver_fullname_email, files} = state
 
@@ -280,6 +289,15 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 		} 
 	}
 	
+	// useEffect(() => {
+
+	// 	setState(prev => {return({
+	// 		...prev,
+	// 		dateStart: moment().format('YYYY-MM-DD'),
+	// 		dateEnd: moment().add(1, "days").format("YYYY-MM-DD"),
+	// 	})})
+	// }, [])
+
 	useEffect(() => {
 		const {dateEnd, dateStart} = state;
 		if (dateStart !== "" && dateEnd === "") {
@@ -299,7 +317,10 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 	useEffect(() => {
 
 		validation()
-		console.log(dateStart, dateEnd, )
+		console.group("test")
+		console.log(dateStart, moment().subtract(1, "days").format("YYYY-MM-DD"), )
+		console.log(moment(dateStart).isAfter(moment().subtract(1, "days").format("YYYY-MM-DD")))
+		console.groupEnd()
 		return () => setError({})
 	}, [ state, touched ])
 
@@ -391,12 +412,29 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 			<Row>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-start"  ><b className="label--right text-nowrap">Từ ngày*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<div className={error&&error.dateStart?"input__div__error ":"input__div"}>
+					{/* <div className={error&&error.dateStart?"input__div__error ":"input__div"}>
 						<input type="date" id="date-start" className={error&&error.dateStart?"error__input":""} name="dateStart" value={dateStart} min={moment().format("YYYY-MM-DD")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}/>
-					</div>
+					</div> */}
+					<Datetime 
+						dateFormat="DD/MM/YYYY"
+						timeFormat={false}
+						input={true}
+						value={dateStart}
+						isValidDate={(date) => validDateTime(date)}
+						closeOnSelect
+						minValue={moment().format("YYYY-MM-DD")}
+						onChange={(date) => setState(prev => {return({ ...prev, dateStart: moment(date).format("YYYY-MM-DD")})})}
+						className={error&&error.dateStart?"picker error__input":"picker"}
+						renderInput={(props) => (<><input 
+							{...props}
+							placeholder={"DD/MM/YYYY"}
+							className={error&&error.dateStart?"error__input":""}
+							onClick={() => setTouched(prev => {return({...prev, dateStart: true})})}
+							/></>)}
+							/>
 					{/* <LocalizationProvider dateAdapter={AdapterDateFns}>
 						<DatePicker
-							value={dateStart}
+						value={dateStart}
 							openTo="day"
 							views={["year", "month", "day"]}
 							classes={matClasses.datePicker}
@@ -404,15 +442,31 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 								setState(prev => {return({...prev, dateStart: newValue})});
 							}}
 							renderInput={renderDatePicker}
-						/>
+							/>
 					</LocalizationProvider> */}
 					{(<Text className="text-muted"><span className="error-message">{error.dateStart}</span></Text>)}
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-end" ><b className="label--right text-nowrap">Đến ngày*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<div className={error&&error.dateEnd?"input__div__error ":"input__div"}>
-						<input type="date" id="date-end" className={error&&error.dateEnd?"error__input":""}  name="dateEnd" value={dateEnd} min={moment(dateStart).add(1, 'days').format("YYYY-MM-DD")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} />
-					</div>
+					{/* <div className={error&&error.dateEnd?"input__div__error ":"input__div"}>
+						<input type="date" id="date-end" className={error&&error.dateEnd?"error__input":""}  name="dateEnd" value={dateEnd} min={moment().add(1, 'days').format("YYYY-MM-DD")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} />
+					</div> */}
+					<Datetime 
+						dateFormat="DD/MM/YYYY"
+						timeFormat={false}
+						input={true}
+						value={dateEnd}
+						isValidDate={(date) => validDateTime(date)}
+						closeOnSelect
+						onChange={(date) => setState(prev => {return({ ...prev, dateEnd: moment(date).format("YYYY-MM-DD")})})}
+						className={error&&error.dateEnd?"picker error__input":"picker"}
+						renderInput={(props) => (<><input 
+							{...props}
+							placeholder={"DD/MM/YYYY"}
+							className={error&&error.dateEnd?"error__input":""}
+							onClick={() => setTouched(prev => {return({...prev, dateEnd: true})})}
+							/></>)}
+					/>
 					{/* <LocalizationProvider dateAdapter={AdapterDateFns}>
 						<DatePicker
 							variant="outlined"
@@ -470,18 +524,29 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 					<ReactSummernote
 						value="Default value"
 						options={{
-						// lang: 'ru-RU',
-						height: 100,
-						dialogsInBody: true,
-						toolbar: [
-							['style', ['style']],
-							['font', ['bold', 'underline', 'clear']],
-							['fontname', ['fontname']],
-							['para', ['ul', 'ol', 'paragraph']],
-							['table', ['table']],
-							['insert', ['link', 'picture', 'video']],
-							['view', ['fullscreen', 'codeview']]
-						]
+							// lang: 'ru-RU',
+							height: 100,
+							dialogsInBody: true,
+							toolbar: [
+								['style', ['bold', 'italic', 'underline', 'clear']],
+								['font', ['strikethrough', 'superscript', 'subscript']],
+								['fontname', ['fontname']],
+								['fontsize', ['fontsize']],
+								['color', ['color']],
+								['para', ['ul', 'ol', 'paragraph']],
+								['height', ['height']]
+							],
+							styleTags: [
+								'p',
+									{ title: 'Blockquote', tag: 'blockquote', className: 'blockquote', value: 'blockquote' },
+									'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
+							],
+							placeholder: "Nhập một số mô tả",
+							fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Merriweather'],
+							fontNamesIgnoreCheck: ['Merriweather'],
+							fontSize: [2, 4, 6, 8, 10, 12, 13, 14],
+							fontSizeUnits: ['px', 'pt'],
+							lineHeights: ['0.2', '0.3', '0.4', '0.5', '0.6', '0.8', '1.0', '1.2', '1.4', '1.5', '2.0', '3.0']
 						}}
 						onClick={(event) => handleClick(event)} onChange={changeDescriptionEditor}
 					/>
