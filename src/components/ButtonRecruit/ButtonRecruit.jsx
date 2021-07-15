@@ -10,8 +10,9 @@ export default function ButtonRecruit ({ header, }) {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const onSubmit = () => {
+	const onSubmit = (data) => {
 		console.log('onSubmit')
+		// api here
 	}
 
 	return (

@@ -1,20 +1,22 @@
 import React, { useState, useEffect, } from 'react'
 import "../../styles/ModalRequestRecruit/ModalRequestRecruit.scss"
 import { Container, Row, Col, Form} from "react-bootstrap"
-// import { EditorState, ContentState, convertToRaw } from 'draft-js';
-// import { Editor } from "react-draft-wysiwyg";
-// import draftToHtml from 'draftjs-to-html';
-// import htmlToDraft from 'html-to-draftjs';
-// import { TextEditorToolbarOption } from "../../models/index"
 import moment from "moment";
 import {
-	makeStyles,
-	InputLabel,
+	// makeStyles,
 	MenuItem,
 	Select,
 	FormControl,
 	FormHelperText,
+	TextField
 } from '@material-ui/core'
+
+import { makeStyles } from '@material-ui/styles';
+// import {
+// 	LocalizationProvider,
+// 	DatePicker,
+// } from "@material-ui/lab";
+// import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 
 import ReactSummernote from 'react-summernote';
 
@@ -49,6 +51,14 @@ const useStyles = makeStyles((theme) => ({
 		paddingLeft: 0,
 		fontFamily: "Roboto",
 		fontSize: 13,
+	},
+	datePicker: {
+		// background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+		height: 40,
+		maxWidth: "auto",
+		border: "none",
+		// display: "flex",
+		// alignItems: "flex-start",
 	}
 }))
 
@@ -85,7 +95,7 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
     const [content, setContent] = useState('');
 	const matClasses = useStyles()
 	const heightControlError = 60
-	const formatter = new Intl.NumberFormat('vi-VN', {style: 'decimal',});
+	// const formatter = new Intl.NumberFormat('vi-VN', {style: 'decimal',});
 
 	const handleChange = (event) => {
 		setState(prev => {return({
@@ -110,6 +120,11 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 		})})
 	}
 	
+	const renderDatePicker = (params) => {
+		params.inputProps.placeholder="DD/MM/YYYY";
+		params.inputProps.value=params.inputProps.value === ""? "":moment(params.inputProps.value).format("DD/MM/YYYY");
+		return(<TextField {...params} />)
+	}
 	const validation = () => {
 		const {name, type, position, description, creator, salary, dateStart, dateEnd, quantity, extend_approver_fullname_email, files} = state
 
@@ -176,7 +191,7 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 				setError(prev=> {
 					return({
 						...prev,
-						salary: "Mức lương phải đúng định dạng"
+						salary: "Mức lương sai định dạng"
 					})
 				})
 			} else if (Number.isInteger(parseInt(salary)) && parseInt(salary) < 0) {
@@ -204,7 +219,7 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 						dateStart: "Ngày bắt đầu là bắt buộc"
 					})
 				})
-			} else if (!moment(dateStart).isValid()) {
+			} else if (!moment(dateStart).isValid() || moment(dateStart).isBefore(moment().format("YYYY-MM-DD"))) {
 				setError(prev=> {
 					return({
 						...prev,
@@ -236,7 +251,7 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 						dateEnd: "Ngày kết thúc là bắt buộc"
 					})
 				})
-			} else if (!moment(dateEnd).isValid()) {
+			} else if (!moment(dateEnd).isValid() || !moment(dateEnd).isAfter(dateStart)) {
 				setError(prev=> {
 					return({
 						...prev,
@@ -284,6 +299,7 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 	useEffect(() => {
 
 		validation()
+		console.log(dateStart, dateEnd, )
 		return () => setError({})
 	}, [ state, touched ])
 
@@ -299,8 +315,8 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 				<Col sm={9} className="request-recruit__col" >
 					<div className={error&&error.name?"input__div__error ":"input__div"}>
 						<input required={true} id="name" type="text" className={error&&error.name?"input--borderless name__input label__error" : "input--borderless name__input"} name="name" onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} value={name} placeholder="Tên yêu cầu tuyển dụng"/>
-						{(<Text className="text-muted"><span className="error-message">{error.name}</span></Text>)}
 					</div>
+					{(<Text className="text-muted"><span className="error-message">{error.name}</span></Text>)}
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">
@@ -360,31 +376,64 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 				<Col sm={3} className="request-recruit__col" >
 					<div className={error&&error.quantity?"input__div__error ":"input__div"}>
 						<input id="quantity" type="number" value={quantity} min={1} className="input--borderless label__error" name="quantity" onClick={(event) => handleClick(event)} placeholder="Số lượng là bắt buộc" onChange={(event) => handleChange(event)}/>
-						{(<Text className="text-muted"><span className="error-message">{error.quantity}</span></Text>)}
 					</div>
+					{(<Text className="text-muted"><span className="error-message">{error.quantity}</span></Text>)}
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<div className={error&&error.salary?"input__div__warn ":"input__div"}>
+					<div className={"input__div"}>
 						<input id="salary" type="text" value={salary} min={1} className="input--borderless" name="salary" onClick={(event) => handleClick(event)} placeholder="vd: 10.000.000" onChange={(event) => handleChange(event)}/>
-						{(<Text className="text-muted"><span className="warn-message">{error.salary}</span></Text>)}
 					</div>
+					{/* <div className={error&&error.salary?"input__div__warn ":"input__div"}> */}
+					{/* {(<Text className="text-muted"><span className="warn-message">{error.salary}</span></Text>)} */}
 				</Col>
 			</Row>
 			<Row>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-start"  ><b className="label--right text-nowrap">Từ ngày*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
 					<div className={error&&error.dateStart?"input__div__error ":"input__div"}>
-						<input type="date" id="date-start" className={error&&error.dateStart?"error__input":""} name="dateStart" value={dateStart} min="2018-01-01" max="2021-12-31" onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} />
-						{(<Text className="text-muted"><span className="error-message">{error.dateStart}</span></Text>)}
+						<input type="date" id="date-start" className={error&&error.dateStart?"error__input":""} name="dateStart" value={dateStart} min={moment().format("YYYY-MM-DD")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}/>
 					</div>
+					{/* <LocalizationProvider dateAdapter={AdapterDateFns}>
+						<DatePicker
+							value={dateStart}
+							openTo="day"
+							views={["year", "month", "day"]}
+							classes={matClasses.datePicker}
+							onChange={(newValue) => {
+								setState(prev => {return({...prev, dateStart: newValue})});
+							}}
+							renderInput={renderDatePicker}
+						/>
+					</LocalizationProvider> */}
+					{(<Text className="text-muted"><span className="error-message">{error.dateStart}</span></Text>)}
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-end" ><b className="label--right text-nowrap">Đến ngày*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
 					<div className={error&&error.dateEnd?"input__div__error ":"input__div"}>
-						<input type="date" id="date-end" className={error&&error.dateEnd?"error__input":""}  name="dateEnd" value={dateEnd} min={moment(dateStart).add(1, 'days').format("YYYY-MM-DD")} max="2021-12-31"  onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} />
-						{(<Text className="text-muted"><span className="error-message">{error.dateEnd}</span></Text>)}
+						<input type="date" id="date-end" className={error&&error.dateEnd?"error__input":""}  name="dateEnd" value={dateEnd} min={moment(dateStart).add(1, 'days').format("YYYY-MM-DD")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} />
 					</div>
+					{/* <LocalizationProvider dateAdapter={AdapterDateFns}>
+						<DatePicker
+							variant="outlined"
+							value={dateEnd}
+							openTo="day"
+							views={["year", "month", "day"]}
+							className={{notchedOutline:matClasses.datePicker}}
+							onChange={(newValue) => {
+								setState(prev => {return({...prev, dateEnd: newValue})});
+							}}
+							// renderInput={(params) => <TextField {...params} />}
+							renderInput={renderDatePicker}
+							InputProps={{
+								// startAdornment: <AccountCircle />, // <== adjusted this
+								disableUnderline: false, // <== added this
+								classes: { notchedOutline: matClasses.datePicker }
+							  }}
+							  classes={{ notchedOutline: matClasses.datePicker }}
+						/>
+					</LocalizationProvider> */}
+					{(<Text className="text-muted"><span className="error-message">{error.dateEnd}</span></Text>)}
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">
