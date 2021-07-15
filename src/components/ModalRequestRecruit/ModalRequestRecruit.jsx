@@ -22,6 +22,8 @@ import { makeStyles } from '@material-ui/styles';
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
 
+import { TypeRecruit, PositionRecruit, } from "../../models/index"
+
 import ReactSummernote from 'react-summernote';
 
 import $ from 'jquery';
@@ -70,9 +72,9 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 	
 	const [state, setState] = useState({
 		name: '', 
-		type: 1,
+		type: 0,
 		quantity: 1, 
-		position: "",
+		position: 0,
 		description: '', 
 		creator: '', 
 		salary: '', 
@@ -99,6 +101,7 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
     const [content, setContent] = useState('');
 	const matClasses = useStyles()
 	const heightControlError = 60
+
 	// const formatter = new Intl.NumberFormat('vi-VN', {style: 'decimal',});
 
 	const handleChange = (event) => {
@@ -130,7 +133,8 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 		return(<TextField {...params} />)
 	}
 	
-	const validDateTime = (date) => {
+	const validDateTime = (date, minDate = "") => {
+		if (minDate) return !date.isBefore(moment(minDate).format("yyyy-MM-DD")) && (date.isBefore(moment().add(1, "years").format("YYYY-MM-DD")) && date.isAfter(moment().subtract(1, "days").format("YYYY-MM-DD")));
 		return date.isBefore(moment().add(1, "years").format("YYYY-MM-DD")) && date.isAfter(moment().subtract(1, "days").format("YYYY-MM-DD"));
 	}
 
@@ -148,25 +152,38 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 			} else setError(({name, ...prev}) => prev)
 		} 
 
-		if (!type || isNaN(parseInt(type))) {
-			setError(prev=> {
-				return({
-					...prev,
-					type: "Loại tuyển dụng là bắt buộc"
-				})
-			})
-		} 
-
-		if (touched.position) {
-			if (!position || position === "") {
+		if (touched.type) {
+			if (!type || isNaN(parseInt(type))) {
 				setError(prev=> {
 					return({
 						...prev,
-						position: "Chức vụ là bắt buộc"
+						type: "Loại tuyển dụng là bắt buộc",
+					})
+				})
+			} else setError(({type, ...prev}) => prev)
+		}
+
+		if (touched.position) {
+			if (!position || isNaN(parseInt(position))) {
+				setError(prev=> {
+					return({
+						...prev,
+						position: "Chức vụ là bắt buộc",
 					})
 				})
 			} else setError(({position, ...prev}) => prev)
-		} 
+		}
+
+		// if (touched.position) {
+		// 	if (!position || position === "") {
+		// 		setError(prev=> {
+		// 			return({
+		// 				...prev,
+		// 				position: "Chức vụ là bắt buộc"
+		// 			})
+		// 		})
+		// 	} else setError(({position, ...prev}) => prev)
+		// } 
 
 		if (touched.quantity) {
 			if (!quantity || isNaN(parseInt(quantity))) {
@@ -260,7 +277,7 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 						dateEnd: "Ngày kết thúc là bắt buộc"
 					})
 				})
-			} else if (!moment(dateEnd).isValid() || !moment(dateEnd).isAfter(dateStart)) {
+			} else if (!moment(dateEnd).isValid() || moment(dateEnd).isBefore(dateStart)) {
 				setError(prev=> {
 					return({
 						...prev,
@@ -317,10 +334,15 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 	useEffect(() => {
 
 		validation()
-		console.group("test")
-		console.log(dateStart, moment().subtract(1, "days").format("YYYY-MM-DD"), )
-		console.log(moment(dateStart).isAfter(moment().subtract(1, "days").format("YYYY-MM-DD")))
-		console.groupEnd()
+		// console.group("test")
+		// console.log(dateStart, moment().subtract(1, "days").format("YYYY-MM-DD"), )
+		// console.log(moment(dateStart).isAfter(moment().subtract(1, "days").format("YYYY-MM-DD")))
+		// console.groupEnd()
+		// console.log(typeof PositionRecruit.find(({id}) => 1 === id).name)
+		// console.log(type)
+		// console.log(parseInt(type))
+		// console.log(isNaN(parseInt(type)))
+		// console.log("salary")
 		return () => setError({})
 	}, [ state, touched ])
 
@@ -355,11 +377,19 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 									type: true,
 								})})
 							} 
-							onChange={(event) => handleChange(event)}
+							renderValue={() => type || "Loại tuyển dụng"}
+							onChange={(event) => {
+								setState(prev => {return({
+									...prev,
+									type: TypeRecruit.find(({id}) => id === event.target.value).id
+								})})
+							}}
 							className={matClasses.select}
 						>
-							<MenuItem value={1} className={matClasses.selectItem}>Tuyển mới</MenuItem>
-							<MenuItem value={2} className={matClasses.selectItem}>Thay thế</MenuItem>
+							{TypeRecruit.map(type => (
+								<MenuItem value={type.id} className={matClasses.selectItem}>{type.name}</MenuItem>
+							))}
+							{/* <MenuItem value={2} className={matClasses.selectItem}>Thay thế</MenuItem> */}
 						</Select>
 						{<FormHelperText><span className="error-message">{error.type}</span></FormHelperText>}
 					</FormControl>
@@ -373,8 +403,11 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 							name="position"
 							value={position}
 							displayEmpty={true}
-							renderValue={() => position || "Chọn chức vụ"}
-							// className={matClasses.select}
+							renderValue={(e) => {
+								console.log(e)
+								// const display = PositionRecruit.find(({id}) => id === event.target.value).id
+								return position || "Chọn chức vụ"
+							}}
 							className={(error&&error.position)? `${matClasses.select} ${matClasses.selectError}`:`${matClasses.select}`}
 							onClick={() => 
 								setTouched(prev => {return({
@@ -382,11 +415,19 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 									position: true,
 								})})
 							} 
-							onChange={(event) => handleChange(event)}
+							onChange={(event) => {
+								setState(prev => {return({
+									...prev,
+									position: PositionRecruit.find(({id}) => id === event.target.value).id
+								})})
+							}}
 						>
-							<MenuItem value={"Nhân viên"} className={matClasses.selectItem}>Nhân viên</MenuItem>
+							{PositionRecruit.map(position => (
+								<MenuItem value={position.id} className={matClasses.selectItem}>{position.name}</MenuItem>
+							))}
+							{/* <MenuItem value={"Nhân viên"} className={matClasses.selectItem}>Nhân viên</MenuItem>
 							<MenuItem value={"Chức vụ 1"} className={matClasses.selectItem}>Chức vụ 1</MenuItem>
-							<MenuItem value={"Chức vụ 2"} className={matClasses.selectItem}>Chức vụ 2</MenuItem>
+							<MenuItem value={"Chức vụ 2"} className={matClasses.selectItem}>Chức vụ 2</MenuItem> */}
 						</Select>
 						{<FormHelperText><span className="error-message">{error.position}</span></FormHelperText>}
 					</FormControl>
@@ -396,14 +437,21 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="quantity"  ><b className="label--right text-nowrap">Số lượng*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
 					<div className={error&&error.quantity?"input__div__error ":"input__div"}>
-						<input id="quantity" type="number" value={quantity} min={1} className="input--borderless label__error" name="quantity" onClick={(event) => handleClick(event)} placeholder="Số lượng là bắt buộc" onChange={(event) => handleChange(event)}/>
+						<input id="quantity" type="number" value={quantity} min={1} className="input--borderless label__error" name="quantity" onClick={(event) => handleClick(event)} placeholder="Số lượng tuyển dụng" onChange={(event) => handleChange(event)}/>
 					</div>
 					{(<Text className="text-muted"><span className="error-message">{error.quantity}</span></Text>)}
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
 					<div className={"input__div"}>
-						<input id="salary" type="text" value={salary} min={1} className="input--borderless" name="salary" onClick={(event) => handleClick(event)} placeholder="vd: 10.000.000" onChange={(event) => handleChange(event)}/>
+						<input id="salary" type="text" value={salary} min={1} className="input--borderless" name="salary" onClick={(event) => handleClick(event)} placeholder="vd: 10.000.000" 
+							onChange={(event) => {
+								setState(prev => {return({
+									...prev, 
+									salary: event.target.value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+								})})
+							}
+							}/>
 					</div>
 					{/* <div className={error&&error.salary?"input__div__warn ":"input__div"}> */}
 					{/* {(<Text className="text-muted"><span className="warn-message">{error.salary}</span></Text>)} */}
@@ -456,7 +504,7 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 						timeFormat={false}
 						input={true}
 						value={dateEnd}
-						isValidDate={(date) => validDateTime(date)}
+						isValidDate={(date) => validDateTime(date, dateStart)}
 						closeOnSelect
 						onChange={(date) => setState(prev => {return({ ...prev, dateEnd: moment(date).format("YYYY-MM-DD")})})}
 						className={error&&error.dateEnd?"picker error__input":"picker"}
@@ -527,6 +575,18 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 							// lang: 'ru-RU',
 							height: 100,
 							dialogsInBody: true,
+							styleTags: [
+								'p',
+									{ title: 'Blockquote', tag: 'blockquote', className: 'blockquote', value: 'blockquote' },
+									'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
+							],
+							placeholder: "Nhập một số mô tả",
+							disableDragAndDrop: true,
+							fontNames: ["Helvetica", "sans-serif", "Arial", "Arial Black", "Comic Sans MS", "Courier New"],
+							fontNamesIgnoreCheck: ["Helvetica", "sans-serif", "Arial", "Arial Black", "Comic Sans MS", "Courier New"],
+							fontSizes: [2, 4, 6, 8, 10, 12, 13, 14],
+							fontSizeUnits: ['px', 'pt'],
+							lineHeights: ['0.2', '0.3', '0.4', '0.5', '0.6', '0.8', '1.0', '1.2', '1.4', '1.5', '2.0', '3.0'],
 							toolbar: [
 								['style', ['bold', 'italic', 'underline', 'clear']],
 								['font', ['strikethrough', 'superscript', 'subscript']],
@@ -536,26 +596,15 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 								['para', ['ul', 'ol', 'paragraph']],
 								['height', ['height']]
 							],
-							styleTags: [
-								'p',
-									{ title: 'Blockquote', tag: 'blockquote', className: 'blockquote', value: 'blockquote' },
-									'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
-							],
-							placeholder: "Nhập một số mô tả",
-							fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Merriweather'],
-							fontNamesIgnoreCheck: ['Merriweather'],
-							fontSize: [2, 4, 6, 8, 10, 12, 13, 14],
-							fontSizeUnits: ['px', 'pt'],
-							lineHeights: ['0.2', '0.3', '0.4', '0.5', '0.6', '0.8', '1.0', '1.2', '1.4', '1.5', '2.0', '3.0']
 						}}
 						onClick={(event) => handleClick(event)} onChange={changeDescriptionEditor}
 					/>
 				</Col>
 			</Row>
-			<Row className="request-recruit__row">
+			{/* <Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >Danh sách tệp đính kèm</Col>
-			</Row>
+			</Row> */}
 		</Container>
 		</>
 	)
