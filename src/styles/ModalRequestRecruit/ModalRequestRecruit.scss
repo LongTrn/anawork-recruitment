@@ -166,6 +166,12 @@ input {
 			position: relative;
 			border-bottom: 1px solid rgb(211, 84, 84);
 		}
+
+		&__warn {
+
+			position: relative;
+			border-bottom: 1px solid rgb(0, 162, 255);
+		}
 	}
 }
 
@@ -174,7 +180,112 @@ input {
 	color: rgb(211, 84, 84);
 }
 
+.warn-message {
+
+	color: rgb(0, 162, 255);
+}
+
 .label__error::placeholder {
 
 	color: rgb(211, 84, 84);
+}
+
+input[type=date] {
+	
+	&.error__input {
+
+		color: rgb(211, 84, 84);
+	}
+}
+
+.picker  {
+
+	border: none;
+	outline: none;
+	background-color: transparent;
+	font-size: 13px;
+	font-family: Roboto;
+	height: 20px;
+	padding: 0;
+	border-bottom: 1px solid #ccc;
+	border-radius: 0;
+	.rdtOpen:active, .rdtOpen.active, .rdtOpen:focus, input, input.form-control, input.form-control:focus, input.form-control:active, input.form-control.active {
+		
+
+		border: none;
+		outline: none;
+		background-color: transparent;
+		font-size: 13px;
+		font-family: Roboto;
+		height: 20px;
+		padding: 0;
+		border-bottom: 1px solid #ccc;
+		border-radius: 0;
+
+		.error__input {
+			
+			border: none;
+			outline: none;
+			background-color: transparent;
+			font-size: 13px;
+			font-family: Roboto;
+			height: 20px;
+			padding: 0;
+			border-bottom: 2px solid rgb(211, 84, 84);
+			color: rgb(211, 84, 84);
+			border-radius: 0;
+		}
+		
+		&:focus {
+			outline: none;
+		}
+
+		input:focus {
+			
+			outline: none;
+		}
+	}
+
+	& input.error__input {
+
+		color: rgb(211, 84, 84);
+		border-bottom: 2px solid rgb(211, 84, 84);
+	}
+
+	& input.error__input::placeholder {
+
+		color: rgb(211, 84, 84);
+	}
+}
+
+// .picker {
+// 	grid-column: 5/10;
+// 	grid-row: 2/4;
+// 	// background: cornflowerblue;
+  
+// 	padding-bottom: 50px;
+  
+  
+// 	input {
+
+// 		font-size: 13px;
+// 		font-family: Roboto;
+// 		font-weight: bold;
+	
+// 		//   color: $color-gray-one;
+// 		text-align: left;
+// 		border: none;
+// 		background-color: transparent;
+// 		border-bottom: 2px solid #E3B924;
+
+// 		&:focus {
+			
+// 			outline: none;
+// 		}
+// 	}
+// }
+
+.rdtOpen {
+
+	outline: none;
 }

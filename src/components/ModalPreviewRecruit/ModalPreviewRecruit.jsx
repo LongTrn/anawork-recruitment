@@ -1,13 +1,20 @@
 import React, { useState, useEffect, } from 'react'
 import "../../styles/ModalPreviewRecruit/ModalPreviewRecruit.scss"
 import { Container, Row, Col, } from "react-bootstrap"
-import { EditorState, ContentState, convertToRaw } from 'draft-js';
-import { Editor, } from "react-draft-wysiwyg";
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
+// import { EditorState, ContentState, convertToRaw } from 'draft-js';
+// import { Editor, } from "react-draft-wysiwyg";
+// import draftToHtml from 'draftjs-to-html';
+// import htmlToDraft from 'html-to-draftjs';
 import { TextEditorToolbarOption } from "../../models/index"
 import moment from 'moment';
 import { axios } from "../../config/index"
+
+import ReactSummernote from 'react-summernote';
+
+import $ from 'jquery';
+import 'bootstrap/dist/css/bootstrap.css';
+window.jQuery = $;
+require('bootstrap');
 
 export default function ModalPreviewRecruit ({ data, view = false, id}) {
 	const [state, setState] = useState({ 
@@ -49,15 +56,16 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
     
 	// 2 create new with existing data
 	// const contentBlock = htmlToDraft("description");
-	const contentBlock = htmlToDraft(job_description);
-	const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-	const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState));
+	// const contentBlock = htmlToDraft(job_description);
+	// const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+	// const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState));
     const [content, setContent] = useState('');
 	
-	const handleChangeEditorState = (newState) => {
-		setEditorState(newState);
-		setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
-	}
+	// const handleChangeEditorState = (newState) => {
+	// 	setEditorState(newState);
+	// 	setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
+	// }
+
 	const handleChange = (event) => {
 
 		// console.log('handleChange', event.target.name, event.target.value);
@@ -68,6 +76,22 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 			})
 		})
 	};
+
+	const handleClick = (event) => {
+		// setTouched(prev => {return({
+		// 	...prev,
+		// 	[event.target.name]: true,
+		// })})
+	}
+
+	const changeDescriptionEditor = (content) => {
+
+		setContent(content)
+		setState(prev => {return({
+			...prev,
+			description: content,
+		})})
+	}
 
 	const fetchData = async ( id ) => {
 		const response = await axios.get(`/api/recruits/requests/${id}`)
@@ -188,10 +212,28 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >
-					<Editor 
+					{/* <Editor 
 						editorState={editorState} 
 						onEditorStateChange={handleChangeEditorState}
 						toolbar={TextEditorToolbarOption} 
+					/> */}
+					<ReactSummernote
+						value="Default value"
+						options={{
+						// lang: 'ru-RU',
+						height: 100,
+						dialogsInBody: true,
+						toolbar: [
+							['style', ['style']],
+							['font', ['bold', 'underline', 'clear']],
+							['fontname', ['fontname']],
+							['para', ['ul', 'ol', 'paragraph']],
+							['table', ['table']],
+							['insert', ['link', 'picture', 'video']],
+							['view', ['fullscreen', 'codeview']]
+						]
+						}}
+						onClick={(event) => handleClick(event)} onChange={changeDescriptionEditor}
 					/>
 				</Col>
 			</Row>

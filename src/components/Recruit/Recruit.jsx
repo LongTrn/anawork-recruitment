@@ -7,7 +7,6 @@ export default function Recruit (props) {
 	return (
 		<div className="recruit">
 			<div>
-
 				<div>
 					<div className="recruit__action__header">Tuyển dụng của bạn</div>
 					<ButtonRecruit 
