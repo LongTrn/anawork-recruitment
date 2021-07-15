@@ -334,15 +334,6 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 	useEffect(() => {
 
 		validation()
-		// console.group("test")
-		// console.log(dateStart, moment().subtract(1, "days").format("YYYY-MM-DD"), )
-		// console.log(moment(dateStart).isAfter(moment().subtract(1, "days").format("YYYY-MM-DD")))
-		// console.groupEnd()
-		// console.log(typeof PositionRecruit.find(({id}) => 1 === id).name)
-		// console.log(type)
-		// console.log(parseInt(type))
-		// console.log(isNaN(parseInt(type)))
-		// console.log("salary")
 		return () => setError({})
 	}, [ state, touched ])
 
