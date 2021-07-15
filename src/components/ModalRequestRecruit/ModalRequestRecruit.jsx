@@ -448,7 +448,9 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 							onChange={(event) => {
 								setState(prev => {return({
 									...prev, 
-									salary: event.target.value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+									// salary: event.target.value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+									// salary: event.target.value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(/\b0(?=(\d{1,3}))/g, "")
+									salary: event.target.value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(/^0/g, "")
 								})})
 							}
 							}/>
