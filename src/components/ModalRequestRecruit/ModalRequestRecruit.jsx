@@ -144,13 +144,13 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 	const validDateTime = (date, minDate = "") => {
 		if (minDate)
 			return (
-				!date.isBefore(moment(minDate).format("yyyy-MM-DD")) &&
-				date.isBefore(moment().add(1, "years").format("YYYY-MM-DD")) &&
-				date.isAfter(moment().subtract(1, "days").format("YYYY-MM-DD"))
+				!date.isBefore(moment(minDate).format("YYYY-MM-DDTHH:mm:ss")) &&
+				date.isBefore(moment().add(1, "years").format("YYYY-MM-DDTHH:mm:ss")) &&
+				date.isAfter(moment().subtract(1, "days").format("YYYY-MM-DDTHH:mm:ss"))
 			);
 		return (
-			date.isBefore(moment().add(1, "years").format("YYYY-MM-DD")) &&
-			date.isAfter(moment().subtract(1, "days").format("YYYY-MM-DD"))
+			date.isBefore(moment().add(1, "years").format("YYYY-MM-DDTHH:mm:ss")) &&
+			date.isAfter(moment().subtract(1, "days").format("YYYY-MM-DDTHH:mm:ss"))
 		);
 	};
 
@@ -282,17 +282,15 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 						plan_start: "Ngày bắt đầu là bắt buộc",
 					};
 				});
-			} else if (
-				!moment(plan_start).isValid() ||
-				moment(plan_start).isBefore(moment().format("YYYY-MM-DD"))
-			) {
+			} else if (moment(moment(plan_start).format("YYYY-MM-DD")).isBefore(moment().format("YYYY-MM-DD"))) {
 				setError((prev) => {
 					return {
 						...prev,
 						plan_start: "Ngày bắt đầu không hợp lệ",
 					};
 				});
-			} else if (plan_start !== moment(plan_start).format("YYYY-MM-DD")) {
+			} 
+			else if (!moment(plan_start).isValid()) {
 				setError((prev) => {
 					return {
 						...prev,
@@ -300,6 +298,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 					};
 				});
 			}
+			else setError(({ plan_start, ...prev }) => prev);
 		}
 
 		if (touched.plan_finish) {
@@ -317,17 +316,14 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 						plan_finish: "Ngày kết thúc là bắt buộc",
 					};
 				});
-			} else if (
-				!moment(plan_finish).isValid() ||
-				moment(plan_finish).isBefore(plan_start)
-			) {
+			} else if (moment(moment(plan_finish).format("YYYY-MM-DD")).isBefore(moment(moment(plan_start).format("YYYY-MM-DD")))) {
 				setError((prev) => {
 					return {
 						...prev,
 						plan_finish: "Ngày kết thúc không hợp lệ",
 					};
 				});
-			} else if (plan_finish !== moment(plan_finish).format("YYYY-MM-DD")) {
+			} else if (!moment(plan_finish).isValid()) {
 				setError((prev) => {
 					return {
 						...prev,
@@ -407,8 +403,8 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 				created_by: id,
 				modified_at: "2021-07-16T08:46:30.0648986Z",
 				modified_by: id,
-				plan_finish: "2021-07-15T17:00:00Z",
-				plan_start: "2021-07-15T17:00:00Z",
+				plan_finish: moment(plan_finish).format("YYYY-MM-DDTHH:mm:ss"),
+				plan_start: moment(plan_start).format("YYYY-MM-DDTHH:mm:ss"),
 				position_id: "85c24464-ee70-4e14-ac8b-8989dde4998b",
 			}
 			console.group("submit State");
@@ -424,6 +420,15 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 	}));
 
 	useEffect(() => {
+		console.group("moment")
+		// console.log("" + moment().format("YYYY-MM-DDTHH:mm:ss"))
+		// console.log("" + moment(plan_start).format("YYYY-MM-DDTHH:mm:ss"))
+		console.log(moment(moment(plan_start).format("YYYY-MM-DD")).isBefore(moment().format("YYYY-MM-DD")))
+		console.log((moment().format("YYYY-MM-DD")))
+		console.groupEnd();
+	}, [plan_start]);
+
+	useEffect(() => {
 		if (id) fetchData(id);
 	}, [id]);
 
@@ -433,7 +438,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 			return setState((prev) => {
 				return {
 					...prev,
-					plan_finish: moment(plan_start).add(1, "days").format("YYYY-MM-DD"),
+					plan_finish: moment(plan_start).add(1, "days").format("YYYY-MM-DDTHH:mm:ss"),
 				};
 			});
 		}
@@ -688,7 +693,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 					</Col>
 					<Col sm={3} className="request-recruit__col">
 						{/* <div className={error&&error.plan_start?"input__div__error ":"input__div"}>
-						<input type="date" id="date-start" className={error&&error.plan_start?"error__input":""} name="plan_start" value={plan_start} min={moment().format("YYYY-MM-DD")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}/>
+						<input type="date" id="date-start" className={error&&error.plan_start?"error__input":""} name="plan_start" value={plan_start} min={moment().format("YYYY-MM-DDTHH:mm:ss")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}/>
 					</div> */}
 						<Datetime
 							dateFormat="DD/MM/YYYY"
@@ -697,12 +702,12 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 							value={plan_start}
 							isValidDate={(date) => validDateTime(date)}
 							closeOnSelect
-							minValue={moment().format("YYYY-MM-DD")}
+							minValue={moment().format("YYYY-MM-DDTHH:mm:ss")}
 							onChange={(date) =>
 								setState((prev) => {
 									return {
 										...prev,
-										plan_start: moment(date).format("YYYY-MM-DD"),
+										plan_start: moment(date).format("YYYY-MM-DDTHH:mm:ss"),
 									};
 								})
 							}
@@ -737,7 +742,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 					</Col>
 					<Col sm={3} className="request-recruit__col">
 						{/* <div className={error&&error.plan_finish?"input__div__error ":"input__div"}>
-						<input type="date" id="date-end" className={error&&error.plan_finish?"error__input":""}  name="plan_finish" value={plan_finish} min={moment().add(1, 'days').format("YYYY-MM-DD")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} />
+						<input type="date" id="date-end" className={error&&error.plan_finish?"error__input":""}  name="plan_finish" value={plan_finish} min={moment().add(1, 'days').format("YYYY-MM-DDTHH:mm:ss")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} />
 					</div> */}
 						<Datetime
 							dateFormat="DD/MM/YYYY"
@@ -750,7 +755,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 								setState((prev) => {
 									return {
 										...prev,
-										plan_finish: moment(date).format("YYYY-MM-DD"),
+										plan_finish: moment(date).format("YYYY-MM-DDTHH:mm:ss"),
 									};
 								})
 							}

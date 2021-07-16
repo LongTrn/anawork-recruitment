@@ -73,9 +73,9 @@ export default function ListRecruitment (props) {
 		setAllRequest(prev=>!prev)
 	}
 
-	useEffect(() => {
-		fetchData();
-	}, [])
+	// useEffect(() => {
+	// 	fetchData();
+	// }, [])
 
 	useEffect(() => {
 	}, [ page ])
