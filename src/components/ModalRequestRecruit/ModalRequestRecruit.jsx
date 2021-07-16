@@ -2,9 +2,9 @@ import React, { useState, useEffect, } from 'react'
 import "../../styles/ModalRequestRecruit/ModalRequestRecruit.scss"
 import { Container, Row, Col, Form} from "react-bootstrap"
 import moment from "moment";
+import { axios } from "../../config/index"
 
 import {
-	// makeStyles,
 	MenuItem,
 	Select,
 	FormControl,
@@ -13,11 +13,6 @@ import {
 } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/styles';
-// import {
-// 	LocalizationProvider,
-// 	DatePicker,
-// } from "@material-ui/lab";
-// import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
@@ -68,35 +63,56 @@ const useStyles = makeStyles((theme) => ({
 	}
 }))
 
-export default function ModalRequestRecruit ({ onSubmit, }) {
-	
+export default function ModalRequestRecruit ({ onSubmit, id}) {
+	// const [state, setState] = useState({ 
+	// 	name: "",
+	// 	category_id: 1,
+	// 	extend_position_name: "",
+	// 	quantity: 1,
+	// 	salary: "",
+	// 	plan_start: moment().format('YYYY-MM-DD'),
+	// 	plan_end: moment().format('YYYY-MM-DD'),
+	// 	extend_approver_fullname_email: "",
+	// 	job_description: "",
+	// 	code: "",
+	// })
+	// const { 
+	// 	name,
+	// 	category_id,
+	// 	extend_position_name,
+	// 	quantity,
+	// 	salary,
+	// 	plan_start,
+	// 	plan_end,
+	// 	extend_approver_fullname_email,
+	// 	job_description,
+	// 	code,
+	// } = state
 	const [state, setState] = useState({
 		name: '', 
-		type: 0,
+		category_id: 0,
 		quantity: 1, 
-		position: 0,
-		description: '', 
-		creator: '', 
+		extend_position_name: 0,
+		job_description: '', 
 		salary: '', 
-		dateStart: '', 
-		dateEnd: '', 
+		plan_start: '', 
+		plan_end: '', 
 		extend_approver_fullname_email: '',
-		files: '',
+		code: '',
 	})
 	const [touched, setTouched] = useState({
 		name: false, 
-		type: false,
+		category_id: false,
 		quantity: false, 
-		position: false,
-		description: false, 
-		creator: false, 
+		extend_position_name: false,
+		job_description: false, 
 		salary: false, 
-		dateStart: false, 
-		dateEnd: false, 
+		plan_start: false, 
+		plan_end: false, 
 		extend_approver_fullname_email: false, 
-		files: false,
+		code: false,
 	})
-	const { name, type, position, description, creator, salary, dateStart, dateEnd, quantity, extend_approver_fullname_email, files} = state
+	const { name, category_id, extend_position_name, job_description, salary, plan_start, plan_end, quantity, extend_approver_fullname_email, code} = state
 	const [error, setError] = useState({});
     const [content, setContent] = useState('');
 	const matClasses = useStyles()
@@ -123,14 +139,8 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 		setContent(content)
 		setState(prev => {return({
 			...prev,
-			description: content,
+			job_description: content,
 		})})
-	}
-	
-	const renderDatePicker = (params) => {
-		params.inputProps.placeholder="DD/MM/YYYY";
-		params.inputProps.value=params.inputProps.value === ""? "":moment(params.inputProps.value).format("DD/MM/YYYY");
-		return(<TextField {...params} />)
 	}
 	
 	const validDateTime = (date, minDate = "") => {
@@ -139,7 +149,7 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 	}
 
 	const validation = () => {
-		const {name, type, position, description, creator, salary, dateStart, dateEnd, quantity, extend_approver_fullname_email, files} = state
+		const {name, category_id, extend_position_name, job_description, salary, plan_start, plan_end, quantity, extend_approver_fullname_email, code} = state
 
 		if (touched.name) {
 			if (!name || name === "") {
@@ -152,37 +162,37 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 			} else setError(({name, ...prev}) => prev)
 		} 
 
-		if (touched.type) {
-			if (!type || isNaN(parseInt(type))) {
+		if (touched.category_id) {
+			if (!category_id || isNaN(parseInt(category_id))) {
 				setError(prev=> {
 					return({
 						...prev,
-						type: "Loại tuyển dụng là bắt buộc",
+						category_id: "Loại tuyển dụng là bắt buộc",
 					})
 				})
-			} else setError(({type, ...prev}) => prev)
+			} else setError(({category_id, ...prev}) => prev)
 		}
 
-		if (touched.position) {
-			if (!position || isNaN(parseInt(position))) {
+		if (touched.extend_position_name) {
+			if (!extend_position_name || isNaN(parseInt(extend_position_name))) {
 				setError(prev=> {
 					return({
 						...prev,
-						position: "Chức vụ là bắt buộc",
+						extend_position_name: "Chức vụ là bắt buộc",
 					})
 				})
-			} else setError(({position, ...prev}) => prev)
+			} else setError(({extend_position_name, ...prev}) => prev)
 		}
 
-		// if (touched.position) {
-		// 	if (!position || position === "") {
+		// if (touched.extend_position_name) {
+		// 	if (!extend_position_name || extend_position_name === "") {
 		// 		setError(prev=> {
 		// 			return({
 		// 				...prev,
-		// 				position: "Chức vụ là bắt buộc"
+		// 				extend_position_name: "Chức vụ là bắt buộc"
 		// 			})
 		// 		})
-		// 	} else setError(({position, ...prev}) => prev)
+		// 	} else setError(({extend_position_name, ...prev}) => prev)
 		// } 
 
 		if (touched.quantity) {
@@ -237,58 +247,58 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 			} else setError(({salary, ...prev}) => prev)
 		} 
 
-		if (touched.dateStart) {
-			if (!dateStart || dateStart === "") {
+		if (touched.plan_start) {
+			if (!plan_start || plan_start === "") {
 				setError(prev=> {
 					return({
 						...prev,
-						dateStart: "Ngày bắt đầu là bắt buộc"
+						plan_start: "Ngày bắt đầu là bắt buộc"
 					})
 				})
-			} else if (!moment(dateStart).isValid() || moment(dateStart).isBefore(moment().format("YYYY-MM-DD"))) {
+			} else if (!moment(plan_start).isValid() || moment(plan_start).isBefore(moment().format("YYYY-MM-DD"))) {
 				setError(prev=> {
 					return({
 						...prev,
-						dateStart: "Ngày bắt đầu không hợp lệ"
+						plan_start: "Ngày bắt đầu không hợp lệ"
 					})
 				})
-			} else if (dateStart !== moment(dateStart).format('YYYY-MM-DD')) {
+			} else if (plan_start !== moment(plan_start).format('YYYY-MM-DD')) {
 				setError(prev=> {
 					return({
 						...prev,
-						dateStart: "Ngày bắt đầu không phù hợp định dạng"
+						plan_start: "Ngày bắt đầu không phù hợp định dạng"
 					})
 				})
 			} 
 		}
 
-		if (touched.dateEnd) {
-			if (!touched.dateStart) {
+		if (touched.plan_end) {
+			if (!touched.plan_start) {
 				setError(prev=> {
 					return({
 						...prev,
-						dateEnd: "Ngày bắt đầu không tồn tại"
+						plan_end: "Ngày bắt đầu không tồn tại"
 					})
 				})
-			} else if (!dateEnd || dateEnd === "") {
+			} else if (!plan_end || plan_end === "") {
 				setError(prev=> {
 					return({
 						...prev,
-						dateEnd: "Ngày kết thúc là bắt buộc"
+						plan_end: "Ngày kết thúc là bắt buộc"
 					})
 				})
-			} else if (!moment(dateEnd).isValid() || moment(dateEnd).isBefore(dateStart)) {
+			} else if (!moment(plan_end).isValid() || moment(plan_end).isBefore(plan_start)) {
 				setError(prev=> {
 					return({
 						...prev,
-						dateEnd: "Ngày kết thúc không hợp lệ"
+						plan_end: "Ngày kết thúc không hợp lệ"
 					})
 				})
-			} else if (dateEnd !== moment(dateEnd).format('YYYY-MM-DD')) {
+			} else if (plan_end !== moment(plan_end).format('YYYY-MM-DD')) {
 				setError(prev=> {
 					return({
 						...prev,
-						dateEnd: "Ngày kết thúc không phù hợp định dạng"
+						plan_end: "Ngày kết thúc không phù hợp định dạng"
 					})
 				})
 			} 
@@ -305,27 +315,65 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 			} else setError(({extend_approver_fullname_email, ...prev}) => prev)
 		} 
 	}
+
+	const fetchData = async ( id ) => {
+		const response = await axios.get(`/api/recruits/requests/${id}`)
+		
+		if (!response.data.success) { return []}
+		console.log(response.data)
+
+		const {
+			name,
+			category_id,
+			extend_position_name,
+			quantity,
+			salary,
+			plan_start,
+			plan_end,
+			extend_approver_fullname_email,
+			job_description,
+			code,
+		} = response.data.data
+
+		setState(prev => {return{
+			name,
+			category_id,
+			extend_position_name,
+			quantity,
+			salary,
+			plan_start,
+			plan_end,
+			extend_approver_fullname_email,
+			job_description,
+			code,
+		}})
+	}
 	
 	// useEffect(() => {
 
 	// 	setState(prev => {return({
 	// 		...prev,
-	// 		dateStart: moment().format('YYYY-MM-DD'),
-	// 		dateEnd: moment().add(1, "days").format("YYYY-MM-DD"),
+	// 		plan_start: moment().format('YYYY-MM-DD'),
+	// 		plan_end: moment().add(1, "days").format("YYYY-MM-DD"),
 	// 	})})
 	// }, [])
+	
+	useEffect(() => {
+
+		if (id) fetchData(id)
+	}, [id,])
 
 	useEffect(() => {
-		const {dateEnd, dateStart} = state;
-		if (dateStart !== "" && dateEnd === "") {
+		const {plan_end, plan_start} = state;
+		if (plan_start !== "" && plan_end === "") {
 			return setState(prev=> {
 				return({
 					...prev,
-					dateEnd: moment(dateStart).add(1, "days").format("YYYY-MM-DD"),
+					plan_end: moment(plan_start).add(1, "days").format("YYYY-MM-DD"),
 				})
 			})
 		}
-	}, [ dateStart, dateEnd ])
+	}, [ plan_start, plan_end ])
 
 	useEffect(() => {
 
@@ -354,73 +402,73 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="type" ><b className="label--right text-nowrap">Loại tuyển dụng*:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="category_id" ><b className="label--right text-nowrap">Loại tuyển dụng*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<FormControl className={!error.type?matClasses.formControl:{...matClasses.formControl, height: heightControlError}}>
+					<FormControl className={!error.category_id?matClasses.formControl:{...matClasses.formControl, height: heightControlError}}>
 						<Select
-							labelId="type-select-label"
-							id="type-select"
-							name="type"
-							value={type}
+							labelId="category_id-select-label"
+							id="category_id-select"
+							name="category_id"
+							value={category_id}
 							onClick={() => 
 								setTouched(prev => {return({
 									...prev,
-									type: true,
+									category_id: true,
 								})})
 							} 
-							renderValue={() => type || "Loại tuyển dụng"}
+							renderValue={() => category_id || "Loại tuyển dụng"}
 							onChange={(event) => {
 								setState(prev => {return({
 									...prev,
-									type: TypeRecruit.find(({id}) => id === event.target.value).id
+									category_id: TypeRecruit.find(({id}) => id === event.target.value).id
 								})})
 							}}
 							className={matClasses.select}
 						>
-							{TypeRecruit.map(type => (
-								<MenuItem value={type.id} className={matClasses.selectItem}>{type.name}</MenuItem>
+							{TypeRecruit.map(category_id => (
+								<MenuItem value={category_id.id} className={matClasses.selectItem}>{category_id.name}</MenuItem>
 							))}
 							{/* <MenuItem value={2} className={matClasses.selectItem}>Thay thế</MenuItem> */}
 						</Select>
-						{<FormHelperText><span className="error-message">{error.type}</span></FormHelperText>}
+						{<FormHelperText><span className="error-message">{error.category_id}</span></FormHelperText>}
 					</FormControl>
 				</Col>
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ*:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="extend_position_name" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					<FormControl className={!error.type?matClasses.formControl:{...matClasses.formControl, height: heightControlError}}>
+					<FormControl className={!error.category_id?matClasses.formControl:{...matClasses.formControl, height: heightControlError}}>
 						<Select
-							labelId="position-select-label"
-							id="position-select"
-							name="position"
-							value={position}
+							labelId="extend_position_name-select-label"
+							id="extend_position_name-select"
+							name="extend_position_name"
+							value={extend_position_name}
 							displayEmpty={true}
 							renderValue={(e) => {
 								console.log(e)
 								// const display = PositionRecruit.find(({id}) => id === event.target.value).id
-								return position || "Chọn chức vụ"
+								return extend_position_name || "Chọn chức vụ"
 							}}
-							className={(error&&error.position)? `${matClasses.select} ${matClasses.selectError}`:`${matClasses.select}`}
+							className={(error&&error.extend_position_name)? `${matClasses.select} ${matClasses.selectError}`:`${matClasses.select}`}
 							onClick={() => 
 								setTouched(prev => {return({
 									...prev,
-									position: true,
+									extend_position_name: true,
 								})})
 							} 
 							onChange={(event) => {
 								setState(prev => {return({
 									...prev,
-									position: PositionRecruit.find(({id}) => id === event.target.value).id
+									extend_position_name: PositionRecruit.find(({id}) => id === event.target.value).id
 								})})
 							}}
 						>
-							{PositionRecruit.map(position => (
-								<MenuItem value={position.id} className={matClasses.selectItem}>{position.name}</MenuItem>
+							{PositionRecruit.map(extend_position_name => (
+								<MenuItem value={extend_position_name.id} className={matClasses.selectItem}>{extend_position_name.name}</MenuItem>
 							))}
 							{/* <MenuItem value={"Nhân viên"} className={matClasses.selectItem}>Nhân viên</MenuItem>
 							<MenuItem value={"Chức vụ 1"} className={matClasses.selectItem}>Chức vụ 1</MenuItem>
 							<MenuItem value={"Chức vụ 2"} className={matClasses.selectItem}>Chức vụ 2</MenuItem> */}
 						</Select>
-						{<FormHelperText><span className="error-message">{error.position}</span></FormHelperText>}
+						{<FormHelperText><span className="error-message">{error.extend_position_name}</span></FormHelperText>}
 					</FormControl>
 				</Col>
 			</Row>
@@ -453,70 +501,70 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 			<Row>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-start"  ><b className="label--right text-nowrap">Từ ngày*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					{/* <div className={error&&error.dateStart?"input__div__error ":"input__div"}>
-						<input type="date" id="date-start" className={error&&error.dateStart?"error__input":""} name="dateStart" value={dateStart} min={moment().format("YYYY-MM-DD")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}/>
+					{/* <div className={error&&error.plan_start?"input__div__error ":"input__div"}>
+						<input type="date" id="date-start" className={error&&error.plan_start?"error__input":""} name="plan_start" value={plan_start} min={moment().format("YYYY-MM-DD")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}/>
 					</div> */}
 					<Datetime 
 						dateFormat="DD/MM/YYYY"
 						timeFormat={false}
 						input={true}
-						value={dateStart}
+						value={plan_start}
 						isValidDate={(date) => validDateTime(date)}
 						closeOnSelect
 						minValue={moment().format("YYYY-MM-DD")}
-						onChange={(date) => setState(prev => {return({ ...prev, dateStart: moment(date).format("YYYY-MM-DD")})})}
-						className={error&&error.dateStart?"picker error__input":"picker"}
+						onChange={(date) => setState(prev => {return({ ...prev, plan_start: moment(date).format("YYYY-MM-DD")})})}
+						className={error&&error.plan_start?"picker error__input":"picker"}
 						renderInput={(props) => (<><input 
 							{...props}
 							placeholder={"DD/MM/YYYY"}
-							className={error&&error.dateStart?"error__input":""}
-							onClick={() => setTouched(prev => {return({...prev, dateStart: true})})}
+							className={error&&error.plan_start?"error__input":""}
+							onClick={() => setTouched(prev => {return({...prev, plan_start: true})})}
 							/></>)}
 							/>
 					{/* <LocalizationProvider dateAdapter={AdapterDateFns}>
 						<DatePicker
-						value={dateStart}
+						value={plan_start}
 							openTo="day"
 							views={["year", "month", "day"]}
 							classes={matClasses.datePicker}
 							onChange={(newValue) => {
-								setState(prev => {return({...prev, dateStart: newValue})});
+								setState(prev => {return({...prev, plan_start: newValue})});
 							}}
 							renderInput={renderDatePicker}
 							/>
 					</LocalizationProvider> */}
-					{(<Text className="text-muted"><span className="error-message">{error.dateStart}</span></Text>)}
+					{(<Text className="text-muted"><span className="error-message">{error.plan_start}</span></Text>)}
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-end" ><b className="label--right text-nowrap">Đến ngày*:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					{/* <div className={error&&error.dateEnd?"input__div__error ":"input__div"}>
-						<input type="date" id="date-end" className={error&&error.dateEnd?"error__input":""}  name="dateEnd" value={dateEnd} min={moment().add(1, 'days').format("YYYY-MM-DD")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} />
+					{/* <div className={error&&error.plan_end?"input__div__error ":"input__div"}>
+						<input type="date" id="date-end" className={error&&error.plan_end?"error__input":""}  name="plan_end" value={plan_end} min={moment().add(1, 'days').format("YYYY-MM-DD")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} />
 					</div> */}
 					<Datetime 
 						dateFormat="DD/MM/YYYY"
 						timeFormat={false}
 						input={true}
-						value={dateEnd}
-						isValidDate={(date) => validDateTime(date, dateStart)}
+						value={plan_end}
+						isValidDate={(date) => validDateTime(date, plan_start)}
 						closeOnSelect
-						onChange={(date) => setState(prev => {return({ ...prev, dateEnd: moment(date).format("YYYY-MM-DD")})})}
-						className={error&&error.dateEnd?"picker error__input":"picker"}
+						onChange={(date) => setState(prev => {return({ ...prev, plan_end: moment(date).format("YYYY-MM-DD")})})}
+						className={error&&error.plan_end?"picker error__input":"picker"}
 						renderInput={(props) => (<><input 
 							{...props}
 							placeholder={"DD/MM/YYYY"}
-							className={error&&error.dateEnd?"error__input":""}
-							onClick={() => setTouched(prev => {return({...prev, dateEnd: true})})}
+							className={error&&error.plan_end?"error__input":""}
+							onClick={() => setTouched(prev => {return({...prev, plan_end: true})})}
 							/></>)}
 					/>
 					{/* <LocalizationProvider dateAdapter={AdapterDateFns}>
 						<DatePicker
 							variant="outlined"
-							value={dateEnd}
+							value={plan_end}
 							openTo="day"
 							views={["year", "month", "day"]}
 							className={{notchedOutline:matClasses.datePicker}}
 							onChange={(newValue) => {
-								setState(prev => {return({...prev, dateEnd: newValue})});
+								setState(prev => {return({...prev, plan_end: newValue})});
 							}}
 							// renderInput={(params) => <TextField {...params} />}
 							renderInput={renderDatePicker}
@@ -528,13 +576,13 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 							  classes={{ notchedOutline: matClasses.datePicker }}
 						/>
 					</LocalizationProvider> */}
-					{(<Text className="text-muted"><span className="error-message">{error.dateEnd}</span></Text>)}
+					{(<Text className="text-muted"><span className="error-message">{error.plan_end}</span></Text>)}
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="extend_approver_fullname_email" ><b className="label--right text-nowrap">Người duyệt*:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >
-					<FormControl className={!error.type?matClasses.formControl:{...matClasses.formControl, height: heightControlError}}>
+					<FormControl className={!error.extend_approver_fullname_email?matClasses.formControl:{...matClasses.formControl, height: heightControlError}}>
 						<Select
 							labelId="extend_approver_fullname_email-select-label"
 							id="extend_approver_fullname_email-select"
@@ -560,8 +608,8 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 				</Col>
 			</Row>
 			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
-				<Col sm={9} className="request-recruit__col" >
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="job_description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
+				<Col sm={9} className="request-recruit__col  request-recruit__col__description" >
 					<ReactSummernote
 						value="Default value"
 						options={{
@@ -595,7 +643,7 @@ export default function ModalRequestRecruit ({ onSubmit, }) {
 				</Col>
 			</Row>
 			{/* <Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
+				<Col sm={3} className="request-recruit__col" ><label htmlFor="job_description" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >Danh sách tệp đính kèm</Col>
 			</Row> */}
 		</Container>

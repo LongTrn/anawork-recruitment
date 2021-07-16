@@ -13,22 +13,44 @@
 .timeline {
 
 	display: flex;
-	// flex-direction: row;
 	align-items: center;
-	vertical-align: middle;
+	// vertical-align: middle;
 	gap: 8px;
-	margin: auto;
+	// margin: auto;
 	padding: 0;
+
+	&__button__arrows {
+
+		width: 30px;
+		height: 30px;
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		outline: none;
+		
+		& button.btn:focus {
+			
+			outline: none;
+		}
+		
+		.btn-check:focus + .btn, .btn:focus {
+			outline: 0;
+			box-shadow: none;
+		}
+	}
 
 	&__value {
 
 		display: flex;
 		flex-grow: 0;
+		height: max-content;
 		font-family: Roboto;
 		font-size: 13px;
 		font-weight: 500;
 		color: var(--primary-dark-grey);
-		align-content: flex-end;
+		align-content: center;
+		align-items:baseline;
+		padding-bottom: 6px;
 	}
 
 	&--middle-vertically {

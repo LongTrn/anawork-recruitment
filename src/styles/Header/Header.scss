@@ -4,6 +4,20 @@
 
 .header {
 		
+    height: auto;
+	display: flex;
+	flex-direction: row;
+
+	&__item {
+
+		display: flex;
+
+		&--center {
+
+			padding: 2px
+		}
+	}
+
 	&__main {
 
 		flex-grow: 0;
@@ -15,11 +29,16 @@
 
 	&__line {
 		
-		width: 0.25px;
-		height: 16px;
+		width: 1px;
+		height: 24px;
 		flex-grow: 0;
-		transform: rotate(90deg);
-		background-color: #c4c4c4;
+		// transform: rotate(90deg);
+		display: flex;
+		align-items: flex-end;
+		color: #c4c4c4;
+		font-size: 24px;
+		font-weight: 500;
+		// background-color: #c4c4c4;
 	}
 
 	&__sub {
@@ -29,10 +48,6 @@
 		font-family: Roboto;
 		font-size: 13px;
 		font-weight: 500;
-		font-stretch: normal;
-		font-style: normal;
-		line-height: 1.23;
-		letter-spacing: normal;
 		text-align: left;
 		color: #757575;
 	}
@@ -40,7 +55,7 @@
 	&--margin {
 		
 		margin: 16px 150px 0 150px;
-		padding: 0 0 0 2px;
+		padding: 16px 0 0 2px;
 
 	}
 }

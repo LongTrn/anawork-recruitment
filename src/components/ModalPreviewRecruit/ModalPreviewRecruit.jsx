@@ -124,7 +124,6 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 			job_description,
 			code,
 		}})
-		console.log(state)
 	}
 	
 	// /** Convert html string to draft JS */
@@ -218,7 +217,8 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 						toolbar={TextEditorToolbarOption} 
 					/> */}
 					<ReactSummernote
-						value="Default value"
+						value={job_description}
+						// value="Default value"
 						options={{
 						// lang: 'ru-RU',
 						height: 100,
@@ -237,10 +237,10 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 					/>
 				</Col>
 			</Row>
-			<Row className="request-recruit__row">
+			{/* <Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >{!code || "Danh sách tệp đính kèm"}</Col>
-			</Row>
+			</Row> */}
 		</Container>
 	)
 }

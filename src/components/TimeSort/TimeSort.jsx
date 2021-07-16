@@ -5,17 +5,27 @@ export default function TimeSort ({year, nextYear, previousYear,}) {
 
 	return(
 		<div className="timeline timeline--middle-vertically">
-			<img 
-				alt="previousTime"
-				src="img/chevron-left.svg"
-				className="arrow__left"
-				onClick={previousYear}/>
+			<button
+				className="btn timeline__button__arrows"
+				onClick={previousYear}
+				>
+				<img 
+					alt="previousTime"
+					src="img/chevron-left.svg"
+					className="arrow__left"
+					/>
+			</button>
 			<span className="timeline__value">{year}</span>
-			<img 
-				alt="forwardTime"
-				src="img/chevron-left.svg"
-				className="arrow__right"
-				onClick={nextYear}/>
+			<button
+				className="btn timeline__button__arrows"
+				onClick={nextYear}
+			>
+				<img 
+					alt="forwardTime"
+					src="img/chevron-left.svg"
+					className="arrow__right"
+					/>
+			</button>
 		</div>
 	)
 

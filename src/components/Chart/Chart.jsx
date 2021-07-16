@@ -9,11 +9,9 @@ const dodgerBlueBar = "#1399fb";
 
 export default function Chart ({year}) {
 
-
 	const [state, setState] = useState({
 		labels: ['Kế toán', ],
 		datasets: [
-			
 			{
 				barThickness: 16,
 				barPercentage: 0.5,
@@ -72,13 +70,10 @@ export default function Chart ({year}) {
 
 	const fetchData = async (year) => {
 		const response = await axios.get(`/api/recruits/rescruitStatistic?year=${year}`)
-
 		if(!response.data.success) { return []}
 		let data = (response.data.data)
-		console.log(data)
 		const labelList = data.map(label => label.job_title)
 		const datasets = Object.keys(data[0]).slice(1).map(type => {
-			console.log("dataset typeof", type)
 			const label = type==="recruited_quantity"? 'Đã Tuyển': 'Cần Tuyển'
 			const tempData = data.map(job => {
 				return job[type]
@@ -99,13 +94,9 @@ export default function Chart ({year}) {
 			labels: labelList,
 			datasets
 		})
-		// console.log(test)
-		console.log(datasets)
-
 	}
 
 	useEffect(() => {
-	
 		fetchData(year)
 	}, [ year ])
 
@@ -115,8 +106,8 @@ export default function Chart ({year}) {
 				<Bar
 					data={state}
 					options={options}
-					width={801}
-					height={180}
+					// width={801}
+					// height={100}
 				/>
 			</div>
 		</div>

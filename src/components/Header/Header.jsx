@@ -7,15 +7,19 @@ export default function Header (props) {
 	const classHeader = flag? "header header--margin": "header"
 
 	return(
-		<span className={classHeader}>
-			<span>
-				<b className="header__main text-nowrap">{main}</b>
-			</span>
-			<span className="spacing-xs"></span>
-			<span className="header__line"> </span>
-			<span className="spacing-xs"></span>
-			<span className="header__sub">{sub}</span>
-		</span>
+		<div className={classHeader}>
+			<div className="header__item">
+				<span className="header__main text-nowrap"><b>{main}</b></span>
+				<span className="spacing-xs"></span>
+			</div>
+			{sub&&(
+				<div className="header__item header__item--center">
+					<span className="header__line">|</span>
+					<span className="spacing-xs"></span>
+					<span className="header__sub">{sub}</span>
+				</div>
+			)}
+		</div>
 	)
 
 }

@@ -12,7 +12,7 @@
     height: 100%;
     width: 100%;
 
-	& thead {
+	thead {
 		
 		/* head takes the height it requires, 
 		and it's not scaled when table is resized */
@@ -21,12 +21,13 @@
 		flex: 1 1 auto;
 	}
 
-	& tbody {
+	tbody {
 		/* body takes all the remaining available space */
 		flex: 1 1 auto;
 		display: flex;
 		flex-direction: column;
 		overflow-y: scroll;
+		max-height: 300px;
 	}
 	
 	thead tr, 
@@ -60,19 +61,25 @@
 			}
 		}
 	}
-	
-	tbody {
-		
-		// overflow-y: auto;    /* Trigger vertical scroll    */
-		// overflow-x: hidden;  /* Hide the horizontal scroll */
-		height: 250px;
-	}
 
 	thead tr {
 
 		border-bottom: 1px solid #ccc;
 	}
 
+	&-recruit {
+
+		&__header {
+
+			max-height: 40px;
+			margin-bottom: 8px;
+			
+			&__rows {
+				
+				max-height: 40px;
+			}
+		}
+	}
 	&__header {
 
 
@@ -308,6 +315,7 @@
 
 		display: flex;
 		padding: 0 18px 0 16px;
+		max-height: 350px;
 	}
 
 	&--text-center {
@@ -337,7 +345,7 @@
 		display: flex;
 		text-align: center;
 		justify-content: center;
-		margin: auto;
+		margin: 0 auto;
 	}
 
 	& td:last-child {

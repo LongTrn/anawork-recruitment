@@ -1,7 +1,7 @@
 .recruit {
 
 	width: 273px;
-	height: 100%;
+	min-height: 275px;
 	margin: 22px 150px 16px 0;
 	padding: 28px 16px 24px;
 	border-radius: 4px;
@@ -72,9 +72,20 @@
 
 			// padding: 11.5px 25px;
 		}
+
+		&__container {
+			
+			height: fit-content;
+		}
 	}
 
 	&__navigators {
+
+		margin-top: 1em;
+		max-height: 30px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
 
 		&__links {
 
