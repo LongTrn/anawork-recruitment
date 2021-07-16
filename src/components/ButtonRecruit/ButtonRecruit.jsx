@@ -33,7 +33,7 @@ export default function ButtonRecruit ({ header, }) {
 							<path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
 					</svg> */}
 					{/* className text-nowrap for avoiding drops few words */}
-					<i class="bi bi-plus" />
+					<i className="bi bi-plus" />
 					<span className="button__text text-nowrap">YÊU CẦU TUYỂN DỤNG</span>
 			</Button>
 

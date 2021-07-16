@@ -74,7 +74,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		name: "",
 		category_id: 0,
 		quantity: 1,
-		extend_position_name: 0,
+		extend_position_name: {name: "", value: ""},
 		job_description: "",
 		salary: "",
 		plan_start: "",
@@ -110,6 +110,10 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 	const [content, setContent] = useState("");
 	const matClasses = useStyles();
 	const heightControlError = 60;
+	const [model, setModel] = useState({
+		categories: [],
+		managers: [],
+	})
 
 	// const formatter = new Intl.NumberFormat('vi-VN', {style: 'decimal',});
 
@@ -373,7 +377,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 			return {
 				name,
 				category_id,
-				extend_position_name,
+				extend_position_name: { value: extend_position_name},
 				quantity,
 				salary,
 				plan_start,
@@ -384,6 +388,23 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 			};
 		});
 	};
+
+	const loadManager = async () => {
+		const response = await axios.get(`/api/myManagers`)
+		if (!response.data.success) return;
+		setModel(prev => {return ({...prev, managers: response.data.data})})
+	}
+	
+	const loadCategoryId = async () => {
+		const response = await axios.get(`/api/hrPosition?Filters=&Sorts=&Page=1&PageSize=999`)
+		if (!response.data.success) return;
+		setModel(prev => {return ({...prev, categories: response.data.data.collection})})
+	}
+
+	const loadModel = async () => {
+		loadManager();
+		loadCategoryId();
+	}
 
 	useImperativeHandle(ref, () => ({
 		submit: async () => {
@@ -406,31 +427,33 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 				plan_finish: moment(plan_finish).format("YYYY-MM-DDTHH:mm:ss"),
 				plan_start: moment(plan_start).format("YYYY-MM-DDTHH:mm:ss"),
 				position_id: "85c24464-ee70-4e14-ac8b-8989dde4998b",
+				extend_position_name: extend_position_name.value,
+				// category_id: category_id.value,
+				// extend_approver_fullname_email: extend_approver_fullname_email.name,
 			}
 			console.group("submit State");
 			console.log(submitState)
 			console.groupEnd();
 
-			const response = await axios.post("/api/recruits/requests", submitState)
+			// const response = await axios.post("/api/recruits/requests", submitState)
 
-			if (!response) console.log()
-			if (!response.data.success) console.log("Failed to load")
+			// if (!response) console.log()
+			// if (!response.data.success) console.log("Failed to load")
 
 		}
 	}));
 
 	useEffect(() => {
 		console.group("moment")
-		// console.log("" + moment().format("YYYY-MM-DDTHH:mm:ss"))
-		// console.log("" + moment(plan_start).format("YYYY-MM-DDTHH:mm:ss"))
-		console.log(moment(moment(plan_start).format("YYYY-MM-DD")).isBefore(moment().format("YYYY-MM-DD")))
-		console.log((moment().format("YYYY-MM-DD")))
 		console.groupEnd();
-	}, [plan_start]);
+	}, []);
 
 	useEffect(() => {
+		loadModel()
 		if (id) fetchData(id);
 	}, [id]);
+	
+	useEffect(() => {console.log(model)}, [model])
 
 	useEffect(() => {
 		const { plan_finish, plan_start } = state;
@@ -448,6 +471,9 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 
 	useEffect(() => {
 		validation();
+		console.group("sate")
+		console.log(state)
+		console.groupEnd()
 		return () => setError({});
 	}, [state, touched]);
 
@@ -570,11 +596,11 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 								labelId="extend_position_name-select-label"
 								id="extend_position_name-select"
 								name="extend_position_name"
-								value={extend_position_name}
+								value={extend_position_name.name}
 								displayEmpty={true}
 								renderValue={(e) => {
 									// const display = PositionRecruit.find(({id}) => id === event.target.value).id
-									return extend_position_name || "Chọn chức vụ";
+									return extend_position_name.name || "Chọn chức vụ";
 								}}
 								className={
 									error && error.extend_position_name
@@ -589,25 +615,33 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 										};
 									})
 								}
-								onChange={(event) => {
+								onChange={async (event) => {
+									const target = await model.categories.find(({ id }) => id === event.target.value);
 									setState((prev) => {
 										return {
 											...prev,
-											extend_position_name: PositionRecruit.find(
-												({ id }) => id === event.target.value
-											).id,
+											extend_position_name: {
+												name:	target.name,
+												value:	target.id,
+											},
 										};
 									});
 								}}
 							>
-								{PositionRecruit.map((extend_position_name) => (
+								{/* {PositionRecruit.map((extend_position_name) => (
 									<MenuItem
 										value={extend_position_name.id}
 										className={matClasses.selectItem}
 									>
 										{extend_position_name.name}
 									</MenuItem>
-								))}
+								))} */}
+								{model.categories.map(category => {
+									return(<MenuItem
+										value={category.id}
+										className={matClasses.selectItem}
+									>{category.name}</MenuItem>)}
+								)}
 								{/* <MenuItem value={"Nhân viên"} className={matClasses.selectItem}>Nhân viên</MenuItem>
 							<MenuItem value={"Chức vụ 1"} className={matClasses.selectItem}>Chức vụ 1</MenuItem>
 							<MenuItem value={"Chức vụ 2"} className={matClasses.selectItem}>Chức vụ 2</MenuItem> */}
@@ -825,7 +859,10 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 								<MenuItem value="" className={matClasses.selectItem}>
 									--- Bỏ chọn ---
 								</MenuItem>
-								<MenuItem
+								{model.managers.map(manager => {
+									return(<MenuItem value={manager.id} className={matClasses.selectItem}>{manager.extend_user_name_email}</MenuItem>)
+								})}
+								{/* <MenuItem
 									value={
 										"Phượng Thị Minh Nguyễn | phuongnguyen@meu-solutions.com"
 									}
@@ -838,7 +875,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 									className={matClasses.selectItem}
 								>
 									Thiên Đình Võ | thienvo@meu-solutions.com
-								</MenuItem>
+								</MenuItem> */}
 							</Select>
 							{
 								<FormHelperText>
