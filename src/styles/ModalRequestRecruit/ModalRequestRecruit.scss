@@ -152,6 +152,18 @@ input {
 				}
 			}
 		}
+
+		div#extend_approver_fullname_email-select-label, div#extend_approver_fullname_email-select {
+
+			width: 100%;
+			min-width: 100%;
+		}
+
+		div.panel-heading.note-toolbar{
+
+			width: fit-content;
+			min-width: fit-content;
+		}
 	}
 }
 

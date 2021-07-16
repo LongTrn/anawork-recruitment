@@ -17,6 +17,7 @@ import {
 	FormControl,
 	FormHelperText,
 } from "@material-ui/core";
+import { sizing } from '@material-ui/system';
 
 import { makeStyles } from "@material-ui/styles";
 
@@ -48,16 +49,27 @@ const useStyles = makeStyles((theme) => ({
 	select: {
 		height: 20,
 		fontSize: 13,
+		width: "100%",
 	},
 	selectError: {
 		height: 20,
 		fontSize: 13,
 		color: "rgb(211, 84, 84)",
+		width: "100%",
 	},
 	selectItem: {
+
 		paddingLeft: 0,
 		fontFamily: "Roboto",
 		fontSize: 13,
+		width: "100%",
+		minWidth: "100%",
+		
+		"div": {
+			
+			width: "100%",
+			minWidth: "100%",
+		}
 	},
 	datePicker: {
 		// background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -79,7 +91,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		salary: "",
 		plan_start: "",
 		plan_finish: "",
-		extend_approver_fullname_email: "",
+		extend_approver_fullname_email: {name: "", value: ""},
 		code: "",
 	});
 	const [touched, setTouched] = useState({
@@ -184,7 +196,8 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		}
 
 		if (touched.category_id) {
-			if (!category_id || isNaN(parseInt(category_id))) {
+			if (!category_id || category_id === "") {
+			// if (!category_id || isNaN(parseInt(category_id))) {
 				setError((prev) => {
 					return {
 						...prev,
@@ -195,7 +208,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		}
 
 		if (touched.extend_position_name) {
-			if (!extend_position_name || isNaN(parseInt(extend_position_name))) {
+			if (!extend_position_name || extend_position_name.name === "") {
 				setError((prev) => {
 					return {
 						...prev,
@@ -340,7 +353,8 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		if (touched.extend_approver_fullname_email) {
 			if (
 				!extend_approver_fullname_email ||
-				extend_approver_fullname_email === ""
+				extend_approver_fullname_email.value === "" ||
+				extend_approver_fullname_email.name === ""
 			) {
 				setError((prev) => {
 					return {
@@ -417,28 +431,28 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 				is_replace: null,
 				approved_date: null,
 				approved_status_id: "cae086d1-38bb-40ac-bb12-708fc3c60959",
-				approver_id: "42f588d5-ea71-42e3-ba3c-8add71bd91b5",
-				category_id: 1,
+				approver_id: extend_approver_fullname_email.value,
+				// category_id: 1,
 				code: "",
-				created_at: "2021-07-16T08:46:30.0562564Z",
+				created_at: moment().format("YYYY-MM-DDTHH:mm:ss"),
 				created_by: id,
-				modified_at: "2021-07-16T08:46:30.0648986Z",
+				modified_at: "",
 				modified_by: id,
 				plan_finish: moment(plan_finish).format("YYYY-MM-DDTHH:mm:ss"),
 				plan_start: moment(plan_start).format("YYYY-MM-DDTHH:mm:ss"),
 				position_id: "85c24464-ee70-4e14-ac8b-8989dde4998b",
 				extend_position_name: extend_position_name.value,
-				// category_id: category_id.value,
-				// extend_approver_fullname_email: extend_approver_fullname_email.name,
+				category_id: category_id.value,
+				extend_approver_fullname_email: extend_approver_fullname_email.name,
 			}
-			console.group("submit State");
-			console.log(submitState)
-			console.groupEnd();
+			// console.group("submit State");
+			// console.log(submitState)
+			// console.groupEnd();
 
-			// const response = await axios.post("/api/recruits/requests", submitState)
+			const response = await axios.post("/api/recruits/requests", submitState)
 
-			// if (!response) console.log()
-			// if (!response.data.success) console.log("Failed to load")
+			if (!response) console.log()
+			if (!response.data.success) console.log("Failed to load")
 
 		}
 	}));
@@ -537,7 +551,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 								labelId="category_id-select-label"
 								id="category_id-select"
 								name="category_id"
-								value={category_id}
+								value={category_id.name}
 								onClick={() =>
 									setTouched((prev) => {
 										return {
@@ -546,14 +560,16 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 										};
 									})
 								}
-								renderValue={() => category_id || "Loại tuyển dụng"}
-								onChange={(event) => {
+								renderValue={() => category_id.name || "Loại tuyển dụng"}
+								onChange={async (event) => {
+									const category = TypeRecruit.find(({ id }) => id === event.target.value)
 									setState((prev) => {
 										return {
 											...prev,
-											category_id: TypeRecruit.find(
-												({ id }) => id === event.target.value
-											).id,
+											category_id:{
+												value: category.id,
+												name: category.name,	
+											},
 										};
 									});
 								}}
@@ -596,7 +612,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 								labelId="extend_position_name-select-label"
 								id="extend_position_name-select"
 								name="extend_position_name"
-								value={extend_position_name.name}
+								value={extend_position_name.value}
 								displayEmpty={true}
 								renderValue={(e) => {
 									// const display = PositionRecruit.find(({id}) => id === event.target.value).id
@@ -836,14 +852,14 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 								labelId="extend_approver_fullname_email-select-label"
 								id="extend_approver_fullname_email-select"
 								name="extend_approver_fullname_email"
-								value={extend_approver_fullname_email}
+								value={extend_approver_fullname_email.value}
 								displayEmpty={true}
 								renderValue={() =>
-									extend_approver_fullname_email || "Cấp trên duyệt yêu cầu"
+									extend_approver_fullname_email.name || "Cấp trên duyệt yêu cầu"
 								}
 								className={
 									error && error.extend_approver_fullname_email
-										? `${matClasses.select} ${matClasses.selectError}`
+										? `${matClasses.select} ${matClasses.selectError} test`
 										: `${matClasses.select}`
 								}
 								onClick={() =>
@@ -854,11 +870,33 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 										};
 									})
 								}
-								onChange={(event) => handleChange(event)}
+								// onChange={(event) => handleChange(event)}
+								onChange={async (event) => {
+									const target = await model.managers.find(({ id }) => id === event.target.value);
+									if (target === undefined) {
+										setState((prev) => {
+											return {
+												...prev,
+												extend_approver_fullname_email: {
+													name:	"",
+													value:	"",
+												},
+											};
+										});
+									} else {
+										setState((prev) => {
+											return {
+												...prev,
+												extend_approver_fullname_email: {
+													name:	target.extend_user_name_email,
+													value:	target.id,
+												},
+											};
+										});
+									}
+								}}
 							>
-								<MenuItem value="" className={matClasses.selectItem}>
-									--- Bỏ chọn ---
-								</MenuItem>
+								<MenuItem value="" className={matClasses.selectItem}> --- Bỏ chọn --- </MenuItem>
 								{model.managers.map(manager => {
 									return(<MenuItem value={manager.id} className={matClasses.selectItem}>{manager.extend_user_name_email}</MenuItem>)
 								})}
