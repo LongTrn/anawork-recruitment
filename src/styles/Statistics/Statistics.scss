@@ -6,7 +6,7 @@
 .stats {
 
 	// width: 851px;
-	// height: 229px;
+	min-height: 275px;
 	// width: calc(100% - 273px);
 	// width: calc(100vw - 273px - 16px -300px);
 	margin: 22px 16px 16px 150px;
@@ -55,6 +55,8 @@
 	}
 
 	&__charts {
+		
+		max-height: 275px;
 
 		&__design {
 

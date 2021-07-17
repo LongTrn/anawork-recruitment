@@ -9,66 +9,7 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 	const [data, setData] = useState(null);
   
 	const handleClose = () => setShow(false);
-	const handleShow = (event) => {
-		console.log(event.target)
-		setShow(true)
-	};
-
-	const fetchData = async ( id ) => {
-		const response = await axios.get(`/api/recruits/requests/${id}`)
-		
-		if (!response.data.success) { return []}
-		console.log(response.data)
-
-		const {
-			name,
-			category_id,
-			extend_position_name,
-			quantity,
-			salary,
-			plan_start,
-			plan_end,
-			extend_approver_fullname_email,
-			job_description,
-			code,
-		} = response.data.data
-
-		setData(prev => {return{
-			name,
-			category_id,
-			extend_position_name,
-			quantity,
-			salary,
-			plan_start,
-			plan_end,
-			extend_approver_fullname_email,
-			job_description,
-			code,
-		}})
-		console.log({
-			name,
-			category_id,
-			extend_position_name,
-			quantity,
-			salary,
-			plan_start,
-			plan_end,
-			extend_approver_fullname_email,
-			job_description,
-			code,
-		})
-		console.log(data)
-		
-	}
-	
-	useEffect(() => {
-		
-		console.log(data)
-		if (show) {
-			
-			// fetchData(id)
-		}
-	}, [show])
+	const handleShow = () => setShow(true);
 
 	return (
 		<div>
@@ -76,10 +17,9 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 				type="button"
 				className="btn btn-outline-primary table__rows__behavior__button text-nowrap "
 				onClick={handleShow}
-				id={id}
 			>
-				<i id={id} className="bi bi-list-ul table__rows__behavior__button__icon" />
-				<span id={id} className="table__rows__behavior__button__text">Xem chi tiết</span>
+				<i className="bi bi-list-ul table__rows__behavior__button__icon" />
+				<span className="table__rows__behavior__button__text">Xem chi tiết</span>
 			</button>
 
 			<Modal
@@ -92,10 +32,9 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 				<Header 
 					closeButton
 					closeLabel=""
-					// closeVariant="success"
 					className="modal-preview-recruit__header"
 				>
-					<Title className="modal-preview-recruit__header__text">{header||"Yêu cầu tuyển dụng"}</Title>
+					<Title className="modal-preview-recruit__header__text text-nowrap">{header||"Yêu cầu tuyển dụng"}</Title>
 				</Header>
 				<Body>
 					<ModalPreviewRecruit id={id} view/>

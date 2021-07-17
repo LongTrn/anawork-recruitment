@@ -3,7 +3,7 @@ import "../../styles/ButtonView/ButtonView.scss"
 import { Modal, } from "react-bootstrap";
 import { ModalPreviewRecruit, } from "../index"
 
-export default function ButtonView ({ header = "Yêu cầu tuyển dụng", data }) {
+export default function ButtonView ({ header = "Yêu cầu tuyển dụng", id }) {
 	const { Header, Title, Body, Footer, } = Modal;
 	const [show, setShow] = useState(false);
   
@@ -34,10 +34,10 @@ export default function ButtonView ({ header = "Yêu cầu tuyển dụng", data
 					closeVariant="success"
 					className="modal-preview-recruit__header"
 				>
-					<Title className="modal-preview-recruit__header__text">{header||"Yêu cầu tuyển dụng"}</Title>
+					<Title className="modal-preview-recruit__header__text text-nowrap">{header||"Yêu cầu tuyển dụng"}</Title>
 				</Header>
 				<Body>
-					<ModalPreviewRecruit data={data} view={true}/>
+					<ModalPreviewRecruit view={true} id={id}/>
 				</Body>
 				<Footer>
 					<button className="btn btn-primary button__detail " onClick={handleClose}><span className="button__text button__text">Xong</span></button>

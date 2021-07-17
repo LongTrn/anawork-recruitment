@@ -11,9 +11,14 @@
 
 	// width: 100vw;
 	display: flex;
+	height: min-content;
 	// justify-content: ;
 
 	&__head { 
 
+	}
+
+	&.hanging__head {
+		height: max-content;
 	}
 }

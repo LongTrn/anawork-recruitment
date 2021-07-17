@@ -35,7 +35,7 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 		}
 
 		fetchData(pageIndex, pagesize)
-		console.log(list)
+		// console.log(list)
 
 	}, [ pagesize, ])
 
@@ -47,11 +47,11 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 	// useEffect(() => console.log(moment().format()), [])
 
 	return (
-		<div>
+		<>
 			<div className="table--padding">
 				<table className="table table-borderless">
-					<thead>
-						<tr>
+					<thead className="table-recruit__header">
+						<tr className="table-recruit__header__rows">
 							<th 
 								scope="col"
 								className={editable? "text-nowrap table__header__name col-span--2":"text-nowrap table__header__name"}
@@ -132,7 +132,7 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 				</table>
 			</div>
 			{!list.length&& (<div className="no-content">{"Không có dữ liệu"}</div>)}
-		</div>
+		</>
 
 	)
 }

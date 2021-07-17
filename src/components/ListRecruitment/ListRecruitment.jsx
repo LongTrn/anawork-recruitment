@@ -17,9 +17,7 @@ export default function ListRecruitment (props) {
 	const [allRequest, setAllRequest] = useState(false)
 	
 	const select = (value) => {
-
 		if (!value) return;
-
 		setPage(prev => {return ({
 			...prev,
 			pagesize: (value),
@@ -27,45 +25,29 @@ export default function ListRecruitment (props) {
 	}
 
 	const first = () => {
-
 		if (allRequest) fetchAllData(1, pagesize);
 		else fetchData(1, pagesize);
-		console.log("first button", page)
-
 	}
 
 	const previous = () => {
-
 		if (allRequest) fetchAllData(pageIndex - 1, pagesize);
 		else fetchData(pageIndex - 1, pagesize);
-		console.log("previous button", page)
-
 	}
 
 	const next = () => {
-
 		if (allRequest) fetchAllData(pageIndex + 1, pagesize)
 		else fetchData(pageIndex + 1, pagesize)
-		console.log("next button", page)
-
 	}
 
 	const last = () => {
-
 		const lastPage = Math.ceil(total / pagesize)
-		
 		if (allRequest) fetchAllData(lastPage, pagesize)
 		else fetchData(lastPage, pagesize)
-		console.log("last button", page)
-
 	}
 
 	const fetchData = async ( index = 1, size = 10, ) => {
-		
 		const response = await axios.get(`/api/recruits/pendingRequests?Filters=${encodeURIComponent("extend_request_status==Chờ duyệt")}&Sorts=&Page=${index}&PageSize=${size}`)
-
 		if (!response.data.success) { return []}
-
 		const { pageIndex, pagesize, total, collection } = response.data.data
 		setPage({
 			pageIndex, pagesize, total,
@@ -91,25 +73,17 @@ export default function ListRecruitment (props) {
 		setAllRequest(prev=>!prev)
 	}
 
-	useEffect(() => {
-
-		// get API here
-		fetchData();
-		// const data = ListRecruitmentModel // fetch data here
-	}, [])
+	// useEffect(() => {
+	// 	fetchData();
+	// }, [])
 
 	useEffect(() => {
-		console.log("PAGE ", page)
-		console.log(state)
-	}, [page])
+	}, [ page ])
 
 	useEffect(() => {
-
 		if (allRequest) fetchAllData(pageIndex, pagesize)
 		else fetchData(pageIndex, pagesize)
-
-		console.log(allRequest)
-	} , [allRequest])
+	} , [ allRequest ])
 
 	return (
 		<div className="list">

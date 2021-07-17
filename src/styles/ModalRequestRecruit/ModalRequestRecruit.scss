@@ -14,11 +14,26 @@
 	background-color: var(--ezycheck-white);
 }
 
+.modal-header {
+
+	height: fit-content;
+}
+
+.modal-body {
+
+	max-height: max-content;
+}
+
 .modal-dialog {
 
-	max-width: 746px;
+	max-width: max-content;
+	// max-width: 746px;
 	margin: auto;
 	margin-top: 93px;
+}
+
+.gap-2.modal-footer {
+    height: 60px;
 }
 
 label {
@@ -29,11 +44,12 @@ label {
 	justify-content: flex-end;
 }
 
-.close {
+button.close {
 
 	border: none;
 	background-color: initial;
-	padding:
+	width: 36px;
+	height: 36px;
 	
 	span {
 
@@ -58,14 +74,19 @@ input {
 
 .request-recruit {
 
+	height: fit-content;
+
 	&__row {
 
+		// height: max-content;
+		// max-height: 56px;
+		padding-bottom: 16px;
 	}
 
-	&__row:first-child {
+	div.row, &__row:first-child {
 
-		margin-top: 8px;
-		height: 100%;
+		// margin-top: 8px;
+		// height: 56px;
 	}
 
 	&__col {
@@ -74,12 +95,8 @@ input {
 		flex-grow: 0;
 		font-family: Roboto;
 		font-size: 13px;
-		font-stretch: normal;
-		font-style: normal;
-		line-height: normal;
-		letter-spacing: normal;
 		text-align: right;
-		// height: 42px;
+		min-height: 40px;
 		color: var(--primary-dark-grey);
 
 		input, select, textarea {
@@ -134,6 +151,17 @@ input {
 					}
 				}
 			}
+		}
+
+		& div.MuiFormControl-root {
+
+			width: 100%;
+		}
+
+		div.panel-heading.note-toolbar{
+
+			width: fit-content;
+			min-width: fit-content;
 		}
 	}
 }

@@ -2,24 +2,10 @@
 
 	display: flex;
 	justify-content: flex-end;
-	margin: auto 10%;
+	// margin: auto 10%;
 	align-items:baseline;
-
-	&__text {
-
-		width: 153px;
-		height: 20px;
-		margin: 0 19px 0 0;
-		font-family: Poppins;
-		font-size: 13px;
-		font-weight: normal;
-		font-stretch: normal;
-		font-style: normal;
-		line-height: normal;
-		letter-spacing: normal;
-		text-align: left;
-		color: #757575;
-	}
+	max-height: 65px;
+	padding: 0 16px;
 
 	select {
 		
@@ -41,32 +27,51 @@
 			// font-family: Poppins;
 			// font-size: 13px;
 			text-align: center;
-			// color: #4a4a4a;			
+			// color: #4a4a4a;	
+			// height: fit-content;		
 		}
+
+		&#paging__ListRecruitment {
+
+			height: max-content;
+		}
+	}
+
+	&__item {
+
+		display: flex;
+		flex-direction: row;
+		align-items: baseline;
+	}
+
+	&__text {
+
+		width: max-content;
+		height: 20px;
+		margin: 0 16px 0 0;
+		font-family: Poppins;
+		font-size: 13px;
+		text-align: left;
+		color: #757575;
 	}
 
 	&__number {
 
 		max-width: 100px;
 		height: 20px;
-		margin: 0 15.5px 0 19px;
+		margin: 0 16px;
 		font-family: Poppins;
 		font-size: 13px;
-		font-weight: normal;
-		font-stretch: normal;
-		font-style: normal;
-		line-height: normal;
-		letter-spacing: normal;
 		text-align: center;
 		color: #bdbdbd;
 	}
 
 	&__buttons {
 
-		width: 80px;
+		// width: 80px;
 		display: flex;
 		justify-content: space-between;
-		margin-left: 15.5px;
+		// margin-left: 16px;
 
 		button.btn {
 
@@ -77,6 +82,12 @@
 			
 			width: 1px;
 			height: 12px;
+		}
+
+		&--size {
+
+			width: 40px;
+			height: 40px;
 		}
 	}
 }
