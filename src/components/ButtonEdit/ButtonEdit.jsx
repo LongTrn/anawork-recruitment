@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, { useState, useRef, } from 'react';
 import "../../styles/ButtonEdit/ButtonEdit.scss"
 import { Modal, } from "react-bootstrap";
 import { ModalRequestRecruit, } from "../index"
@@ -6,12 +6,15 @@ import { ModalRequestRecruit, } from "../index"
 export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", id}) {
 	const { Header, Title, Body, Footer, } = Modal;
 	const [show, setShow] = useState(false);
-  
+	const buttonRef = useRef();
+
+
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	const handleSubmit = (event) => {
 		
 		console.log("submit", event.target);
+		buttonRef.current.edit()
 
 	}
 
@@ -40,7 +43,7 @@ export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", id})
 					<Title className="modal-preview-recruit__header__text text-nowrap">{header||"Yêu cầu tuyển dụng"}</Title>
 				</Header>
 				<Body>
-					<ModalRequestRecruit id={id} handleSubmit={handleSubmit}/>
+					<ModalRequestRecruit id={id} ref={buttonRef}  handleSubmit={handleSubmit}/>
 				</Body>
 				<Footer className="gap-2">
 					<button className="btn btn-primary button__edit "><span className="button__edit__text" onClick={handleSubmit}>Chỉnh sửa</span></button>

@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
 export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 	const [state, setState] = useState({
 		name: "",
-		category_id: 0,
+		category_id: {name: "", value: ""},
 		quantity: 1,
 		extend_position_name: {name: "", value: ""},
 		job_description: "",
@@ -196,7 +196,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		}
 
 		if (touched.category_id) {
-			if (!category_id || category_id === "") {
+			if (!category_id.name || category_id.name === "") {
 			// if (!category_id || isNaN(parseInt(category_id))) {
 				setError((prev) => {
 					return {
@@ -208,7 +208,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		}
 
 		if (touched.extend_position_name) {
-			if (!extend_position_name || extend_position_name.name === "") {
+			if (!extend_position_name.name || extend_position_name.name === "") {
 				setError((prev) => {
 					return {
 						...prev,
@@ -424,36 +424,128 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		submit: async () => {
 			const id = uuid();
 			const submitState = {
-				...state,
-				id,
-				recruit_process_id: null,
-				description: null,
-				is_replace: null,
 				approved_date: null,
 				approved_status_id: "cae086d1-38bb-40ac-bb12-708fc3c60959",
+				// approver_id: "42f588d5-ea71-42e3-ba3c-8add71bd91b5",
 				approver_id: extend_approver_fullname_email.value,
 				// category_id: 1,
-				code: "",
-				created_at: moment().format("YYYY-MM-DDTHH:mm:ss"),
-				created_by: id,
-				modified_at: "",
-				modified_by: id,
-				plan_finish: moment(plan_finish).format("YYYY-MM-DDTHH:mm:ss"),
-				plan_start: moment(plan_start).format("YYYY-MM-DDTHH:mm:ss"),
-				position_id: "85c24464-ee70-4e14-ac8b-8989dde4998b",
-				extend_position_name: extend_position_name.value,
 				category_id: category_id.value,
-				extend_approver_fullname_email: extend_approver_fullname_email.name,
+				// code: "recruitmentRequest20210717T173452HDOUP",
+				code: "",
+				// created_at: "2021-07-17T10:36:02.4871516Z",
+				// created_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
+				created_at: moment().format("YYYY-MM-DDTHH:mm:ss"),
+				created_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
+				description: null,
+				// id: "8f585b91-acd0-49de-9af6-c6868460f999",
+				id,
+				is_replace: null,
+				// job_description: null,
+				job_description,
+				// modified_at: "2021-07-17T10:36:02.4953358Z",
+				// modified_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
+				modified_at: "",
+				modified_by: "",
+				name: "demo",
+				plan_finish: "2021-07-16T17:00:00Z",
+				plan_start: "2021-07-16T17:00:00Z",
+				// position_id: "85c24464-ee70-4e14-ac8b-8989dde4998b",
+				position_id: extend_position_name.value,
+				// quantity: 1,
+				quantity,
+				recruit_process_id: null,
+				// salary: "",
+				salary,
 			}
-			// console.group("submit State");
-			// console.log(submitState)
-			// console.groupEnd();
+			console.group("submit State");
+			console.log(submitState)
+			console.groupEnd();
+			/**
+				approved_date: null,
+				approved_status_id: "cae086d1-38bb-40ac-bb12-708fc3c60959",
+				approver_id: "42f588d5-ea71-42e3-ba3c-8add71bd91b5",
+				approver_id: extend_approver_fullname_email.value,
+				category_id: 1,
+				category_id: category_id.value,
+				code: "recruitmentRequest20210717T173452HDOUP",
+				code: "",
+				created_at: "2021-07-17T10:36:02.4871516Z",
+				created_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
+				created_at: moment().format("YYYY-MM-DDTHH:mm:ss"),
+				created_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
+				description: null,
+				id: "8f585b91-acd0-49de-9af6-c6868460f999",
+				id,
+				is_replace: null,
+				job_description: null,
+				job_description,
+				modified_at: "2021-07-17T10:36:02.4953358Z",
+				modified_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
+				modified_at: "",
+				modified_by: "",
+				name: "demo",
+				plan_finish: "2021-07-16T17:00:00Z",
+				plan_start: "2021-07-16T17:00:00Z",
+				position_id: "85c24464-ee70-4e14-ac8b-8989dde4998b",
+				position_id: extend_position_name.value,
+				quantity: 1,
+				quantity,
+				recruit_process_id: null,
+				salary: "",
+				salary,
+			 */
 
-			const response = await axios.post("/api/recruits/requests", submitState)
+			const url = `/api/recruits/requests`;
+			const response = await axios.post(url, submitState)
 
-			if (!response) console.log()
+			if (!response) console.log("Fail to add new request")
 			if (!response.data.success) console.log("Failed to load")
+		},
+		
+		edit: async () => {
+			// const id = uuid();
+			const editState = {
+				approved_date: null,
+				approved_status_id: "cae086d1-38bb-40ac-bb12-708fc3c60959",
+				// approver_id: "42f588d5-ea71-42e3-ba3c-8add71bd91b5",
+				approver_id: extend_approver_fullname_email.value,
+				// category_id: 1,
+				category_id: category_id.value,
+				// code: "recruitmentRequest20210717T173452HDOUP",
+				code: "",
+				// created_at: "2021-07-17T10:36:02.4871516Z",
+				// created_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
+				created_at: moment().format("YYYY-MM-DDTHH:mm:ss"),
+				created_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
+				description: null,
+				// id: "8f585b91-acd0-49de-9af6-c6868460f999",
+				id,
+				is_replace: null,
+				// job_description: null,
+				job_description,
+				// modified_at: "2021-07-17T10:36:02.4953358Z",
+				// modified_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
+				modified_at: moment().format("YYYY-MM-DDTHH:mm:ss"),
+				modified_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
+				name: "demo",
+				plan_finish: "2021-07-16T17:00:00Z",
+				plan_start: "2021-07-16T17:00:00Z",
+				// position_id: "85c24464-ee70-4e14-ac8b-8989dde4998b",
+				position_id: extend_position_name.value,
+				// quantity: 1,
+				quantity,
+				recruit_process_id: null,
+				// salary: "",
+				salary,
+			}
+			console.group("edit State");
+			console.log(editState)
+			console.groupEnd();
+			const url = `/api/recruits/requests/${id}`
+			const response = await axios.put(url, editState)
 
+			if (!response) console.log(`Fail to edit current request with id: ${id}`)
+			if (!response.data.success) console.log("Failed to load")
 		}
 	}));
 
@@ -467,7 +559,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		if (id) fetchData(id);
 	}, [id]);
 	
-	useEffect(() => {console.log(model)}, [model])
+	// useEffect(() => {}, [model])
 
 	useEffect(() => {
 		const { plan_finish, plan_start } = state;
@@ -485,9 +577,9 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 
 	useEffect(() => {
 		validation();
-		console.group("sate")
-		console.log(state)
-		console.groupEnd()
+		// console.group("sate")
+		// console.log(state)
+		// console.groupEnd()
 		return () => setError({});
 	}, [state, touched]);
 
@@ -551,7 +643,17 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 								labelId="category_id-select-label"
 								id="category_id-select"
 								name="category_id"
-								value={category_id.name}
+								value={category_id.value}
+								displayEmpty={true}
+								// onClick={() =>
+								// 	setTouched((prev) => {
+								// 		return {
+								// 			...prev,
+								// 			category_id: true,
+								// 		};
+								// 	})
+								// }
+								renderValue={() => category_id.name || "Loại tuyển dụng"}
 								onClick={() =>
 									setTouched((prev) => {
 										return {
@@ -560,7 +662,6 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 										};
 									})
 								}
-								renderValue={() => category_id.name || "Loại tuyển dụng"}
 								onChange={async (event) => {
 									const category = TypeRecruit.find(({ id }) => id === event.target.value)
 									setState((prev) => {
@@ -573,7 +674,12 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 										};
 									});
 								}}
-								className={matClasses.select}
+								// className={matClasses.select}
+								className={
+									error && error.category_id
+										? `${matClasses.select} ${matClasses.selectError}`
+										: `${matClasses.select}`
+								}
 							>
 								{TypeRecruit.map((category_id) => (
 									<MenuItem

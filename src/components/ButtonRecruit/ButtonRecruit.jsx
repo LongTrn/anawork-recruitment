@@ -14,6 +14,7 @@ export default function ButtonRecruit ({ header, }) {
 	const onSubmit = (data) => {
 		// call api here
 		buttonRef.current.submit()
+		handleClose();
 	}
 
 	return (

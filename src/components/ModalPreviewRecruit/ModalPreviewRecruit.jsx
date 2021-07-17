@@ -50,25 +50,8 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 	const {startDay, endDay} = day;
 	
 	const today = moment().format("YYYY-MM-DD");
-
-	// 1 create new without data
-    // const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    
-	// 2 create new with existing data
-	// const contentBlock = htmlToDraft("description");
-	// const contentBlock = htmlToDraft(job_description);
-	// const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-	// const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState));
     const [content, setContent] = useState('');
-	
-	// const handleChangeEditorState = (newState) => {
-	// 	setEditorState(newState);
-	// 	setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
-	// }
-
 	const handleChange = (event) => {
-
-		// console.log('handleChange', event.target.name, event.target.value);
 		setState(prev => {
 			return({
 				...prev,
@@ -126,23 +109,11 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 		}})
 	}
 	
-	// /** Convert html string to draft JS */
-	// const contentBlock = htmlToDraft(response.data.blog.content);
-	// const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-	// const editorState = EditorState.createWithContent(contentState);
-	// setEditorState(editorState);
-
-	// useEffect(() => {
-	// 	// setEditorState("")
-
-	// }, [editorState])
-
 	useEffect(() => {
 
 	}, [ day, ])
 
 	useEffect(() => {
-		// console.log(data)
 		setDay({
 			startDay: moment(state.plan_start).format('YYYY-MM-DD'),
 			endDay: moment(state.plan_end).format('YYYY-MM-DD'),
@@ -169,7 +140,7 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 						<option value="1">Tuyển mới</option>
 						<option value="2">Thay thế</option>
 					</select> */}
-					<p>{category_id === 1?"Tuyển mới": "Thay thế"}</p>
+					<p>{category_id?category_id === 1?"Tuyển mới": "Thay thế":""}</p>
 				</Col>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
@@ -186,23 +157,16 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 				
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
 				<Col sm={3} className="request-recruit__col" >
-					{/* <select name="salary" id="type-select" value={salary} >
-						<option value="0">Không hỗ trợ</option>
-						<option value="1">2,000,000</option>
-						<option value="2">4,000,000</option>
-						<option value="3">6,000,000</option>
-						<option value="4">9,000,000</option>
-					</select> */}
 					<p>{salary || "---"}</p>
 				</Col>
 			</Row>
 			<Row>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-start"  ><b className="label--right text-nowrap">Từ ngày:</b></label></Col>
 				{/* <Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="dateStart" value={startDay || today} minvalue="2018-01-01" maxvalue="2018-12-31"   /></Col> */}
-				<Col sm={3} className="request-recruit__col" ><p>{moment(startDay).format('DD/MM/YYYY')}</p></Col>
+				<Col sm={3} className="request-recruit__col" ><p>{moment(startDay).format('DD/MM/YYYY') || "DD/MM/YYYY"}</p></Col>
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-end" ><b className="label--right text-nowrap">Đến ngày:</b></label></Col>
 				{/* <Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="dateEnd" value={endDay || today} minvalue="2018-01-01" maxvalue="2018-12-31"   /></Col> */}
-				<Col sm={3} className="request-recruit__col" ><p>{moment(endDay).format("DD/MM/YYYY")}</p></Col>
+				<Col sm={3} className="request-recruit__col" ><p>{moment(endDay).format("DD/MM/YYYY") || "DD/MM/YYYY"}</p></Col>
 			</Row>
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="creator" ><b className="label--right text-nowrap">Người duyệt:</b></label></Col>
@@ -211,26 +175,19 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 			<Row className="request-recruit__row">
 				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
 				<Col sm={9} className="request-recruit__col" >
-					{/* <Editor 
-						editorState={editorState} 
-						onEditorStateChange={handleChangeEditorState}
-						toolbar={TextEditorToolbarOption} 
-					/> */}
 					<ReactSummernote
-						value={job_description}
-						// value="Default value"
+						value={job_description || ""}
 						options={{
-						// lang: 'ru-RU',
-						height: 100,
-						dialogsInBody: true,
-						toolbar: [
-							['style', ['style']],
-							['font', ['bold', 'underline', 'clear']],
-							['fontname', ['fontname']],
-							['para', ['ul', 'ol', 'paragraph']],
-							['table', ['table']],
-							['insert', ['link', 'picture', 'video']],
-							['view', ['fullscreen', 'codeview']]
+							height: 100,
+							dialogsInBody: true,
+							toolbar: [
+								['style', ['style']],
+								['font', ['bold', 'underline', 'clear']],
+								['fontname', ['fontname']],
+								['para', ['ul', 'ol', 'paragraph']],
+								['table', ['table']],
+								['insert', ['link', 'picture', 'video']],
+								['view', ['fullscreen', 'codeview']]
 						]
 						}}
 						onClick={(event) => handleClick(event)} onChange={changeDescriptionEditor}
