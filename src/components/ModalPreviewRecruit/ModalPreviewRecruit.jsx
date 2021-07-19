@@ -51,21 +51,13 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 	
 	// const today = moment().format("YYYY-MM-DD");
     const [content, setContent] = useState('');
-	const handleChange = (event) => {
-		setState(prev => {
-			return({
-				...prev,
-				[event.target.name]: event.target.value
-			})
-		})
-	};
 
-	const handleClick = (event) => {
-		// setTouched(prev => {return({
-		// 	...prev,
-		// 	[event.target.name]: true,
-		// })})
-	}
+	// const handleClick = (event) => {
+	// 	setTouched(prev => {return({
+	// 		...prev,
+	// 		[event.target.name]: true,
+	// 	})})
+	// }
 
 	const changeDescriptionEditor = (content) => {
 
@@ -190,7 +182,8 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 								['view', ['fullscreen', 'codeview']]
 						]
 						}}
-						onClick={(event) => handleClick(event)} onChange={changeDescriptionEditor}
+						// onClick={(event) => handleClick(event)} 
+						onChange={changeDescriptionEditor}
 					/>
 				</Col>
 			</Row>
