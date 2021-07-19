@@ -31,7 +31,7 @@ export default function ButtonView ({ header = "Yêu cầu tuyển dụng", id }
 				<Header 
 					closeButton
 					closeLabel=""
-					closeVariant="success"
+					// closeVariant="success"
 					className="modal-preview-recruit__header"
 				>
 					<Title className="modal-preview-recruit__header__text text-nowrap">{header||"Yêu cầu tuyển dụng"}</Title>

@@ -38,7 +38,7 @@ export default function ButtonDelete ({ header = "Yêu cầu tuyển dụng", id
 				<Header 
 					closeButton
 					closeLabel=""
-					closeVariant="success"
+					// // closeVariant="success"
 				>
 					<Title>{"Xóa yêu cầu tuyển dụng"}</Title>
 				</Header>

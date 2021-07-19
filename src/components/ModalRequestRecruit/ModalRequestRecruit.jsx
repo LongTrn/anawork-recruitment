@@ -693,6 +693,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 							>
 								{TypeRecruit.map((category_id) => (
 									<MenuItem
+										key={category_id.id}
 										value={category_id.id}
 										className={matClasses.selectItem}
 									>
@@ -759,23 +760,9 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 									});
 								}}
 							>
-								{/* {PositionRecruit.map((extend_position_name) => (
-									<MenuItem
-										value={extend_position_name.id}
-										className={matClasses.selectItem}
-									>
-										{extend_position_name.name}
-									</MenuItem>
-								))} */}
 								{model.categories.map(category => {
-									return(<MenuItem
-										value={category.id}
-										className={matClasses.selectItem}
-									>{category.name}</MenuItem>)}
+									return(<MenuItem key={category.id} value={category.id} className={matClasses.selectItem} >{category.name}</MenuItem>)}
 								)}
-								{/* <MenuItem value={"Nhân viên"} className={matClasses.selectItem}>Nhân viên</MenuItem>
-							<MenuItem value={"Chức vụ 1"} className={matClasses.selectItem}>Chức vụ 1</MenuItem>
-							<MenuItem value={"Chức vụ 2"} className={matClasses.selectItem}>Chức vụ 2</MenuItem> */}
 							</Select>
 							{
 								<FormHelperText>
@@ -1013,22 +1000,8 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 							>
 								<MenuItem value="" className={matClasses.selectItem}> --- Bỏ chọn --- </MenuItem>
 								{model.managers.map(manager => {
-									return(<MenuItem value={manager.id} className={matClasses.selectItem}>{manager.extend_user_name_email}</MenuItem>)
+									return(<MenuItem key={manager.id} value={manager.id} className={matClasses.selectItem}>{manager.extend_user_name_email}</MenuItem>)
 								})}
-								{/* <MenuItem
-									value={
-										"Phượng Thị Minh Nguyễn | phuongnguyen@meu-solutions.com"
-									}
-									className={matClasses.selectItem}
-								>
-									Phượng Thị Minh Nguyễn | phuongnguyen@meu-solutions.com
-								</MenuItem>
-								<MenuItem
-									value={"Thiên Đình Võ | thienvo@meu-solutions.com"}
-									className={matClasses.selectItem}
-								>
-									Thiên Đình Võ | thienvo@meu-solutions.com
-								</MenuItem> */}
 							</Select>
 							{
 								<FormHelperText>
