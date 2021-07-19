@@ -56,7 +56,7 @@ export default function ListRecruitment (props) {
 	}
 	
 	const fetchAllData = async ( index = 1, size = 10, ) => {
-		const response = await axios.get(`/api/recruits/pendingRequests?Filters=&Sorts=&Page=${index}&PageSize=${size}`)
+		const response = await axios.get(`/api/recruits/requests?Filters=&Sorts=&Page=${index}&PageSize=${size}`)
 		
 		if (!response.data.success) { return []}
 
@@ -73,10 +73,6 @@ export default function ListRecruitment (props) {
 		setAllRequest(prev=>!prev)
 	}
 
-	// useEffect(() => {
-	// 	fetchData();
-	// }, [])
-
 	useEffect(() => {
 	}, [ page ])
 
@@ -87,7 +83,7 @@ export default function ListRecruitment (props) {
 
 	return (
 		<div className="list">
-			<div className="list__header">
+			<div className="list__header list__header--left-padding">
 				<div className="list__header--left-padding">
 					<div className="list__header__text">
 						<Header main="Duyệt yêu cầu tuyển dụng" />

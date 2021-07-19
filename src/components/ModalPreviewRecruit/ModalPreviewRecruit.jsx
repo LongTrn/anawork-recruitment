@@ -49,7 +49,7 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 
 	const {startDay, endDay} = day;
 	
-	const today = moment().format("YYYY-MM-DD");
+	// const today = moment().format("YYYY-MM-DD");
     const [content, setContent] = useState('');
 	const handleChange = (event) => {
 		setState(prev => {
@@ -80,7 +80,7 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 		const response = await axios.get(`/api/recruits/requests/${id}`)
 		
 		if (!response.data.success) { return []}
-		console.log(response.data)
+		// console.log(response.data)
 
 		const {
 			name,
