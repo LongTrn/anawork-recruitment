@@ -50,6 +50,13 @@ const useStyles = makeStyles((theme) => ({
 		height: 20,
 		fontSize: 13,
 		width: "100%",
+		borderColor: "#ccc",
+		"&:before": {
+			borderColor: "#ccc",
+		}
+	},
+	selectIcon: {
+		fill: "#ccc",
 	},
 	selectError: {
 		height: 20,
@@ -72,12 +79,9 @@ const useStyles = makeStyles((theme) => ({
 		}
 	},
 	datePicker: {
-		// background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
 		height: 40,
 		maxWidth: "auto",
 		border: "none",
-		// display: "flex",
-		// alignItems: "flex-start",
 	},
 }));
 
@@ -672,6 +676,11 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 										};
 									})
 								}
+								inputProps={{
+									classes: {
+										icon: matClasses.selectIcon,
+									},
+								}}
 								onChange={async (event) => {
 									const category = TypeRecruit.find(({ id }) => id === event.target.value)
 									setState((prev) => {
@@ -747,6 +756,11 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 										};
 									})
 								}
+								inputProps={{
+									classes: {
+										icon: matClasses.selectIcon,
+									},
+								}}
 								onChange={async (event) => {
 									const target = await model.categories.find(({ id }) => id === event.target.value);
 									setState((prev) => {
@@ -972,7 +986,11 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 										};
 									})
 								}
-								// onChange={(event) => handleChange(event)}
+								inputProps={{
+									classes: {
+										icon: matClasses.selectIcon,
+									},
+								}}
 								onChange={async (event) => {
 									const target = await model.managers.find(({ id }) => id === event.target.value);
 									if (target === undefined) {
