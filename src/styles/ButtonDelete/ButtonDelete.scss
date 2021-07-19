@@ -35,12 +35,14 @@
 			text-align: center;
 			border-radius: 4px;
 			// background-color: var(--primary-purple);
+			color: var(--ezycheck-white);
 		}
 		
 		&__text {
 
 			flex-grow: 0;
 			font-size: 13px;
+			color: rgb(211, 84, 84);
 
 			&__approval {
 
@@ -51,7 +53,8 @@
 			&__cancel {
 
 				font-size: 13px;
-				color: var(--ezycheck-white);
+				color: #000;
+
 			}
 		}
 	}

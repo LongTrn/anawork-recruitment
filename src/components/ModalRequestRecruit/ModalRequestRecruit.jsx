@@ -607,12 +607,12 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		<>
 			<Container className="request-recruit">
 				<Row className="request-recruit__row">
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={2} className="request-recruit__col">
 						<label htmlFor="name" className="label--right text-nowrap">
 							Tên yêu cầu*:
 						</label>
 					</Col>
-					<Col sm={9} className="request-recruit__col">
+					<Col sm={10} className="request-recruit__col">
 						<div
 							className={
 								error && error.name ? "input__div__error " : "input__div"
@@ -642,12 +642,12 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 					</Col>
 				</Row>
 				<Row className="request-recruit__row">
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={2} className="request-recruit__col">
 						<label htmlFor="category_id">
 							<b className="label--right text-nowrap">Loại tuyển dụng*:</b>
 						</label>
 					</Col>
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={4} className="request-recruit__col">
 						<FormControl
 							className={
 								!error.category_id
@@ -708,7 +708,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 							}
 						</FormControl>
 					</Col>
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={2} className="request-recruit__col">
 						<label
 							htmlFor="extend_position_name"
 							className="label--right text-nowrap "
@@ -716,7 +716,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 							<b className="label--right text-nowrap">Chức vụ*:</b>
 						</label>
 					</Col>
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={4} className="request-recruit__col">
 						<FormControl
 							className={
 								!error.category_id
@@ -788,12 +788,12 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 					</Col>
 				</Row>
 				<Row className="request-recruit__row">
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={2} className="request-recruit__col">
 						<label htmlFor="quantity">
 							<b className="label--right text-nowrap">Số lượng*:</b>
 						</label>
 					</Col>
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={4} className="request-recruit__col">
 						<div
 							className={
 								error && error.quantity ? "input__div__error " : "input__div"
@@ -817,12 +817,12 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 							</Text>
 						}
 					</Col>
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={2} className="request-recruit__col">
 						<label htmlFor="salary">
 							<b className="label--right text-nowrap">Mức lương đề xuất:</b>
 						</label>
 					</Col>
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={4} className="request-recruit__col">
 						<div className={"input__div"}>
 							<input
 								id="salary"
@@ -851,12 +851,12 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 					</Col>
 				</Row>
 				<Row>
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={2} className="request-recruit__col">
 						<label htmlFor="date-start">
 							<b className="label--right text-nowrap">Từ ngày*:</b>
 						</label>
 					</Col>
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={4} className="request-recruit__col">
 						{/* <div className={error&&error.plan_start?"input__div__error ":"input__div"}>
 						<input type="date" id="date-start" className={error&&error.plan_start?"error__input":""} name="plan_start" value={plan_start} min={moment().format("YYYY-MM-DDTHH:mm:ss")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)}/>
 					</div> */}
@@ -900,12 +900,12 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 							</Text>
 						}
 					</Col>
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={2} className="request-recruit__col">
 						<label htmlFor="date-end">
 							<b className="label--right text-nowrap">Đến ngày*:</b>
 						</label>
 					</Col>
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={4} className="request-recruit__col">
 						{/* <div className={error&&error.plan_finish?"input__div__error ":"input__div"}>
 						<input type="date" id="date-end" className={error&&error.plan_finish?"error__input":""}  name="plan_finish" value={plan_finish} min={moment().add(1, 'days').format("YYYY-MM-DDTHH:mm:ss")} max={"2023-12-31"} onClick={(event) => handleClick(event)} onChange={(event) => handleChange(event)} />
 					</div> */}
@@ -950,12 +950,12 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 					</Col>
 				</Row>
 				<Row className="request-recruit__row">
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={2} className="request-recruit__col">
 						<label htmlFor="extend_approver_fullname_email">
 							<b className="label--right text-nowrap">Người duyệt*:</b>
 						</label>
 					</Col>
-					<Col sm={9} className="request-recruit__col">
+					<Col sm={10} className="request-recruit__col">
 						<FormControl
 							className={
 								!error.extend_approver_fullname_email
@@ -1041,20 +1041,20 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 					</Col>
 				</Row>
 				<Row className="request-recruit__row">
-					<Col sm={3} className="request-recruit__col">
+					<Col sm={2} className="request-recruit__col">
 						<label htmlFor="job_description">
 							<b className="label--right text-nowrap">Mô tả yêu cầu:</b>
 						</label>
 					</Col>
 					<Col
-						sm={9}
+						sm={10}
 						className="request-recruit__col  request-recruit__col__description"
 					>
 						<ReactSummernote
 							value={job_description}
 							options={{
 								// lang: 'ru-RU',
-								height: 100,
+								height: 200,
 								dialogsInBody: true,
 								styleTags: [
 									"p",
@@ -1122,8 +1122,8 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 					</Col>
 				</Row>
 				{/* <Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="job_description" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
-				<Col sm={9} className="request-recruit__col" >Danh sách tệp đính kèm</Col>
+				<Col sm={2} className="request-recruit__col" ><label htmlFor="job_description" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
+				<Col sm={10} className="request-recruit__col" >Danh sách tệp đính kèm</Col>
 			</Row> */}
 			</Container>
 		</>

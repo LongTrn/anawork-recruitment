@@ -29,7 +29,19 @@ label {
 	justify-content: flex-end;
 	
 	span {
+		
+		font-family: Roboto;
+	}
+	
+	&.label--left {
 
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		font-weight: normal;
+		color: var(--primary-medium-grey);
+		font-size: 10px;
+		height: 12px;
 		font-family: Roboto;
 	}
 }
@@ -61,16 +73,24 @@ input {
 	}
 }
 
-.request-recruit {
+.preview-recruit {
 
 	&__row {
+		
+		height: min-content;
 
+		&__label {
+
+			height: 18px;
+			display: flex;
+			align-items: center;
+			// height: fit-content;
+		}
 	}
 
 	&__row:first-child {
 
-		margin-top: 8px;
-		height: 100%;
+		// margin-top: 8px;
 	}
 
 	&__col {
@@ -79,11 +99,7 @@ input {
 		flex-grow: 0;
 		font-family: Roboto;
 		font-size: 13px;
-		font-stretch: normal;
-		font-style: normal;
-		line-height: normal;
-		letter-spacing: normal;
-		text-align: right;
+		text-align: left;
 		color: var(--primary-dark-grey);
 
 		input, select, textarea {
@@ -102,6 +118,13 @@ input {
 
 			text-align: left;
 		}
+
+		&__value {
+
+			height: 31px;
+			border-bottom: 1px solid #ccc;
+			font-size: 16px;
+		}
 	}
 }
 
@@ -111,6 +134,25 @@ input {
 }
 
 .modal-preview-recruit__header__text.text-nowrap.modal-title.h4 {
+	
     height: max-content;
     width: max-content;
+}
+
+.panel-heading.note-toolbar {
+    // background-color: #8080801d;
+    background-color: #eff0f5;
+	width: 100%;
+}
+
+.request-recruit__col div.panel-heading.note-toolbar {
+    // width: -moz-fit-content;
+    width: 100%;
+    // min-width: -moz-fit-content;
+    min-width: 100%;
+}
+
+.note-editor.note-frame .note-editing-area .note-editable[contenteditable=false], .note-editor.note-airframe .note-editing-area .note-editable[contenteditable=false] {
+    // background-color: #8080801d;
+    background-color: #fff;
 }

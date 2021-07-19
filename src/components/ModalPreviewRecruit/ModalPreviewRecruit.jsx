@@ -44,15 +44,7 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 
 	const {startDay, endDay} = day;
 	
-	// const today = moment().format("YYYY-MM-DD");
     const [content, setContent] = useState('');
-
-	// const handleClick = (event) => {
-	// 	setTouched(prev => {return({
-	// 		...prev,
-	// 		[event.target.name]: true,
-	// 	})})
-	// }
 
 	const changeDescriptionEditor = (content) => {
 
@@ -113,59 +105,54 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 	}, [id,])
 
 	return (
-		<Container className="request-recruit">
-			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="name" className="label--right text-nowrap">Tên yêu cầu:</label></Col>
-				{/* <Col sm={9} className="request-recruit__col" ><input id="name" type="text" className="input--borderless" name="name"  value={name}/></Col> */}
-				<Col sm={9} className="request-recruit__col" ><p>{name}</p></Col>
-				
+		<Container className="preview-recruit">
+			<Row className="preview-recruit__row preview-recruit__row__label">
+				<Col sm={12} className="preview-recruit__col" ><label htmlFor="name" className="label--left text-nowrap">Tên yêu cầu:</label></Col>
 			</Row>
-			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="type" ><b className="label--right text-nowrap">Loại tuyển dụng:</b></label></Col>
-				<Col sm={3} className="request-recruit__col" >
-					{/* <select name="type" id="type-select" className="input--borderless" value={category_id} >
-						<option value="1">Tuyển mới</option>
-						<option value="2">Thay thế</option>
-					</select> */}
-					<p>{category_id?category_id === 1?"Tuyển mới": "Thay thế":""}</p>
-				</Col>
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="position" className="label--right text-nowrap "><b className="label--right text-nowrap">Chức vụ:</b></label></Col>
-				<Col sm={3} className="request-recruit__col" >
-					{/* <select name="position" id="type-select" className="input--borderless" value={extend_position_name} >
-						<option value={extend_position_name}>{extend_position_name}</option>
-					</select> */}
-					<p>{extend_position_name}</p>
-				</Col>
+			<Row className="preview-recruit__row">
+				<Col sm={12} className="preview-recruit__col" ><div className="preview-recruit__col__value">{name}</div></Col>
 			</Row>
-			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="count"  ><b className="label--right text-nowrap">Số lượng:</b></label></Col>
-				{/* <Col sm={3} className="request-recruit__col" ><input id="count" type="number" value={quantity || 1} min={0} className="input--borderless" name="count" /></Col> */}
-				<Col sm={3} className="request-recruit__col" ><p>{quantity}</p></Col>
-				
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="salary" ><b className="label--right text-nowrap">Mức lương đề xuất:</b></label></Col>
-				<Col sm={3} className="request-recruit__col" >
-					<p>{salary || "---"}</p>
-				</Col>
+			<Row className="preview-recruit__row preview-recruit__row__label">
+				<Col sm={6} className="preview-recruit__col" ><label htmlFor="type" className="label--left text-nowrap" >Loại tuyển dụng:</label></Col>
+				<Col sm={6} className="preview-recruit__col" ><label htmlFor="position" className="label--left text-nowrap "className="label--left text-nowrap">Chức vụ:</label></Col>
 			</Row>
-			<Row>
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-start"  ><b className="label--right text-nowrap">Từ ngày:</b></label></Col>
-				{/* <Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="dateStart" value={startDay || today} minvalue="2018-01-01" maxvalue="2018-12-31"   /></Col> */}
-				<Col sm={3} className="request-recruit__col" ><p>{moment(startDay).format('DD/MM/YYYY') || "DD/MM/YYYY"}</p></Col>
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="date-end" ><b className="label--right text-nowrap">Đến ngày:</b></label></Col>
-				{/* <Col sm={3} className="request-recruit__col" ><input type="date" id="date-start" name="dateEnd" value={endDay || today} minvalue="2018-01-01" maxvalue="2018-12-31"   /></Col> */}
-				<Col sm={3} className="request-recruit__col" ><p>{moment(endDay).format("DD/MM/YYYY") || "DD/MM/YYYY"}</p></Col>
+			<Row className="preview-recruit__row">
+				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value">{category_id?category_id === 1?"Tuyển mới": "Thay thế":""}</div></Col>
+				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value">{extend_position_name}</div></Col>
 			</Row>
-			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="creator" ><b className="label--right text-nowrap">Người duyệt:</b></label></Col>
-				<Col sm={9} className="request-recruit__col" ><input id="creator" type="text" className="input--borderless" value={extend_approver_fullname_email} name="creator" /></Col>
+			<Row className="preview-recruit__row preview-recruit__row__label">
+				<Col sm={6} className="preview-recruit__col" ><label htmlFor="count"  className="label--left text-nowrap">Số lượng:</label></Col>
+				{/* <Col sm={6} className="preview-recruit__col" ><input id="count" type="number" value={quantity || 1} min={0} className="input--borderless" name="count" /></Col> */}
+				<Col sm={6} className="preview-recruit__col" ><label htmlFor="salary" className="label--left text-nowrap">Mức lương đề xuất:</label></Col>
 			</Row>
-			<Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Mô tả yêu cầu:</b></label></Col>
-				<Col sm={9} className="request-recruit__col" >
+			<Row className="preview-recruit__row">
+				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value">{quantity}</div></Col>
+				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value">{salary || "---"}</div></Col>
+			</Row>
+			<Row className="preview-recruit__row preview-recruit__row__label">
+				<Col sm={6} className="preview-recruit__col" ><label htmlFor="date-start"  className="label--left text-nowrap">Từ ngày:</label></Col>
+				<Col sm={6} className="preview-recruit__col" ><label htmlFor="date-end" className="label--left text-nowrap">Đến ngày:</label></Col>
+			</Row>
+			<Row className="preview-recruit__row">
+				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value">{moment(startDay).format('DD/MM/YYYY') || "DD/MM/YYYY"}</div></Col>
+				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value">{moment(endDay).format("DD/MM/YYYY") || "DD/MM/YYYY"}</div></Col>
+			</Row>
+			<Row className="preview-recruit__row preview-recruit__row__label">
+				<Col sm={12} className="preview-recruit__col" ><label htmlFor="creator" className="label--left text-nowrap">Người duyệt:</label></Col>
+			</Row>
+			<Row className="preview-recruit__row">
+				<Col sm={12} className="preview-recruit__col" ><div className="preview-recruit__col__value">{extend_approver_fullname_email}</div></Col>
+			</Row>
+			<Row className="preview-recruit__row preview-recruit__row__label">
+				<Col sm={12} className="preview-recruit__col" ><label htmlFor="description" className="label--left text-nowrap">Mô tả yêu cầu:</label></Col>
+			</Row>
+			<Row className="preview-recruit__row">
+				<Col sm={12} className="preview-recruit__col" >
 					<ReactSummernote
+						disabled
 						value={job_description || ""}
 						options={{
-							height: 100,
+							height: 200,
 							dialogsInBody: true,
 							toolbar: [
 								['style', ['style']],
@@ -177,14 +164,15 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 								['view', ['fullscreen', 'codeview']]
 						]
 						}}
-						// onClick={(event) => handleClick(event)} 
 						onChange={changeDescriptionEditor}
 					/>
 				</Col>
 			</Row>
-			{/* <Row className="request-recruit__row">
-				<Col sm={3} className="request-recruit__col" ><label htmlFor="description" ><b className="label--right text-nowrap">Tệp đính kèm:</b></label></Col>
-				<Col sm={9} className="request-recruit__col" >{!code || "Danh sách tệp đính kèm"}</Col>
+			{/* <Row className="preview-recruit__row preview-recruit__row__label">
+				<Col sm={12} className="preview-recruit__col" ><label htmlFor="description" className="label--left text-nowrap">Tệp đính kèm:</label></Col>
+			</Row>
+			<Row className="preview-recruit__row">
+				<Col sm={12} className="preview-recruit__col" >{!code || "Danh sách tệp đính kèm"}</Col>
 			</Row> */}
 		</Container>
 	)

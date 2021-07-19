@@ -117,6 +117,14 @@ button.btn {
 
 .modal {
 
+	&-dialog {
+
+		max-width: 85%;
+		min-width: 60%;
+		margin: auto;
+		margin-top: 5%;
+	}
+
 	&-content {
 
 		height: fit-content;
