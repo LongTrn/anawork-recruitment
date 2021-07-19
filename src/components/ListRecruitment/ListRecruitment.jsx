@@ -89,9 +89,9 @@ export default function ListRecruitment (props) {
 						<Header main="Duyệt yêu cầu tuyển dụng" />
 					</div>
 					<div className="list__header__button" >
-						<button className="btn " ><span className="list__header__button__text" onClick={getAllRequest}>Hiện tất cả</span></button>
+						<button className="btn list__header__button" ><span className="list__header__button__text" onClick={getAllRequest}>Hiện tất cả</span></button>
 						{/* <button htmlFor="list-show-all-request" className="btn " ><span className="list__header__button__text" onClick={getAllRequest}>Hiện tất cả</span></button> */}
-						<input id="list-show-all-request" type="checkbox" className="list__header__button__checkbox" onClick={getAllRequest} onChange={getAllRequest} checked={allRequest} />
+						<input id="list-show-all-request" type="checkbox" className="btn list__header__button__checkbox" onClick={getAllRequest} onChange={getAllRequest} checked={allRequest} />
 						{/* <input id="list-show-all-request" type="checkbox" className="list__header__button__checkbox" checked={allRequest} /> */}
 					</div>
 				</div>
