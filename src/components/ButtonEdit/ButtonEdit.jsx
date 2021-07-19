@@ -38,7 +38,7 @@ export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", id})
 				<Header 
 					closeButton
 					closeLabel=""
-					closeVariant="success"
+					// closeVariant="success"
 				>
 					<Title className="modal-preview-recruit__header__text text-nowrap">{header||"Yêu cầu tuyển dụng"}</Title>
 				</Header>

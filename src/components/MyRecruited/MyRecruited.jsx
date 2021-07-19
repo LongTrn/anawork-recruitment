@@ -57,7 +57,7 @@ export default function MyRecruited (props) {
 
 	const fetchData = async ( index = 1, size = 10, ) => {
 		
-		const response = await axios.get(`/api/recruits/myPendingRequest?Filters=&Sorts=&Page=${index}&PageSize=${size}`)
+		const response = await axios.get(`/api/recruits/myRequests?Filters=&Sorts=&Page=${index}&PageSize=${size}`)
 
 		if (!response.data.success) { return []}
 
