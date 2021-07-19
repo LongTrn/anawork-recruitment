@@ -6,11 +6,37 @@ import { axios } from "../../config/index"
 export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id, }) {
 	const { Header, Title, Body, Footer, } = Modal;
 	const [show, setShow] = useState(false);
-	const [data, setData] = useState(null);
+	const [state, setState] = useState("")
   
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+	const handleReject = async () => {
+		const url =`/api/recruits/requests/${id}/reject`
+		const response = await axios.put(url)
+		if (!response.data.success) return handleClose()
 
+		console.log("Reject request id: ", id)
+		handleClose()
+	}
+	const handleApprove = async () => {
+		const url = `/api/recruits/requests/${id}/approve`
+		const response = await axios.put(url)
+		if (!response.data.success) return handleClose()
+		
+		console.log("Approve request id: ", id)
+		handleClose()
+	}
+
+	const fetchData = async ( id ) => {
+		const response = await axios.get(`/api/recruits/requests/${id}`)
+		
+		if (!response.data.success) { return []}
+		const {extend_request_status,} = response.data.data
+		console.log("test", extend_request_status)
+		setState(extend_request_status)
+	}
+	useEffect(() => {fetchData(id)}, [id])
+	
 	return (
 		<div>
 			<button
@@ -21,7 +47,6 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 				<i className="bi bi-list-ul table__rows__behavior__button__icon" />
 				<span className="table__rows__behavior__button__text">Xem chi tiết</span>
 			</button>
-
 			<Modal
 				show={show}
 				onHide={handleClose}
@@ -40,8 +65,14 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 					<ModalPreviewRecruit id={id} view/>
 				</Body>
 				<Footer className="gap-2">
-					<button className="btn btn-white button__cancel" onClick={handleClose}><span className="button__detail__text__cancel">Từ chối</span></button>
-					<button className="btn btn-primary button__detail "><span className="button__detail__text">Duyệt yêu cầu</span></button>
+					{state !== "Chờ duyệt" ? 
+						<>
+							<button className="btn btn-primary button__detail " onClick={handleClose}><span className="button__detail__text">Xong</span></button>
+						</>
+						: (<>
+							<button className="btn btn-primary button__detail " onClick={handleApprove}><span className="button__detail__text">Duyệt yêu cầu</span></button>
+							<button className="btn btn-white button__cancel" onClick={handleReject}><span className="button__detail__text__cancel">Từ chối</span></button>
+						</>)}
 				</Footer>
 			</Modal>
 		</div>

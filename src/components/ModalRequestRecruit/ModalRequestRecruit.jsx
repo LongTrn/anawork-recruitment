@@ -369,36 +369,36 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 	const fetchData = async (id) => {
 		const response = await axios.get(`/api/recruits/requests/${id}`);
 
-		if (!response.data.success) {
-			return [];
-		}
-		console.log(response.data);
-
+		if (!response.data.success) return;
+		
 		const {
-			name,
-			category_id,
-			extend_position_name,
-			quantity,
-			salary,
-			plan_start,
-			plan_finish,
-			extend_approver_fullname_email,
+			name: nameRequest,
+			category_id: cateRequest,
+			extend_position_name: positionName,
+			position_id: positionId,
+			quantity: quantityRequest,
+			salary: salaryRequest,
+			plan_start: startRequest,
+			plan_finish: finishRequest,
+			extend_approver_fullname_email: approverName,
+			approver_id,
 			job_description,
-			code,
+			code: codeRequest,
 		} = response.data.data;
+		const types = await TypeRecruit.find(({ id }) => id === cateRequest)
 
 		setState((prev) => {
 			return {
-				name,
-				category_id,
-				extend_position_name: { value: extend_position_name},
-				quantity,
-				salary,
-				plan_start,
-				plan_finish,
-				extend_approver_fullname_email,
+				name: nameRequest,
+				category_id: {name: types.name, value: cateRequest},
+				extend_position_name: { name: positionName, value: positionId},
+				quantity: quantityRequest,
+				salary: salaryRequest,
+				plan_start: startRequest,
+				plan_finish: finishRequest,
+				extend_approver_fullname_email: {name: approverName, value: approver_id},
 				job_description,
-				code,
+				code: codeRequest,
 			};
 		});
 	};
@@ -446,9 +446,12 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 				// modified_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
 				modified_at: "",
 				modified_by: "",
-				name: "demo",
-				plan_finish: "2021-07-16T17:00:00Z",
-				plan_start: "2021-07-16T17:00:00Z",
+				// name: "demo",
+				name,
+				// plan_finish: "2021-07-16T17:00:00Z",
+				// plan_start: "2021-07-16T17:00:00Z",
+				plan_finish,
+				plan_start,
 				// position_id: "85c24464-ee70-4e14-ac8b-8989dde4998b",
 				position_id: extend_position_name.value,
 				// quantity: 1,
@@ -504,54 +507,70 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		
 		edit: async () => {
 			// const id = uuid();
+			const {
+				name: nameState,
+				category_id: category_idRequest,
+				extend_position_name: extend_position_nameRequest,
+				job_description: job_descriptionRequest,
+				salary: salaryRequest,
+				plan_start: plan_startRequest,
+				plan_finish: plan_finishRequest,
+				quantity: quantityRequest,
+				extend_approver_fullname_email: extend_approver_fullname_emailRequest,
+				code: codeRequest,
+			} = state;
 			const editState = {
-				approved_date: null,
-				approved_status_id: "cae086d1-38bb-40ac-bb12-708fc3c60959",
+				// approved_date: null,
+				// approved_status_id: "cae086d1-38bb-40ac-bb12-708fc3c60959",
 				// approver_id: "42f588d5-ea71-42e3-ba3c-8add71bd91b5",
-				approver_id: extend_approver_fullname_email.value,
+				approver_id: extend_approver_fullname_emailRequest.value,
 				// category_id: 1,
-				category_id: category_id.value,
+				category_id: category_idRequest.value,
 				// code: "recruitmentRequest20210717T173452HDOUP",
-				code: "",
+				// code: "",
 				// created_at: "2021-07-17T10:36:02.4871516Z",
 				// created_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
 				created_at: moment().format("YYYY-MM-DDTHH:mm:ss"),
 				created_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
 				description: null,
 				// id: "8f585b91-acd0-49de-9af6-c6868460f999",
-				id,
+				// id,
 				is_replace: null,
 				// job_description: null,
-				job_description,
+				job_description: job_descriptionRequest,
 				// modified_at: "2021-07-17T10:36:02.4953358Z",
 				// modified_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
 				modified_at: moment().format("YYYY-MM-DDTHH:mm:ss"),
 				modified_by: "28fcfd7a-ce37-4b88-827f-08468c3b805e",
-				name: "demo",
-				plan_finish: "2021-07-16T17:00:00Z",
-				plan_start: "2021-07-16T17:00:00Z",
+				// name: "demo",
+				name: nameState,
+				// plan_finish: "2021-07-16T17:00:00Z",
+				// plan_start: "2021-07-16T17:00:00Z",
+				plan_finish: plan_finishRequest,
+				plan_start: plan_startRequest,
 				// position_id: "85c24464-ee70-4e14-ac8b-8989dde4998b",
-				position_id: extend_position_name.value,
+				position_id: extend_position_nameRequest.value,
 				// quantity: 1,
-				quantity,
-				recruit_process_id: null,
+				quantity: quantityRequest,
+				// recruit_process_id: null,
 				// salary: "",
-				salary,
+				salary: salaryRequest,
 			}
 			console.group("edit State");
 			console.log(editState)
 			console.groupEnd();
 			const url = `/api/recruits/requests/${id}`
 			const response = await axios.put(url, editState)
-
+			
+			console.group(`Edit request id: ${id}`)
+			console.log(response)
+			console.groupEnd()
 			if (!response) console.log(`Fail to edit current request with id: ${id}`)
 			if (!response.data.success) console.log("Failed to load")
 		}
 	}));
 
 	useEffect(() => {
-		console.group("moment")
-		console.groupEnd();
 	}, []);
 
 	useEffect(() => {
@@ -559,7 +578,6 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		if (id) fetchData(id);
 	}, [id]);
 	
-	// useEffect(() => {}, [model])
 
 	useEffect(() => {
 		const { plan_finish, plan_start } = state;
@@ -577,9 +595,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 
 	useEffect(() => {
 		validation();
-		// console.group("sate")
-		// console.log(state)
-		// console.groupEnd()
+		console.log(state)
 		return () => setError({});
 	}, [state, touched]);
 
@@ -645,15 +661,9 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 								name="category_id"
 								value={category_id.value}
 								displayEmpty={true}
-								// onClick={() =>
-								// 	setTouched((prev) => {
-								// 		return {
-								// 			...prev,
-								// 			category_id: true,
-								// 		};
-								// 	})
-								// }
-								renderValue={() => category_id.name || "Loại tuyển dụng"}
+								renderValue={() => {
+									return category_id.name ||"Loại tuyển dụng"
+								}}
 								onClick={() =>
 									setTouched((prev) => {
 										return {
@@ -720,8 +730,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 								name="extend_position_name"
 								value={extend_position_name.value}
 								displayEmpty={true}
-								renderValue={(e) => {
-									// const display = PositionRecruit.find(({id}) => id === event.target.value).id
+								renderValue={ () => {
 									return extend_position_name.name || "Chọn chức vụ";
 								}}
 								className={
@@ -855,7 +864,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 							dateFormat="DD/MM/YYYY"
 							timeFormat={false}
 							input={true}
-							value={plan_start}
+							value={moment(moment(plan_start).format("YYYY-MM-DDTHH:mm"))}
 							isValidDate={(date) => validDateTime(date)}
 							closeOnSelect
 							minValue={moment().format("YYYY-MM-DDTHH:mm:ss")}
@@ -904,7 +913,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 							dateFormat="DD/MM/YYYY"
 							timeFormat={false}
 							input={true}
-							value={plan_finish}
+							value={moment(moment(plan_finish).format("YYYY-MM-DDTHH:mm"))}
 							isValidDate={(date) => validDateTime(date, plan_start)}
 							closeOnSelect
 							onChange={(date) =>

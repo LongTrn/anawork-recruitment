@@ -2,6 +2,7 @@ import React, { useState, useRef, } from 'react';
 import "../../styles/ButtonEdit/ButtonEdit.scss"
 import { Modal, } from "react-bootstrap";
 import { ModalRequestRecruit, } from "../index"
+import { axios, } from "../../config/index"
 
 export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", id}) {
 	const { Header, Title, Body, Footer, } = Modal;
@@ -11,11 +12,10 @@ export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", id})
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		
-		console.log("submit", event.target);
 		buttonRef.current.edit()
-
+		handleClose()
 	}
 
 	return (
