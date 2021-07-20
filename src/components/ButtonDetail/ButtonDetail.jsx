@@ -3,10 +3,22 @@ import "../../styles/ButtonDetail/ButtonDetail.scss"
 import { Modal, } from "react-bootstrap";
 import { ModalPreviewRecruit, } from "../index"
 import { axios } from "../../config/index"
+import { useDispatch, useSelector} from "react-redux"
+import { 
+	FETCH_RECRUIT_DATA, 
+} from '../../redux/recruit/recruitActionType';
+import { 
+	FETCH_MY_RECRUIT_DATA, 
+} from '../../redux/myRecruit/myRecruitActionType';
+
 export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id, }) {
 	const { Header, Title, Body, Footer, } = Modal;
 	const [show, setShow] = useState(false);
 	const [state, setState] = useState("")
+	
+	const { index, total, pageSize, all } = useSelector(state => state.recruit)
+	const { index: myIndex, total: myTotal, pageSize: myPageSize, all: myAll } = useSelector(state => state.myRecruit)
+	const dispatch = useDispatch();
   
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -14,17 +26,23 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 		const url =`/api/recruits/requests/${id}/reject`
 		const response = await axios.put(url)
 		if (!response.data.success) return handleClose()
-
+		fetchDataAsync()
 		console.log("Reject request id: ", id)
 		handleClose()
 	}
+
 	const handleApprove = async () => {
 		const url = `/api/recruits/requests/${id}/approve`
 		const response = await axios.put(url)
 		if (!response.data.success) return handleClose()
-		
+		fetchDataAsync()
 		console.log("Approve request id: ", id)
 		handleClose()
+	}
+
+	const fetchDataAsync = () => {
+		dispatch({ type: FETCH_RECRUIT_DATA, payload: { input: { all, index, size: pageSize}}})
+		dispatch({ type: FETCH_MY_RECRUIT_DATA, payload: { input: { index: myIndex, size: myPageSize}}})
 	}
 
 	const fetchData = async ( id ) => {
@@ -32,7 +50,6 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 		
 		if (!response.data.success) { return []}
 		const {extend_request_status,} = response.data.data
-		console.log("test", extend_request_status)
 		setState(extend_request_status)
 	}
 	useEffect(() => {fetchData(id)}, [id])

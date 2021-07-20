@@ -2,20 +2,37 @@ import React, { useState, useRef, } from 'react';
 import "../../styles/ButtonEdit/ButtonEdit.scss"
 import { Modal, } from "react-bootstrap";
 import { ModalRequestRecruit, } from "../index"
-import { axios, } from "../../config/index"
+import { useDispatch, useSelector} from "react-redux"
+import { 
+	FETCH_RECRUIT_DATA, 
+} from '../../redux/recruit/recruitActionType';
+import { 
+	FETCH_MY_RECRUIT_DATA, 
+} from '../../redux/myRecruit/myRecruitActionType';
 
 export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", id}) {
 	const { Header, Title, Body, Footer, } = Modal;
 	const [show, setShow] = useState(false);
 	const buttonRef = useRef();
-
-
+	
+	const { index, total, pageSize, all } = useSelector(state => state.recruit)
+	const { index: myIndex, total: myTotal, pageSize: myPageSize, all: myAll } = useSelector(state => state.myRecruit)
+	const dispatch = useDispatch();
+  
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	const handleSubmit = async (event) => {
 		
-		buttonRef.current.edit()
+		const response = buttonRef.current.edit()
+		if (!response) return handleClose()
+		console.log("E thanh cong")
+		fetchData()
 		handleClose()
+	}
+
+	const fetchData = () => {
+		dispatch({ type: FETCH_RECRUIT_DATA, payload: { input: { all, index, size: pageSize}}})
+		dispatch({ type: FETCH_MY_RECRUIT_DATA, payload: { input: { index: myIndex, size: myPageSize}}})
 	}
 
 	return (

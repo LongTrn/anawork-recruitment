@@ -2,10 +2,21 @@ import React, { useState, } from 'react';
 import "../../styles/ButtonDelete/ButtonDelete.scss"
 import { Modal, } from "react-bootstrap";
 import { axios, } from "../../config/index"
+import { useDispatch, useSelector} from "react-redux"
+import { 
+	FETCH_RECRUIT_DATA, 
+} from '../../redux/recruit/recruitActionType';
+import { 
+	FETCH_MY_RECRUIT_DATA, 
+} from '../../redux/myRecruit/myRecruitActionType';
 
 export default function ButtonDelete ({ header = "Yêu cầu tuyển dụng", id }) {
 	const { Header, Title, Body, Footer, } = Modal;
 	const [show, setShow] = useState(false);
+	
+	const { index, total, pageSize, all } = useSelector(state => state.recruit)
+	const { index: myIndex, total: myTotal, pageSize: myPageSize, all: myAll } = useSelector(state => state.myRecruit)
+	const dispatch = useDispatch();
   
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -13,9 +24,15 @@ export default function ButtonDelete ({ header = "Yêu cầu tuyển dụng", id
 		
 		const url = `/api/recruits/requests/${id}`
 		const response = await axios.delete(url)
-
+		if (!response.data.success) {return;}
+		fetchData()
 		console.log(response)
 		handleClose();
+	}
+
+	const fetchData = () => {
+		dispatch({ type: FETCH_RECRUIT_DATA, payload: { input: { all, index, size: pageSize}}})
+		dispatch({ type: FETCH_MY_RECRUIT_DATA, payload: { input: { index: myIndex, size: myPageSize}}})
 	}
 
 	return (

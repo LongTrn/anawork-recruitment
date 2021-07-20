@@ -322,3 +322,10 @@ input[type=date] {
 
 	outline: none;
 }
+
+.request-recruit__col div.panel-heading.note-toolbar {
+    // width: -moz-fit-content;
+    width: 100%;
+    // min-width: -moz-fit-content;
+    min-width: 100%;
+}
