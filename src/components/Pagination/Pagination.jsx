@@ -5,6 +5,10 @@ import {
 	SET_RECRUIT_PAGE, 
 	SET_RECRUIT_PAGE_SIZE,
 } from '../../redux/recruit/recruitActionType';
+import { 
+	SET_MY_RECRUIT_PAGE, 
+	SET_MY_RECRUIT_PAGE_SIZE,
+} from '../../redux/myRecruit/myRecruitActionType';
 
 export default function Pagination ({ mine = false ,classes }) {
 
@@ -15,17 +19,27 @@ export default function Pagination ({ mine = false ,classes }) {
 
 	
 	const handlePage = (index) => {
-		dispatch({ type: SET_RECRUIT_PAGE, payload: { input: { index, size: pageSize}}})
+		if (mine) {
+			dispatch({ type: SET_MY_RECRUIT_PAGE, payload: { input: { index, size: pageSize}}})
+		} else {
+			dispatch({ type: SET_RECRUIT_PAGE, payload: { input: { index, size: pageSize}}})
+		}
 	}
 	
 	const handlePageSize = (size) => {
-		dispatch({ type: SET_RECRUIT_PAGE_SIZE, payload: { input: { index, size}}})
+		if (mine) {
+			dispatch({ type: SET_MY_RECRUIT_PAGE_SIZE, payload: { input: { index, size}}})
+		} else {
+			dispatch({ type: SET_RECRUIT_PAGE_SIZE, payload: { input: { index, size}}})
+		}
 	}
 
 	useEffect(() => { 
 
 		setRanging(parseInt(index * pageSize))
-	}, [index, pageSize, ])
+	}, [ index, pageSize, ])
+
+	useEffect(() => {console.log(mine)}, [ mine ])
 
 	return (
 		<div className={classes? "page center" :"page"}>

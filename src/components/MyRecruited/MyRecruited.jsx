@@ -12,19 +12,12 @@ import {
 export default function MyRecruited (props) {
 
 	const [state, setState] = useState([])
-	// const [page, setPage] = useState({
-
-	// 	index: 1,
-	// 	pageSize: 10,
-	// 	total: 0,
-	// })
-	// const { index, pageSize, total } = page;
 	const { 
 		index,
 		pageSize,
 		total,
 		data,
-	} = useSelector(state => state.recruit)
+	} = useSelector(state => state.myRecruit)
 	const dispatch = useDispatch();
 
 	const fetchData = async ( all = false, index = 1, size = 10, ) => {
@@ -49,7 +42,7 @@ export default function MyRecruited (props) {
 				</div>
 			</div>
 			<TableRecruitment editable data={state} index={index} pageSize={pageSize} />
-			<Pagination classes={"center"} />
+			<Pagination mine={true} classes={"center"} />
 		</div>
 	)
 }
