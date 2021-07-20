@@ -6,9 +6,9 @@ import {
 	SET_RECRUIT_PAGE_SIZE,
 } from '../../redux/recruit/recruitActionType';
 
-export default function Pagination ({ classes }) {
+export default function Pagination ({ mine = false ,classes }) {
 
-	const { index, total, pageSize, } = useSelector(state => state.recruit)
+	const { index, total, pageSize, } = useSelector(state => mine? state.myRecruit : state.recruit)
 	const numbersList = [ 5, 10 , 20 , 100];
 	const [ranging, setRanging] = useState(index * pageSize)
 	const dispatch = useDispatch();

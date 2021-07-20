@@ -7,8 +7,6 @@ import { Header, TableRecruitment, Pagination, } from "../index"
 import { useDispatch, useSelector, } from "react-redux"
 import { 
 	FETCH_RECRUIT_DATA, 
-	SET_RECRUIT_PAGE, 
-	SET_RECRUIT_PAGE_SIZE,
 } from '../../redux/recruit/recruitActionType';
 
 export default function ListRecruitment (props) {

@@ -4,76 +4,39 @@ import { Header, TableRecruitment, Pagination, } from "../index"
 // import { MyRecruitedModel,} from "../../models/index"
 import { axios } from "../../config/index"
 
+import { useDispatch, useSelector, } from "react-redux"
+import { 
+	FETCH_MY_RECRUIT_DATA, 
+} from '../../redux/myRecruit/myRecruitActionType';
+
 export default function MyRecruited (props) {
 
 	const [state, setState] = useState([])
-	const [page, setPage] = useState({
+	// const [page, setPage] = useState({
 
-		pageIndex: 1,
-		pagesize: 10,
-		total: 0,
-	})
-	const { pageIndex, pagesize, total } = page;
-	
-	const select = (value) => {
+	// 	index: 1,
+	// 	pageSize: 10,
+	// 	total: 0,
+	// })
+	// const { index, pageSize, total } = page;
+	const { 
+		index,
+		pageSize,
+		total,
+		data,
+	} = useSelector(state => state.recruit)
+	const dispatch = useDispatch();
 
-		if (!value) return;
-
-		// console.log("selected value", value)
-		setPage(prev => {return ({
-			...prev,
-			pagesize: value,
-		})})
-	}
-
-	const first = () => {
-
-		fetchData(1, pagesize);
-		console.log("first button", page)
-
-	}
-
-	const previous = () => {
-
-		fetchData(pageIndex - 1, pagesize);
-		console.log("previous button", page)
-
-	}
-
-	const next = () => {
-
-		fetchData(pageIndex + 1, pagesize);
-		console.log("next button", page)
-
-	}
-
-	const last = () => {
-
-		const lastPage = Math.ceil(total / pagesize)
-		fetchData(lastPage, pagesize)
-		console.log("last button", page)
-
-	}
-
-	const fetchData = async ( index = 1, size = 10, ) => {
-		
-		const response = await axios.get(`/api/recruits/myRequests?Filters=&Sorts=&Page=${index}&PageSize=${size}`)
-
-		if (!response.data.success) { return []}
-
-		const { pageIndex, pagesize, total, collection } = response.data.data
-		setPage({
-			pageIndex, pagesize, total,
-		})
-		
-		setState(prev => collection)
+	const fetchData = async ( all = false, index = 1, size = 10, ) => {
+		dispatch({ type: FETCH_MY_RECRUIT_DATA, payload: { input: {all, index, size}}})
 	}
 
 	useEffect(() => {
-		
-		// get API here
+		setState(data)
+	}, [ data ])
+	
+	useEffect(() => {
 		fetchData()
-		// const data = MyRecruitedModel // fetch data here  
 	}, [])
 
 	return (
@@ -85,18 +48,8 @@ export default function MyRecruited (props) {
 					</div>
 				</div>
 			</div>
-			<TableRecruitment editable data={state} pageIndex={pageIndex} pagesize={pagesize} />
-			<Pagination 
-				pageIndex={pageIndex} 
-				pageSize={pagesize} 
-				total={total} 
-				select={select}
-				first={first}
-				previous={previous}
-				next={next}
-				last={last}
-				classes={"center"}
-			/>
+			<TableRecruitment editable data={state} index={index} pageSize={pageSize} />
+			<Pagination classes={"center"} />
 		</div>
 	)
 }
