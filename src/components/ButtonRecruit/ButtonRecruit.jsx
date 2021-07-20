@@ -2,19 +2,40 @@ import React, { useState, useRef, } from 'react'
 import "../../styles/ButtonRecruit/ButtonRecruit.scss"
 import { Button, Modal, } from "react-bootstrap";
 import { ModalRequestRecruit, } from "../index"
+import { useDispatch, useSelector } from "react-redux"
+import { 
+	FETCH_RECRUIT_DATA, 
+} from '../../redux/recruit/recruitActionType';
+import { 
+	FETCH_MY_RECRUIT_DATA, 
+} from '../../redux/myRecruit/myRecruitActionType';
 
 export default function ButtonRecruit ({ header, }) {
 	const buttonRef = useRef();
 	const { Header, Title, Body, Footer, } = Modal;
 	const [show, setShow] = useState(false);
+	
+	const { index, total, pageSize, all } = useSelector(state => state.recruit)
+	const { index: myIndex, total: myTotal, pageSize: myPageSize, all: myAll } = useSelector(state => state.myRecruit)
+	const dispatch = useDispatch();
   
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const onSubmit = (data) => {
+	const onSubmit = async (data) => {
 		// call api here
-		buttonRef.current.submit()
+		const response = await buttonRef.current.submit()
+		if (!response) {
+			handleClose();
+			return;
+		}
+		fetchData()
 		handleClose();
+	}
+	
+	const fetchData = () => {
+		dispatch({ type: FETCH_RECRUIT_DATA, payload: { input: { all, index, size: pageSize}}})
+		dispatch({ type: FETCH_MY_RECRUIT_DATA, payload: { input: { index: myIndex, size: myPageSize}}})
 	}
 
 	return (

@@ -11,10 +11,8 @@ import {
 
 function* workerMyRecruit (action) {
 	try {
-		const { all, index, size } = action.payload.input
-		console.log("set my page", action.payload.input)
-		const url = all? `/api/recruits/requests?Filters=&Sorts=&Page=${index}&PageSize=${size}`
-			: `/api/recruits/pendingRequests?Filters=${encodeURIComponent("extend_request_status==Chờ duyệt")}&Sorts=&Page=${index}&PageSize=${size}`
+		const { index, size } = action.payload.input
+		const url = `/api/recruits/myRequests?Filters=&Sorts=&Page=${index}&PageSize=${size}`
 		const response = yield axios.get(url)
 		
 		if (!response.data.success) throw new Error("Fetch My List Recruits Failed")

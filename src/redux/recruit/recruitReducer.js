@@ -4,6 +4,7 @@ import {
 	FETCH_RECRUIT_SUCCESS,
 	SET_RECRUIT_PAGE,
 	SET_RECRUIT_PAGE_SIZE,
+	SET_RECRUIT_ALL_REQUESTS,
 } from "./recruitActionType"
 
 const initial = {
@@ -13,6 +14,7 @@ const initial = {
 	data: [],
 	isLoading: false,
 	error: null,
+	all: false,
 }
 
 export const recruitReducer = (state = initial, action) => {
@@ -49,6 +51,12 @@ export const recruitReducer = (state = initial, action) => {
 			return {
 				...state,
 				pageSize: action.payload.pageSize,
+			}
+
+		case SET_RECRUIT_ALL_REQUESTS:
+			return {
+				...state,
+				all: action.payload.input.all,
 			}
 
 

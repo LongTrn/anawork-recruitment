@@ -7,6 +7,7 @@ import { Header, TableRecruitment, Pagination, } from "../index"
 import { useDispatch, useSelector, } from "react-redux"
 import { 
 	FETCH_RECRUIT_DATA, 
+	SET_RECRUIT_ALL_REQUESTS,
 } from '../../redux/recruit/recruitActionType';
 
 export default function ListRecruitment (props) {
@@ -18,6 +19,7 @@ export default function ListRecruitment (props) {
 		pageSize,
 		total,
 		data,
+		all,
 	} = useSelector(state => state.recruit)
 	const dispatch = useDispatch();
 
@@ -25,21 +27,21 @@ export default function ListRecruitment (props) {
 		dispatch({ type: FETCH_RECRUIT_DATA, payload: { input: {all, index, size}}})
 	}
 
-	const getAllRequest = () => {
-		setAllRequest(prev=>!prev)
+	const handleAllRequest = () => {
+		setAllRequest(prev =>!prev)
 	}
-
-	useEffect(() => {
-	}, [ index, pageSize, total, data, ])
-
 
 	useEffect(() => {
 		setState(data)
 	}, [ data ])
 
 	useEffect(() => {
+		setAllRequest(prev=>all)
+	} , [ all, ])
+
+	useEffect(() => {
 		fetchData(allRequest, index, pageSize)
-	} , [ allRequest ])
+	}, [ allRequest,])
 
 	return (
 		<div className="list">
@@ -49,9 +51,9 @@ export default function ListRecruitment (props) {
 						<Header main="Duyệt yêu cầu tuyển dụng" />
 					</div>
 					<div className="list__header__button" >
-						<button className="btn list__header__button" ><span className="list__header__button__text" onClick={getAllRequest}>Hiện tất cả</span></button>
+						<button className="btn list__header__button" ><span className="list__header__button__text" onClick={() => handleAllRequest()}>Hiện tất cả</span></button>
 						{/* <button htmlFor="list-show-all-request" className="btn " ><span className="list__header__button__text" onClick={getAllRequest}>Hiện tất cả</span></button> */}
-						<input id="list-show-all-request" type="checkbox" className="btn list__header__button__checkbox" onClick={getAllRequest} onChange={getAllRequest} checked={allRequest} />
+						<input id="list-show-all-request" type="checkbox" className="btn list__header__button__checkbox"  checked={allRequest} />
 						{/* <input id="list-show-all-request" type="checkbox" className="list__header__button__checkbox" checked={allRequest} /> */}
 					</div>
 				</div>

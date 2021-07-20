@@ -12,7 +12,7 @@ import {
 
 export default function Pagination ({ mine = false ,classes }) {
 
-	const { index, total, pageSize, } = useSelector(state => mine? state.myRecruit : state.recruit)
+	const { index, total, pageSize, all } = useSelector(state => mine? state.myRecruit : state.recruit)
 	const numbersList = [ 5, 10 , 20 , 100];
 	const [ranging, setRanging] = useState(index * pageSize)
 	const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export default function Pagination ({ mine = false ,classes }) {
 		if (mine) {
 			dispatch({ type: SET_MY_RECRUIT_PAGE, payload: { input: { index, size: pageSize}}})
 		} else {
-			dispatch({ type: SET_RECRUIT_PAGE, payload: { input: { index, size: pageSize}}})
+			dispatch({ type: SET_RECRUIT_PAGE, payload: { input: { all, index, size: pageSize}}})
 		}
 	}
 	
@@ -30,16 +30,15 @@ export default function Pagination ({ mine = false ,classes }) {
 		if (mine) {
 			dispatch({ type: SET_MY_RECRUIT_PAGE_SIZE, payload: { input: { index, size}}})
 		} else {
-			dispatch({ type: SET_RECRUIT_PAGE_SIZE, payload: { input: { index, size}}})
+			dispatch({ type: SET_RECRUIT_PAGE_SIZE, payload: { input: { all, index, size}}})
 		}
 	}
 
 	useEffect(() => { 
-
 		setRanging(parseInt(index * pageSize))
 	}, [ index, pageSize, ])
 
-	useEffect(() => {console.log(mine)}, [ mine ])
+	useEffect(() => {}, [ mine ])
 
 	return (
 		<div className={classes? "page center" :"page"}>

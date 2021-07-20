@@ -7,12 +7,12 @@ import {
 	FETCH_RECRUIT_SUCCESS,
 	SET_RECRUIT_PAGE,
 	SET_RECRUIT_PAGE_SIZE,
+	SET_RECRUIT_ALL_REQUESTS,
 } from "../../redux/recruit/recruitActionType"
 
 function* workerRecruit (action) {
 	try {
 		const { all, index, size } = action.payload.input
-		console.log("set page", action.payload.input)
 		const url = all? `/api/recruits/requests?Filters=&Sorts=&Page=${index}&PageSize=${size}`
 			: `/api/recruits/pendingRequests?Filters=${encodeURIComponent("extend_request_status==Chờ duyệt")}&Sorts=&Page=${index}&PageSize=${size}`
 		const response = yield axios.get(url)
@@ -72,5 +72,6 @@ function* workerPageSizing(action) {
 export function* watchRecruit(action){
 	yield takeEvery(SET_RECRUIT_PAGE, workerPaging)
 	yield takeEvery(SET_RECRUIT_PAGE_SIZE, workerPageSizing)
+	yield takeEvery(SET_RECRUIT_ALL_REQUESTS, workerRecruit)
     yield takeEvery(FETCH_RECRUIT_DATA, workerRecruit)
 }

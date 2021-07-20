@@ -502,8 +502,15 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 			const url = `/api/recruits/requests`;
 			const response = await axios.post(url, submitState)
 
-			if (!response) console.log("Fail to add new request")
-			if (!response.data.success) console.log("Failed to load")
+			if (!response) {
+				console.log("Fail to add new request")
+				return false
+			}
+			if (!response.data.success) {
+				console.log("Failed to load")
+				return false
+			}
+			return true;
 		},
 		
 		edit: async () => {
@@ -566,8 +573,16 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 			console.group(`Edit request id: ${id}`)
 			console.log(response)
 			console.groupEnd()
-			if (!response) console.log(`Fail to edit current request with id: ${id}`)
-			if (!response.data.success) console.log("Failed to load")
+			
+			if (!response) {
+				console.log(`Fail to edit current request with id: ${id}`)
+				return false
+			}
+			if (!response.data.success) {
+				console.log("Failed to load")
+				return false
+			}
+			return true;
 		}
 	}));
 
