@@ -32,7 +32,6 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 		
 		if (!response.data.success) { return []}
 		const {extend_request_status,} = response.data.data
-		console.log("test", extend_request_status)
 		setState(extend_request_status)
 	}
 	useEffect(() => {fetchData(id)}, [id])

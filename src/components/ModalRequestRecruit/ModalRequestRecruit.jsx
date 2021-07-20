@@ -2,7 +2,6 @@ import React, {
 	useState,
 	useEffect,
 	forwardRef,
-	useRef,
 	useImperativeHandle,
 } from "react";
 import "../../styles/ModalRequestRecruit/ModalRequestRecruit.scss";
@@ -17,14 +16,13 @@ import {
 	FormControl,
 	FormHelperText,
 } from "@material-ui/core";
-import { sizing } from '@material-ui/system';
 
 import { makeStyles } from "@material-ui/styles";
 
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 
-import { TypeRecruit, PositionRecruit } from "../../models/index";
+import { TypeRecruit, } from "../../models/index";
 
 import ReactSummernote from "react-summernote";
 
@@ -96,7 +94,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		plan_start: "",
 		plan_finish: "",
 		extend_approver_fullname_email: {name: "", value: ""},
-		code: "",
+		// code: "",
 	});
 	const [touched, setTouched] = useState({
 		name: false,
@@ -108,7 +106,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		plan_start: false,
 		plan_finish: false,
 		extend_approver_fullname_email: false,
-		code: false,
+		// code: false,
 	});
 	const {
 		name,
@@ -120,7 +118,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 		plan_finish,
 		quantity,
 		extend_approver_fullname_email,
-		code,
+		// code,
 	} = state;
 	const [error, setError] = useState({});
 	const [content, setContent] = useState("");
@@ -179,13 +177,12 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 			name,
 			category_id,
 			extend_position_name,
-			job_description,
 			salary,
 			plan_start,
 			plan_finish,
 			quantity,
 			extend_approver_fullname_email,
-			code,
+			// code,
 		} = state;
 
 		if (touched.name) {
@@ -387,7 +384,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 			extend_approver_fullname_email: approverName,
 			approver_id,
 			job_description,
-			code: codeRequest,
+			// code: codeRequest,
 		} = response.data.data;
 		const types = await TypeRecruit.find(({ id }) => id === cateRequest)
 
@@ -402,7 +399,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 				plan_finish: finishRequest,
 				extend_approver_fullname_email: {name: approverName, value: approver_id},
 				job_description,
-				code: codeRequest,
+				// code: codeRequest,
 			};
 		});
 	};
@@ -521,7 +518,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 				plan_finish: plan_finishRequest,
 				quantity: quantityRequest,
 				extend_approver_fullname_email: extend_approver_fullname_emailRequest,
-				code: codeRequest,
+				// code: codeRequest,
 			} = state;
 			const editState = {
 				// approved_date: null,
@@ -575,11 +572,9 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 	}));
 
 	useEffect(() => {
-	}, []);
-
-	useEffect(() => {
 		loadModel()
 		if (id) fetchData(id);
+		return () => null;
 	}, [id]);
 	
 
@@ -593,13 +588,13 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 				};
 			});
 		}
+		return () => null;
 	}, [plan_start, plan_finish]);
 
 	useEffect(() => { }, [content]);
 
 	useEffect(() => {
 		validation();
-		console.log(state)
 		return () => setError({});
 	}, [state, touched]);
 

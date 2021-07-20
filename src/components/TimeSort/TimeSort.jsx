@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect, } from 'react'
 import "../../styles/TimeSort/TimeSort.scss"
+import { useSelector } from "react-redux";
 
 export default function TimeSort ({year, nextYear, previousYear,}) {
 
+	// const { year, } = useSelector(state => state.chart)
+
+	// useEffect(() => {}, [ year ])
 	return(
 		<div className="timeline timeline--middle-vertically">
 			<button

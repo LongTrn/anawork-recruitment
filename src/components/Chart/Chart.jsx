@@ -1,13 +1,14 @@
 import React, { useState, useEffect, } from 'react'
 import "../../styles/Chart/Chart.scss"
 import { Bar, defaults } from "react-chartjs-2"
-import {axios} from "../../config/index"
+import { useDispatch, useSelector } from "react-redux";
+import { FETCH_CHART_DATA } from "../../redux/chart/chartActionType"
+import {chartConstant} from "../../constants/index"
+
 
 defaults.font.family = "Roboto"
-const orangeBar = "#ffa12d";
-const dodgerBlueBar = "#1399fb";
-
-export default function Chart ({year}) {
+const {ORANGE_BAR, DODGER_BLUE_BAR} = chartConstant
+export default function Chart ({  }) {
 
 	const [state, setState] = useState({
 		labels: ['Kế toán', ],
@@ -18,7 +19,7 @@ export default function Chart ({year}) {
 				label: 'Cần Tuyển',
 				data: [1,],
 				backgroundColor: [
-					orangeBar,
+					ORANGE_BAR,
 				],
 				borderWidth: 1,
 			},
@@ -28,12 +29,14 @@ export default function Chart ({year}) {
 				label: 'Đã Tuyển',
 				data: [1, ],
 				backgroundColor: [
-					dodgerBlueBar,
+					DODGER_BLUE_BAR,
 				],
 				borderWidth: 1,
 			},
 		],
 	});
+	const { year, data, labels } = useSelector(state => state.chart)
+	const dispatch = useDispatch();
 
 	const options = {
 		responsive: true,
@@ -68,37 +71,15 @@ export default function Chart ({year}) {
 		},
 	}
 
-	const fetchData = async (year) => {
-		const response = await axios.get(`/api/recruits/rescruitStatistic?year=${year}`)
-		if(!response.data.success) { return []}
-		let data = (response.data.data)
-		const labelList = data.map(label => label.job_title)
-		const datasets = Object.keys(data[0]).slice(1).map(type => {
-			const label = type==="recruited_quantity"? 'Đã Tuyển': 'Cần Tuyển'
-			const tempData = data.map(job => {
-				return job[type]
-			})
-			const bgColor = type==="recruited_quantity"? orangeBar: dodgerBlueBar;
-			return {
-				barThickness: 16,
-				barPercentage: 0.5,
-				label,
-				data: tempData,
-				backgroundColor: [
-					bgColor,
-				],
-				borderWidth: 1,
-			}
-		})
-		setState({
-			labels: labelList,
-			datasets
-		})
+	const fetchData = (year) => {
+		dispatch({ type: FETCH_CHART_DATA, payload: { input: year }})
 	}
 
 	useEffect(() => {
 		fetchData(year)
+		// test()
 	}, [ year ])
+	useEffect(() => setState({ labels, datasets: data }), [ data, labels  ])
 
 	return(
 		<div className="chart">

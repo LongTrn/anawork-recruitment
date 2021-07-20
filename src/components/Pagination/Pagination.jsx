@@ -1,42 +1,31 @@
 import React, { useState, useEffect, } from 'react';
 import "../../styles/Pagination/Pagination.scss"
+import { useDispatch, useSelector, } from "react-redux"
+import { 
+	SET_RECRUIT_PAGE, 
+	SET_RECRUIT_PAGE_SIZE,
+} from '../../redux/recruit/recruitActionType';
 
-export default function Pagination ({ pageIndex, total, pageSize, select, first, previous, next, last, classes }) {
+export default function Pagination ({ classes }) {
 
-	const [state, setState] = useState({
-		pageIndexes: pageIndex || 1,
-		pageSizes: pageSize || 5,
-		totals: total || 5,
-		numbersList: [5, 10, 20, 100]
-	})
-	const { pageIndexes, totals, pageSizes, numbersList } = state;
-	const [ranging, setRanging] = useState(pageIndexes * pageSizes)
+	const { index, total, pageSize, } = useSelector(state => state.recruit)
+	const numbersList = [ 5, 10 , 20 , 100];
+	const [ranging, setRanging] = useState(index * pageSize)
+	const dispatch = useDispatch();
 
-	useEffect(() => {
-		setState(prev =>{return({
-			...prev,
-			pageIndexes: pageIndex,
-		})})
-	}, [ pageIndex ])
-
-	useEffect(() => {
-		setState(prev =>{return({
-			...prev,
-			pageSizes: pageSize,
-		})})
-	}, [ pageSize ])
-
-	useEffect(() => {
-		setState(prev =>{return({
-			...prev,
-			totals: total,
-		})})
-	}, [ total ])
+	
+	const handlePage = (index) => {
+		dispatch({ type: SET_RECRUIT_PAGE, payload: { input: { index, size: pageSize}}})
+	}
+	
+	const handlePageSize = (size) => {
+		dispatch({ type: SET_RECRUIT_PAGE_SIZE, payload: { input: { index, size}}})
+	}
 
 	useEffect(() => { 
 
-		setRanging(parseInt(pageIndexes * pageSizes))
-	}, [pageIndexes, pageSizes, ])
+		setRanging(parseInt(index * pageSize))
+	}, [index, pageSize, ])
 
 	return (
 		<div className={classes? "page center" :"page"}>
@@ -46,8 +35,8 @@ export default function Pagination ({ pageIndex, total, pageSize, select, first,
 					name="type" 
 					className="page__pageSize page__pageSize__value"
 					id="paging__ListRecruitment"
-					onChange={e => select(e.target.value)}
-					value={pageSizes}
+					onChange={(e) => handlePageSize(e.target.value)}
+					value={pageSize}
 				>
 					{numbersList.map(val => (
 						<option value={val} key={val} className="page__pageSize__value">{val}</option>
@@ -56,13 +45,13 @@ export default function Pagination ({ pageIndex, total, pageSize, select, first,
 			</div>
 			<div className="page__item">
 				<div>
-					<span className="page__number ">{(pageIndexes - 1) * pageSizes + 1} - {ranging > totals? totals: ranging} của {totals}</span>
+					<span className="page__number ">{(index - 1) * pageSize + 1} - {ranging > total? total: ranging} của {total}</span>
 				</div>
 				<div className="page__buttons">
-					<button className="btn page__buttons--size" disabled={!(pageIndex - 1)}><i className="bi bi-chevron-bar-left page__buttons__first" onClick={first}/></button>
-					<button className="btn page__buttons--size" disabled={!(pageIndex - 1)}><i className="bi bi-chevron-compact-left page__buttons__previous" onClick={previous}/></button>
-					<button className="btn page__buttons--size" disabled={ranging > totals}><i className="bi bi-chevron-compact-right page__buttons__next" onClick={next}/></button>
-					<button className="btn page__buttons--size" disabled={ranging > totals}><i className="bi bi-chevron-bar-right page__buttons__last" onClick={last}/></button>
+					<button className="btn page__buttons--size" disabled={!(index - 1)}><i className="bi bi-chevron-bar-left page__buttons__first" onClick={() => handlePage(1)}/></button>
+					<button className="btn page__buttons--size" disabled={!(index - 1)}><i className="bi bi-chevron-compact-left page__buttons__previous" onClick={() => handlePage(index - 1)}/></button>
+					<button className="btn page__buttons--size" disabled={ranging > total}><i className="bi bi-chevron-compact-right page__buttons__next" onClick={() => handlePage(index + 1)}/></button>
+					<button className="btn page__buttons--size" disabled={ranging > total}><i className="bi bi-chevron-bar-right page__buttons__last" onClick={() => handlePage(Math.ceil(total / pageSize))}/></button>
 				</div>
 			</div>
 		</div>

@@ -1,23 +1,23 @@
 import React, { useState, useEffect, } from 'react';
 
 import "../../styles/TableRecruitment/TableRecruitment.scss"
-import {  ButtonDetail, ButtonView, ButtonEdit, ButtonDelete, } from "../index"
+import {  ButtonDetail, ButtonView, ButtonEdit, ButtonDelete, ToastMessage } from "../index"
 import moment from "moment"
 import { axios } from "../../config/index"
+
 
 export default function TableRecruitment ({ data, pageIndex, pagesize, editable = false, all = false}) {
 	const [list, setList] = useState([])
 
-
 	const fetchData = async ( index = 1, size = 10, ) => {
 		
-		const url = `/api/recruits/${!editable?`pendingRequests?Filters=${encodeURIComponent("extend_request_status==Chờ duyệt")}&`:`myPendingRequest?Filters=&`}Sorts=&Page=${index}&PageSize=${size}`
-		const response = await axios.get(url)
+		// const url = `/api/recruits/${!editable?`pendingRequests?Filters=${encodeURIComponent("extend_request_status==Chờ duyệt")}&`:`myPendingRequest?Filters=&`}Sorts=&Page=${index}&PageSize=${size}`
+		// const response = await axios.get(url)
 		
-		if (!response.data.success) { return []}
+		// if (!response.data.success) { return []}
 		
-		const { collection } = response.data.data
-		setList(collection)
+		// const { collection } = response.data.data
+		// setList(collection)
 	}
 
 	useEffect(() => {
@@ -28,14 +28,10 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 	useEffect(() => {
 
 		if (pagesize && data.length) {
-
-			// let tmp =  data.slice(pageIndex, pagesize);
-			// console.log("mutable pagesize ", tmp)
 			setList(data)
 		}
 
 		fetchData(pageIndex, pagesize)
-		// console.log(list)
 
 	}, [ pagesize, ])
 
@@ -101,15 +97,13 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 										<React.Fragment key={id}>
 											<tr className={"table__rows status__" + status }>
 												<td className={editable?"table__rows__name status__item col-span--2" : "table__rows__name status__item"} colSpan={editable? 2:1}><span className="table__rows__text">{name}</span></td>
-												{/* {<td className={editable? "table__rows__name status__item col-span--2" : "table__rows__name status__item"} colSpan={editable? 2:1}><span className="table__rows__text">{name}</span></td>} */}
 												{!editable&&<td className="table__rows__description"><span className="table__rows__text">{description}</span></td>}
 												<td className="table__rows--align-text table__rows__creator"><span className="table__rows__text">{extend_creator_fullname}</span></td>
 												<td className="table__rows--align-text table__rows__date-start"><span className="table__rows__text">{dateStart}</span></td>
 												<td className="table__rows--align-text table__rows__date-end"><span className="table__rows__text">{dateEnd}</span></td>
 												<td className="table__rows--align-text table__rows__count table--text-center"><span className="table__rows__text">{quantity}</span></td>
 												<td className="table__rows--align-text table__rows__behavior ">
-													{
-													editable? 
+													{editable? 
 														status === "pending"? 
 															<>
 																<ButtonEdit id={id}/>
@@ -118,7 +112,10 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 															:
 															<ButtonView id={id}/>
 														:
-														<ButtonDetail id={id}/>}
+														<>
+															<ButtonDetail id={id}/>
+														</>
+													}
 												</td>
 											</tr>
 										</React.Fragment>

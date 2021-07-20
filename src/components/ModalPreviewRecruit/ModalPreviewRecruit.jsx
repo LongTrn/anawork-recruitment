@@ -22,7 +22,7 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 		plan_end: moment().format('YYYY-MM-DD'),
 		extend_approver_fullname_email: "",
 		job_description: "",
-		code: "",
+		// code: "",
 	})
 	const { 
 		name,
@@ -34,7 +34,7 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 		plan_end,
 		extend_approver_fullname_email,
 		job_description,
-		code,
+		// code,
 	} = state
 
 	const [day, setDay] = useState({
@@ -71,7 +71,7 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 			plan_end,
 			extend_approver_fullname_email,
 			job_description,
-			code,
+			// code,
 		} = response.data.data
 
 		setState(prev => {return{
@@ -84,7 +84,7 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 			plan_end,
 			extend_approver_fullname_email,
 			job_description,
-			code,
+			// code,
 		}})
 	}
 	
@@ -114,7 +114,7 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 			</Row>
 			<Row className="preview-recruit__row preview-recruit__row__label">
 				<Col sm={6} className="preview-recruit__col" ><label htmlFor="type" className="label--left text-nowrap" >Loại tuyển dụng:</label></Col>
-				<Col sm={6} className="preview-recruit__col" ><label htmlFor="position" className="label--left text-nowrap "className="label--left text-nowrap">Chức vụ:</label></Col>
+				<Col sm={6} className="preview-recruit__col" ><label htmlFor="position" className="label--left text-nowrap ">Chức vụ:</label></Col>
 			</Row>
 			<Row className="preview-recruit__row">
 				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value">{category_id?category_id === 1?"Tuyển mới": "Thay thế":""}</div></Col>

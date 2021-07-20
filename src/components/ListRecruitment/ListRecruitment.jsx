@@ -2,83 +2,45 @@ import React, { useState, useEffect, } from 'react';
 import "../../styles/ListRecruitment/ListRecruitment.scss"
 import { Header, TableRecruitment, Pagination, } from "../index"
 // import { ListRecruitmentModel } from "../../models/index"
-import { axios } from "../../config/index"
+// import { axios } from "../../config/index"
+
+import { useDispatch, useSelector, } from "react-redux"
+import { 
+	FETCH_RECRUIT_DATA, 
+	SET_RECRUIT_PAGE, 
+	SET_RECRUIT_PAGE_SIZE,
+} from '../../redux/recruit/recruitActionType';
 
 export default function ListRecruitment (props) {
 
 	const [state, setState] = useState([])
-	const [page, setPage] = useState({
-
-		pageIndex: 1,
-		pagesize: 10,
-		total: 0,
-	})
-	const { pageIndex, pagesize, total } = page;
 	const [allRequest, setAllRequest] = useState(false)
-	
-	const select = (value) => {
-		if (!value) return;
-		setPage(prev => {return ({
-			...prev,
-			pagesize: (value),
-		})})
+	const { 
+		index,
+		pageSize,
+		total,
+		data,
+	} = useSelector(state => state.recruit)
+	const dispatch = useDispatch();
+
+	const fetchData = async ( all = false, index = 1, size = 10, ) => {
+		dispatch({ type: FETCH_RECRUIT_DATA, payload: { input: {all, index, size}}})
 	}
 
-	const first = () => {
-		if (allRequest) fetchAllData(1, pagesize);
-		else fetchData(1, pagesize);
-	}
-
-	const previous = () => {
-		if (allRequest) fetchAllData(pageIndex - 1, pagesize);
-		else fetchData(pageIndex - 1, pagesize);
-	}
-
-	const next = () => {
-		if (allRequest) fetchAllData(pageIndex + 1, pagesize)
-		else fetchData(pageIndex + 1, pagesize)
-	}
-
-	const last = () => {
-		const lastPage = Math.ceil(total / pagesize)
-		if (allRequest) fetchAllData(lastPage, pagesize)
-		else fetchData(lastPage, pagesize)
-	}
-
-	const fetchData = async ( index = 1, size = 10, ) => {
-		const response = await axios.get(`/api/recruits/pendingRequests?Filters=${encodeURIComponent("extend_request_status==Chờ duyệt")}&Sorts=&Page=${index}&PageSize=${size}`)
-		if (!response.data.success) { return []}
-		const { pageIndex, pagesize, total, collection } = response.data.data
-		setPage({
-			pageIndex, pagesize, total,
-		})
-		setState(prev => collection)
-	}
-	
-	const fetchAllData = async ( index = 1, size = 10, ) => {
-		const response = await axios.get(`/api/recruits/requests?Filters=&Sorts=&Page=${index}&PageSize=${size}`)
-		
-		if (!response.data.success) { return []}
-
-		const { pageIndex, pagesize, total, collection } = response.data.data
-		setPage({
-			pageIndex, pagesize, total,
-		})
-		
-		setState(prev => collection)
-	}
-
-	const getAllRequest = ()=>{
-		
+	const getAllRequest = () => {
 		setAllRequest(prev=>!prev)
 	}
 
 	useEffect(() => {
-	}, [ page ])
+	}, [ index, pageSize, total, data, ])
+
 
 	useEffect(() => {
-		if (allRequest) fetchAllData(pageIndex, pagesize)
-		else fetchData(pageIndex, pagesize)
+		setState(data)
+	}, [ data ])
+
+	useEffect(() => {
+		fetchData(allRequest, index, pageSize)
 	} , [ allRequest ])
 
 	return (
@@ -96,17 +58,8 @@ export default function ListRecruitment (props) {
 					</div>
 				</div>
 			</div>
-			<TableRecruitment data={state} pageIndex={pageIndex} pagesize={pagesize} all={allRequest} />
-			<Pagination 
-				pageIndex={pageIndex} 
-				pageSize={pagesize} 
-				total={total} 
-				select={select}
-				first={first}
-				previous={previous}
-				next={next}
-				last={last}
-			/>
+			<TableRecruitment data={state} index={index} pageSize={pageSize} all={allRequest} />
+			<Pagination />
 		</div>
 	)
 }
