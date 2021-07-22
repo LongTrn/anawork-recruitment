@@ -1,0 +1,41 @@
+.job-list {
+
+	height: 100%;
+	padding: 40px;
+	margin: 58px 80px 62px;
+	background-color: #f8f8f8;
+	box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
+
+	&__header {
+
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		justify-content: space-between;
+
+		&__text {
+
+			height: 36px;
+			font-size: 24px;
+			font-weight: 500;
+			text-align: left;
+			color: var(--primary-dark-grey);
+			display: flex;
+		}
+
+		&__search-bar {
+
+			// width: 100%;
+		}
+	}
+
+	&__body {
+
+	}
+}
+
+
+html, body, div#root {
+	// background-color: #f9f9fc;
+	background-color: #f8f8f8;
+}

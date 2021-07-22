@@ -1,6 +1,9 @@
 import React from 'react'
 import "../../styles/Recruit/Recruit.scss"
 import { ButtonRecruit, } from "../index"
+import {
+  Link,
+} from "react-router-dom";
 
 export default function Recruit (props) {
 
@@ -17,16 +20,16 @@ export default function Recruit (props) {
 					<div className="recruit__navigators__links">Link kết nhanh:</div>
 					<div>
 						<i className="bi bi-newspaper recruit__navigators__icon"/>
-						<span 
-							href="localhost"
-							className="recruit__navigators__news__text"
-							>Tin tuyển dụng</span>
+						<Link 
+							to="/job-list"
+							className="text-decoration-none recruit__navigators__news__text"
+							>Tin tuyển dụng</Link>
 					</div>
 					<div>
 						<i className="bi bi-person-fill recruit__navigators__icon"></i>
 						<span 
 							href="localhost"
-							className="recruit__navigators__interview__text "
+							className="text-decoration-none recruit__navigators__interview__text "
 							>Phỏng vấn ứng viên</span>
 					</div>
 				</div>
