@@ -39,7 +39,7 @@ export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", id})
 		<div>
 			<button
 				type="button"
-				className="btn table__rows__behavior__button table__rows__behavior__button--editable button--borderless"
+				className="btn table__rows__behavior__button table__rows__behavior__button--editable button--borderless shadow-none"
 				onClick={handleShow}
 			>
 				<i className="bi bi-pencil-fill table__rows__behavior__button__icon"></i>
@@ -63,8 +63,8 @@ export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", id})
 					<ModalRequestRecruit id={id} ref={buttonRef}  handleSubmit={handleSubmit}/>
 				</Body>
 				<Footer className="gap-2">
-					<button className="btn btn-primary button__edit "><span className="button__edit__text" onClick={handleSubmit}>Chỉnh sửa</span></button>
-					<button className="btn btn-white button__cancel" onClick={handleClose}><span className="button__edit__text__cancel">Hủy bỏ</span></button>
+					<button className="btn btn-primary button__edit shadow-none"><span className="button__edit__text" onClick={handleSubmit}>Chỉnh sửa</span></button>
+					<button className="btn btn-white button__cancel shadow-none" onClick={handleClose}><span className="button__edit__text__cancel">Hủy bỏ</span></button>
 				</Footer>
 			</Modal>
 

@@ -39,7 +39,7 @@ export default function ButtonDelete ({ header = "Yêu cầu tuyển dụng", id
 		<div>
 			<button
 				type="button"
-				className="btn table__rows__behavior__button table__rows__behavior__button--editable button--borderless"
+				className="btn table__rows__behavior__button table__rows__behavior__button--editable button--borderless shadow-none"
 				onClick={handleShow}
 			>
 				<i className="bi bi-trash-fill table__rows__behavior__button__icon"/>
@@ -63,8 +63,8 @@ export default function ButtonDelete ({ header = "Yêu cầu tuyển dụng", id
 					Bạn có muốn xóa bỏ yêu cầu này không?
 				</Body>
 				<Footer className="gap-2">
-					<button className="btn button__delete "><span className="button__delete__text" onClick={handleDelete}>Xóa</span></button>
-					<button className="btn button__delete__cancel" onClick={handleClose}><span className="button__delete__text__cancel">Hủy bỏ</span></button>
+					<button className="btn button__delete shadow-none"><span className="button__delete__text" onClick={handleDelete}>Xóa</span></button>
+					<button className="btn button__delete__cancel shadow-none" onClick={handleClose}><span className="button__delete__text__cancel">Hủy bỏ</span></button>
 				</Footer>
 			</Modal>
 
