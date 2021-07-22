@@ -42,7 +42,7 @@ export default function ButtonRecruit ({ header, }) {
 		<div>
 			<Button 
 				type="button" 
-				className="button button--padding  button__container"
+				className="button button--padding  button__container shadow-none"
 				// Trigger Modal
 				onClick={handleShow}
 				>
@@ -67,8 +67,8 @@ export default function ButtonRecruit ({ header, }) {
 					<ModalRequestRecruit ref={buttonRef} onSubmit={onSubmit}/>
 				</Body>
 				<Footer className="gap-2">
-					<button className="btn btn-primary button__recruit "><span className="button__recruit__text" onClick={onSubmit}>Thêm</span></button>
-					<button className="btn btn-white button__recruit__cancel" onClick={handleClose}><span className="button__recruit__text__cancel">Hủy</span></button>
+					<button className="btn btn-primary button__recruit shadow-none"><span className="button__recruit__text" onClick={onSubmit}>Thêm</span></button>
+					<button className="btn btn-white button__recruit__cancel shadow-none" onClick={handleClose}><span className="button__recruit__text__cancel">Hủy</span></button>
 				</Footer>
 			</Modal>
 		</div>

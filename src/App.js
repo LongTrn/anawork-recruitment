@@ -1,6 +1,6 @@
 import './styles/App/App.scss';
 import './styles/index.scss';
-import { Recruitment, JobList, } from "./components";
+import { Recruitment, JobListPage, JobDetailPage, } from "./components";
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,7 +12,8 @@ function App() {
 		<Router>
 			<Switch>
 				<Route exact path="/"><Recruitment /></Route>
-				<Route path="/job-list"><JobList /></Route>
+				<Route path="/job-list"><JobListPage /></Route>
+				<Route path="/job-detail/:id"><JobDetailPage /></Route>
 			</Switch>
 			{/* <Recruitment/> */}
 		</Router>

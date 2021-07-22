@@ -1,9 +1,10 @@
 .job-list {
 
 	height: 100%;
-	padding: 40px;
-	margin: 58px 80px 62px;
-	background-color: #f8f8f8;
+	padding: 40px 24px 60px;
+	// margin: 60px 80px;
+	// background-color: #f8f8f8;
+	background-color: var(--ezycheck-white);
 	box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
 
 	&__header {
@@ -12,6 +13,7 @@
 		align-items: center;
 		flex-direction: row;
 		justify-content: space-between;
+		margin: 0 16px;
 
 		&__text {
 
@@ -31,6 +33,13 @@
 
 	&__body {
 
+		min-height: 100px;
+		padding: 0 8px 0;
+	}
+
+	&--modified {
+
+		margin-top: 16px;
 	}
 }
 

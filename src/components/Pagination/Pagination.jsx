@@ -61,10 +61,10 @@ export default function Pagination ({ mine = false ,classes }) {
 					<span className="page__number ">{(index - 1) * pageSize + 1} - {ranging > total? total: ranging} của {total}</span>
 				</div>
 				<div className="page__buttons">
-					<button className="btn page__buttons--size" disabled={!(index - 1)}><i className="bi bi-chevron-bar-left page__buttons__first" onClick={() => handlePage(1)}/></button>
-					<button className="btn page__buttons--size" disabled={!(index - 1)}><i className="bi bi-chevron-compact-left page__buttons__previous" onClick={() => handlePage(index - 1)}/></button>
-					<button className="btn page__buttons--size" disabled={ranging > total}><i className="bi bi-chevron-compact-right page__buttons__next" onClick={() => handlePage(index + 1)}/></button>
-					<button className="btn page__buttons--size" disabled={ranging > total}><i className="bi bi-chevron-bar-right page__buttons__last" onClick={() => handlePage(Math.ceil(total / pageSize))}/></button>
+					<button className="btn page__buttons--size shadow-none" disabled={!(index - 1)}><i className="bi bi-chevron-bar-left page__buttons__first" onClick={() => handlePage(1)}/></button>
+					<button className="btn page__buttons--size shadow-none" disabled={!(index - 1)}><i className="bi bi-chevron-compact-left page__buttons__previous" onClick={() => handlePage(index - 1)}/></button>
+					<button className="btn page__buttons--size shadow-none" disabled={ranging > total}><i className="bi bi-chevron-compact-right page__buttons__next" onClick={() => handlePage(index + 1)}/></button>
+					<button className="btn page__buttons--size shadow-none" disabled={ranging > total}><i className="bi bi-chevron-bar-right page__buttons__last" onClick={() => handlePage(Math.ceil(total / pageSize))}/></button>
 				</div>
 			</div>
 		</div>

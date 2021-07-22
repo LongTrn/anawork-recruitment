@@ -14,7 +14,7 @@ export default function ButtonView ({ header = "Yêu cầu tuyển dụng", id }
 		<div>
 			<button
 				type="button"
-				className="btn table__rows__behavior__button text-nowrap button--borderless"
+				className="btn table__rows__behavior__button text-nowrap button--borderless shadow-none"
 				onClick={handleShow}
 			>
 				<i className="bi bi-list-ul table__rows__behavior__button__icon"/>
@@ -40,7 +40,7 @@ export default function ButtonView ({ header = "Yêu cầu tuyển dụng", id }
 					<ModalPreviewRecruit view={true} id={id}/>
 				</Body>
 				<Footer>
-					<button className="btn btn-primary button__detail " onClick={handleClose}><span className="button__text button__text">Xong</span></button>
+					<button className="btn btn-primary button__detail shadow-none" onClick={handleClose}><span className="button__text button__text">Xong</span></button>
 				</Footer>
 			</Modal>
 		</div>

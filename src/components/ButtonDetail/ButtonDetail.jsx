@@ -58,7 +58,7 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 		<div>
 			<button
 				type="button"
-				className="btn btn-outline-primary table__rows__behavior__button text-nowrap "
+				className="btn btn-outline-primary table__rows__behavior__button text-nowrap shadow-none"
 				onClick={handleShow}
 			>
 				<i className="bi bi-list-ul table__rows__behavior__button__icon" />
@@ -84,11 +84,11 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 				<Footer className="gap-2">
 					{state !== "Chờ duyệt" ? 
 						<>
-							<button className="btn btn-primary button__detail " onClick={handleClose}><span className="button__detail__text">Xong</span></button>
+							<button className="btn btn-primary button__detail shadow-none" onClick={handleClose}><span className="button__detail__text">Xong</span></button>
 						</>
 						: (<>
-							<button className="btn btn-primary button__detail " onClick={handleApprove}><span className="button__detail__text">Duyệt yêu cầu</span></button>
-							<button className="btn btn-white button__cancel" onClick={handleReject}><span className="button__detail__text__cancel">Từ chối</span></button>
+							<button className="btn btn-primary button__detail shadow-none" onClick={handleApprove}><span className="button__detail__text">Duyệt yêu cầu</span></button>
+							<button className="btn btn-white button__cancel shadow-none" onClick={handleReject}><span className="button__detail__text__cancel">Từ chối</span></button>
 						</>)}
 				</Footer>
 			</Modal>
