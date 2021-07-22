@@ -4,9 +4,9 @@
 // @import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 @import 'react-summernote/dist/react-summernote.css';
 
-html, body {
+html, body, div#root {
 	// height: 100%;
 	// height: max-content;
 	background-color: #f9f9fc;
-	// background-color: #df8337;
 }
+

@@ -106,14 +106,14 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 													{editable? 
 														status === "pending"? 
 															<>
-																<ButtonEdit id={id}/>
-																<ButtonDelete id={id}/>
+																<ButtonEdit className="shadow-none"id={id}/>
+																<ButtonDelete className="shadow-none" id={id}/>
 															</>
 															:
-															<ButtonView id={id}/>
+															<ButtonView className="shadow-none" id={id}/>
 														:
 														<>
-															<ButtonDetail id={id}/>
+															<ButtonDetail className="shadow-none" id={id}/>
 														</>
 													}
 												</td>

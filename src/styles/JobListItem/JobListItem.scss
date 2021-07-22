@@ -1,0 +1,64 @@
+.job-item {
+
+	height: 106px;
+	display: flex;
+	flex-direction: row;
+	padding: 24px 24px 30px 4px;
+	border-top: 1px solid #ccc;
+	justify-content: space-between;
+
+	&__info {
+
+		width: 65%;
+
+		&__header {
+
+			display: flex;
+			height: 23px;
+			font-size: 20px;
+			font-weight: 500;
+			align-items: flex-start;
+			color: var(--login-blue);
+			margin-bottom: 16px;
+		}
+		
+		&__text {
+
+			height: 16px;
+			font-size: 14px;
+			text-align: left;
+		}
+
+		&__label {
+			
+			color: #959595;
+		}
+	
+		&--flex-end {
+
+			display: flex;
+			align-items: flex-end;
+		}
+
+		&--gold {
+			color: #ffa117;
+		}
+	}
+
+	&__action {
+
+		display: flex;
+		align-items: center;
+
+		&__button {
+
+			width: 140px;
+		}
+
+		button.btn.btn-outline-primary.job-item__action__button:hover {
+
+			background-color: transparent;
+		}
+	}
+
+}
