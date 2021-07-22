@@ -3,7 +3,7 @@ import "../../styles/JobList/JobList.scss"
 import { SearchBar, JobListItem, } from "../index"
 import Pagination from '../Pagination/Pagination';
 
-export default function JobList(props) {
+export default function JobList({header = "Vị trí cần tuyển", modified = false}) {
 
 	const [list, setList] = useState([])
 
@@ -13,10 +13,10 @@ export default function JobList(props) {
 	}, [  ])
 
 	return (
-		<div className="job-list">
+		<div className={modified?"job-list job-list--modified" :"job-list"}>
 			<div className="job-list__header">
 				<div className="job-list__header__text text-nowrap">
-					Vị trí cần tuyển
+					{header}
 				</div>
 				<div className="job-list__header__search-bar">
 					<SearchBar />
