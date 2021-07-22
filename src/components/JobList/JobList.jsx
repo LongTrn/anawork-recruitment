@@ -12,9 +12,7 @@ export default function JobList(props) {
 					{/* </div> */}
 				</div>
 				<div className="job-list__header__search-bar">
-					{/* <div> */}
 					<SearchBar />
-					{/* </div> */}
 				</div>
 			</div>
 			<div className="job-list__body"></div>
