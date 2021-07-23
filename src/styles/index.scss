@@ -48,7 +48,8 @@ $desktop-width: 1024px;
 $desktop-large-width: 1440px;
 
 @mixin mobile {
-  @media (min-width: #{$mobile-width}) and (max-width: #{$tablet-width - 1px}) {
+  @media (max-width: #{$tablet-width - 1px}) {
+//   @media (min-width: #{$mobile-width}) and (max-width: #{$tablet-width - 1px}) {
     @content;
   }
 }

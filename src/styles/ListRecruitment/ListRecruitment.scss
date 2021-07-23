@@ -380,6 +380,7 @@
 
 			width: max-content;
 			height: 40px;
+			height: 80px;
 			margin: 0 0 2px;
 			padding: 16px 16px 0;
 			border-radius: 4px;
@@ -475,9 +476,10 @@
 			&__count {
 
 				// width: 80px;
-				height: 40px;
+				// height: 40px;
 				padding: 12px 14px;
 				background-color: var(--ezycheck-white);
+				height: 80px;
 			}
 
 			&__behavior {

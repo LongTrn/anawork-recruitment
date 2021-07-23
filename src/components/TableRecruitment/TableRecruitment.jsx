@@ -57,29 +57,29 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 									<th 
 										scope="col"
 										className=" table__header__description"
-									><span className="table__header__text">Mô tả yêu cầu</span></th>
+									><span className="text-nowrap table__header__text">Mô tả yêu cầu</span></th>
 								)
 							}
 							<th 
 								scope="col"
 								className=" table__header__creator"
-							><span className="table__header__text">Người tạo</span></th>
+							><span className="text-nowrap table__header__text">Người tạo</span></th>
 							<th 
 								scope="col"
 								className=" table__header__date-start"
-							><span className="table__header__text">Bắt đầu</span></th>
+							><span className="text-nowrap table__header__text">Bắt đầu</span></th>
 							<th 
 								scope="col"
 								className=" table__header__date-end"
-							><span className="table__header__text">Kết thúc</span></th>
+							><span className="text-nowrap table__header__text">Kết thúc</span></th>
 							<th 
 								scope="col"
 								className=" table__header__count table--text-center"
-							><span className="table__header__text">Số lượng</span></th>
+							><span className="text-nowrap table__header__text">Số lượng</span></th>
 							<th 
 								scope="col"
 								className=" table__header__behavior table--text-center"
-							><span className="table__header__text">Thao tác</span></th>
+							><span className="text-nowrap table__header__text">Thao tác</span></th>
 						</tr>
 					</thead>
 					{

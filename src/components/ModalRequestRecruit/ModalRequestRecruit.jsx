@@ -370,7 +370,6 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 
 	const fetchData = async (id) => {
 		const response = await axios.get(`/api/recruits/requests/${id}`);
-
 		if (!response.data.success) return;
 		
 		const {
@@ -388,11 +387,12 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 			// code: codeRequest,
 		} = response.data.data;
 		const types = await TypeRecruit.find(({ id }) => id === cateRequest)
-
-		setState((prev) => {
+		const categoryName = types !== undefined ? types.name : ""
+		
+		await setState((prev) => {
 			return {
 				name: nameRequest,
-				category_id: {name: types.name, value: cateRequest},
+				category_id: {name:  categoryName, value: cateRequest},
 				extend_position_name: { name: positionName, value: positionId},
 				quantity: quantityRequest,
 				salary: salaryRequest,
