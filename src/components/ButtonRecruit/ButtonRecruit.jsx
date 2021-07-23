@@ -42,12 +42,12 @@ export default function ButtonRecruit ({ header, }) {
 		<div>
 			<Button 
 				type="button" 
-				className="button button--padding  button__container shadow-none"
+				className="button button--padding  button__container shadow-none button-recruit text-nowrap"
 				// Trigger Modal
 				onClick={handleShow}
 				>
 					<i className="bi bi-plus" />
-					<span className="button__text text-nowrap">YÊU CẦU TUYỂN DỤNG</span>
+					<span className="button__recruit__text text-nowrap">YÊU CẦU TUYỂN DỤNG</span>
 			</Button>
 
 			<Modal

@@ -1,9 +1,8 @@
 import React, { useState, useEffect, } from 'react';
 
 import "../../styles/TableRecruitment/TableRecruitment.scss"
-import {  ButtonDetail, ButtonView, ButtonEdit, ButtonDelete, ToastMessage } from "../index"
+import {  ButtonDetail, ButtonView, ButtonEdit, ButtonDelete, } from "../index"
 import moment from "moment"
-import { axios } from "../../config/index"
 
 
 export default function TableRecruitment ({ data, pageIndex, pagesize, editable = false, all = false}) {
@@ -50,37 +49,37 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 						<tr className="table-recruit__header__rows">
 							<th 
 								scope="col"
-								className={editable? "text-nowrap table__header__name col-span--2":"text-nowrap table__header__name"}
+								className={editable? " table__header__name col-span--2":" table__header__name"}
 								colSpan={editable? 2:1}
 							><span className="table__header__text">Yêu cầu tuyển dụng</span></th>
 							{
 								!editable && (
 									<th 
 										scope="col"
-										className="text-nowrap table__header__description"
-									><span className="table__header__text">Mô tả yêu cầu</span></th>
+										className=" table__header__description"
+									><span className="text-nowrap table__header__text">Mô tả yêu cầu</span></th>
 								)
 							}
 							<th 
 								scope="col"
-								className="text-nowrap table__header__creator"
-							><span className="table__header__text">Người tạo</span></th>
+								className=" table__header__creator"
+							><span className="text-nowrap table__header__text">Người tạo</span></th>
 							<th 
 								scope="col"
-								className="text-nowrap table__header__date-start"
-							><span className="table__header__text">Bắt đầu</span></th>
+								className=" table__header__date-start"
+							><span className="text-nowrap table__header__text">Bắt đầu</span></th>
 							<th 
 								scope="col"
-								className="text-nowrap table__header__date-end"
-							><span className="table__header__text">Kết thúc</span></th>
+								className=" table__header__date-end"
+							><span className="text-nowrap table__header__text">Kết thúc</span></th>
 							<th 
 								scope="col"
-								className="text-nowrap table__header__count table--text-center"
-							><span className="table__header__text">Số lượng</span></th>
+								className=" table__header__count table--text-center"
+							><span className="text-nowrap table__header__text">Số lượng</span></th>
 							<th 
 								scope="col"
-								className="text-nowrap table__header__behavior table--text-center"
-							><span className="table__header__text">Thao tác</span></th>
+								className=" table__header__behavior table--text-center"
+							><span className="text-nowrap table__header__text">Thao tác</span></th>
 						</tr>
 					</thead>
 					{

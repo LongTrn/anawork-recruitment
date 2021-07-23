@@ -1,53 +1,168 @@
-.search-bar {
-	width: 311px;
-    position: center;
-    display: flex;
-	background-color: #fff;
-	--search-bar-color: #e9eaf9;
+@import "../index.scss";
+
+@include desktop {
 	
-	&__term {
+	.search-bar {
 		width: 100%;
-		border: 1px solid var(--search-bar-color);
-		border-left: none;
-		padding: 5px;
-		height: 36px;
-		border-radius: 0 5px 5px 0;
-		outline: none;
-		// color: var(--search-bar-color);
-		color: #495057;
-	}
-	
-	&__term:focus {
-		// color: var(--search-bar-color);
-		color: #495057;
-		outline: none;
-	}
-
-	&__button {
-
+		min-width: 311px;
+		position: center;
 		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 40px;
-		height: 36px;
-		border: 1px solid var(--search-bar-color);
-		background: var(--ezycheck-white);
-		border-right: none;
-		text-align: center;
-		// color: var(--search-bar-color);
-		color: #495057;
-		border-radius: 5px 0 0 5px;
-		cursor: pointer;
-		font-size: 10px;
-	}
-	
-	/*Resize the wrap to see the search-bar bar change!*/
-	&__wrapper {
-		width: 100%;
-		margin: 20px auto;
-		/* change the margin to move where it is on the page */
+		background-color: #fff;
+		--search-bar-color: #e9eaf9;
+		
+		&__term {
+			width: 100%;
+			border: 1px solid var(--search-bar-color);
+			border-left: none;
+			padding: 5px;
+			height: 36px;
+			border-radius: 0 5px 5px 0;
+			outline: none;
+			// color: var(--search-bar-color);
+			color: #495057;
+		}
+		
+		&__term:focus {
+			// color: var(--search-bar-color);
+			color: #495057;
+			outline: none;
+		}
+
+		&__button {
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 36px;
+			border: 1px solid var(--search-bar-color);
+			background: var(--ezycheck-white);
+			border-right: none;
+			text-align: center;
+			// color: var(--search-bar-color);
+			color: #495057;
+			border-radius: 5px 0 0 5px;
+			cursor: pointer;
+			font-size: 10px;
+		}
+		
+		/*Resize the wrap to see the search-bar bar change!*/
+		&__wrapper {
+			width: 100%;
+			margin: 20px auto;
+			/* change the margin to move where it is on the page */
+		}
 	}
 }
 
+@include tablet {
+
+	.search-bar {
+		width: 100%;
+		min-width: 311px;
+		position: center;
+		display: flex;
+		background-color: #fff;
+		--search-bar-color: #e9eaf9;
+		
+		&__term {
+			width: 100%;
+			border: 1px solid var(--search-bar-color);
+			border-left: none;
+			padding: 5px;
+			height: 36px;
+			border-radius: 0 5px 5px 0;
+			outline: none;
+			// color: var(--search-bar-color);
+			color: #495057;
+		}
+		
+		&__term:focus {
+			// color: var(--search-bar-color);
+			color: #495057;
+			outline: none;
+		}
+
+		&__button {
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 36px;
+			border: 1px solid var(--search-bar-color);
+			background: var(--ezycheck-white);
+			border-right: none;
+			text-align: center;
+			// color: var(--search-bar-color);
+			color: #495057;
+			border-radius: 5px 0 0 5px;
+			cursor: pointer;
+			font-size: 10px;
+		}
+		
+		/*Resize the wrap to see the search-bar bar change!*/
+		&__wrapper {
+			width: 100%;
+			margin: 20px auto;
+			/* change the margin to move where it is on the page */
+		}
+	}
+}
+
+@include mobile {
+
+	.search-bar {
+		width: 100%;
+		// min-width: 311px;
+		position: center;
+		display: flex;
+		background-color: #fff;
+		--search-bar-color: #e9eaf9;
+		
+		&__term {
+			width: 100%;
+			border: 1px solid var(--search-bar-color);
+			border-left: none;
+			padding: 5px;
+			height: 36px;
+			border-radius: 0 5px 5px 0;
+			outline: none;
+			// color: var(--search-bar-color);
+			color: #495057;
+		}
+		
+		&__term:focus {
+			// color: var(--search-bar-color);
+			color: #495057;
+			outline: none;
+		}
+
+		&__button {
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 36px;
+			border: 1px solid var(--search-bar-color);
+			background: var(--ezycheck-white);
+			border-right: none;
+			text-align: center;
+			// color: var(--search-bar-color);
+			color: #495057;
+			border-radius: 5px 0 0 5px;
+			cursor: pointer;
+			font-size: 10px;
+		}
+		
+		/*Resize the wrap to see the search-bar bar change!*/
+		&__wrapper {
+			width: 100%;
+			margin: 20px auto;
+			/* change the margin to move where it is on the page */
+		}
+	}
+}
 
 

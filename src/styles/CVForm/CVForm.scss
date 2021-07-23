@@ -1,90 +1,312 @@
-.cv {
+@import "../index.scss";
 
-	height: 438px;
-	margin-top: 16px;
-	padding: 32px 40px 49px 48px;
-	border-radius: 4px;
-	box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
-	background-color: var(--ezycheck-white);
+@include desktop {
+	
+	.cv {
 
-	&__header {
+		height: 438px;
+		margin-top: 16px;
+		padding: 32px 40px 49px 48px;
+		border-radius: 4px;
+		box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
+		background-color: var(--ezycheck-white);
 
-		width: 176px;
-		height: 19px;
-		margin-bottom: 24px;
-		font-size: 16px;
-		font-weight: 500;
-		color: var(--primary-dark-grey);
-	}
+		&__header {
 
-	&__form {
+			width: 176px;
+			height: 19px;
+			margin-bottom: 24px;
+			font-size: 16px;
+			font-weight: 500;
+			color: var(--primary-dark-grey);
+		}
 
-		display: flex;
-		justify-content: space-between;
-		margin-bottom: 26px;
-
-		&__info {
+		&__form {
 
 			display: flex;
-			width: 100%;
-			flex-direction: column;
+			justify-content: space-between;
+			margin-bottom: 26px;
 
-			&__input {
-				
-				height: 40px;  
-				margin: 0 16px 16px 1px;
-				padding: 10px 8px;
+			&__info {
+
+				display: flex;
+				width: 100%;
+				flex-direction: column;
+
+				&__input {
+					
+					height: 40px;  
+					margin: 0 16px 16px 1px;
+					padding: 10px 8px;
+					border-radius: 4px;
+					border: solid 1px #c4c4c4;
+					background-color: var(--ezycheck-white);				
+				}
+			}
+
+			&__action {
+
+				width: 268px;
+				height: 152px;
+				padding: 36px 21px;  
 				border-radius: 4px;
-				border: solid 1px #c4c4c4;
-				background-color: var(--ezycheck-white);				
+				border: dashed 1px #c4c4c4;
+				background-color: var(--ezycheck-white);
+				
+				display: flex;
+				flex-wrap: nowrap;
+				align-items: center;
+				flex-direction: column;
+				justify-content: center;
+
+				&__text {
+
+					height: 20px;
+					font-size: 14px;
+					text-align: center;
+					color: #959595;
+				}
 			}
 		}
 
-		&__action {
+		&__validation {
 
-			width: 268px;
-			height: 152px;
-			padding: 36px 21px;  
-			border-radius: 4px;
-			border: dashed 1px #c4c4c4;
-			background-color: var(--ezycheck-white);
-			
+		}
+
+		&__verify {
+
+			margin-bottom: 16px;
+		}
+
+		&__submit {
+
+			&__button {
+
+				width: 303px;
+				height: 44px;
+				border: none;
+				color: var(--ezycheck-white);
+				padding: 10px 117px;
+				border-radius: 4px;
+				background-color: var(--login-blue);
+			}
+		}
+	}
+}
+
+@include tablet {
+	
+	.cv {
+
+		// height: 438px;
+		height: min-content;
+		padding: 32px 40px 49px 48px;
+		border-radius: 4px;
+		box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
+		background-color: var(--ezycheck-white);
+		margin-top: 16px;
+		
+		&__header {
+
+			width: 176px;
+			height: 19px;
+			margin-bottom: 24px;
+			font-size: 16px;
+			font-weight: 500;
+			color: var(--primary-dark-grey);
+		}
+
+		&__form {
+
 			display: flex;
-			flex-wrap: nowrap;
-			align-items: center;
 			flex-direction: column;
+			justify-content: space-between;
+			margin-bottom: 26px;
+
+			&__info {
+
+				display: flex;
+				width: 100%;
+				flex-direction: column;
+
+				&__input {
+					
+					height: 40px;  
+					margin: 0 0 16px 1px;
+					padding: 10px 8px;
+					border-radius: 4px;
+					border: solid 1px #c4c4c4;
+					background-color: var(--ezycheck-white);				
+				}
+			}
+
+			&__action {
+
+				// width: 268px;
+				width: 100%;
+				height: 152px;
+				padding: 36px 21px;  
+				border-radius: 4px;
+				border: dashed 1px #c4c4c4;
+				background-color: var(--ezycheck-white);
+				
+				display: flex;
+				flex-wrap: nowrap;
+				align-items: center;
+				flex-direction: column;
+				justify-content: center;
+
+				&__text {
+
+					height: 20px;
+					font-size: 14px;
+					text-align: center;
+					color: #959595;
+				}
+			}
+		}
+
+		&__validation {
+
+		}
+
+		&__verify {
+
+
+			width: 100%;
+			display: flex;
+			margin-bottom: 16px;
+			justify-content: center;
+		}
+
+		&__submit {
+
+			width: 100%;
+			display: flex;
 			justify-content: center;
 
-			&__text {
+			&__button {
 
-				height: 20px;
-				font-size: 14px;
-				text-align: center;
-				color: #959595;
+				width: 303px;
+				height: 44px;
+				border: none;
+				color: var(--ezycheck-white);
+				padding: 10px 117px;
+				border-radius: 4px;
+				background-color: var(--login-blue);
 			}
 		}
 	}
+}
 
-	&__validation {
+@include mobile {
+	
+	.cv {
 
-	}
+		// height: 438px;
+		height: min-content;
+		padding: 32px 16px 49px 16px;
+		border-radius: 4px;
+		box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
+		background-color: var(--ezycheck-white);
+		margin-top: 16px;
 
-	&__verify {
+		&__header {
 
-		margin-bottom: 16px;
-	}
+			width: 176px;
+			height: 19px;
+			margin-bottom: 24px;
+			font-size: 16px;
+			font-weight: 500;
+			color: var(--primary-dark-grey);
+		}
 
-	&__submit {
+		&__form {
 
-		&__button {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			margin-bottom: 26px;
 
-			width: 303px;
-			height: 44px;
-			border: none;
-			color: var(--ezycheck-white);
-			padding: 10px 117px;
-			border-radius: 4px;
-			background-color: var(--login-blue);
+			&__info {
+
+				display: flex;
+				width: 100%;
+				flex-direction: column;
+
+				&__input {
+					
+					height: 40px;  
+					margin: 0 0 16px 1px;
+					padding: 10px 8px;
+					border-radius: 4px;
+					border: solid 1px #c4c4c4;
+					background-color: var(--ezycheck-white);				
+				}
+			}
+
+			&__action {
+
+				// width: 268px;
+				width: 100%;
+				height: 152px;
+				padding: 36px 21px;  
+				border-radius: 4px;
+				border: dashed 1px #c4c4c4;
+				background-color: var(--ezycheck-white);
+				
+				display: flex;
+				flex-wrap: nowrap;
+				align-items: center;
+				flex-direction: column;
+				justify-content: center;
+
+				&__text {
+
+					height: 20px;
+					font-size: 14px;
+					text-align: center;
+					color: #959595;
+				}
+			}
+		}
+
+		&__validation {
+
+		}
+
+		&__verify {
+
+			width: 100%;
+			display: flex;
+			margin-bottom: 16px;
+			justify-content: center;
+		}
+
+		&__submit {
+
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			padding-left: 0;
+			padding-right: 0;
+
+			&__button {
+
+				// width: 303px;
+				width: 100%;
+				height: 44px;
+				border: none;
+				color: var(--ezycheck-white);
+				// padding: 10px 117px;
+				border-radius: 4px;
+				background-color: var(--login-blue);
+				
+				button.text-uppercase.shadow-none.text-nowrap.cv__submit__button {
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
 		}
 	}
 }

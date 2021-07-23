@@ -23,8 +23,8 @@ export default function JobList({header = "Vị trí cần tuyển", modified = 
 				</div>
 			</div>
 			<div className="job-list__body">
-				{list.length?
-					list.map(item => (
+				{/* {list.length?
+					list.map(item => ( */}
 					<JobListItem 
 						key={1}
 						id={1} 
@@ -32,10 +32,11 @@ export default function JobList({header = "Vị trí cần tuyển", modified = 
 						positionName="position name"
 						postDate="DD/MM/YYYY"
 						salary="Thương lượng"
-					/>))
-					:
+					/>
+					{/* )) */}
+					{/* :
 					(<div className="no-content">{"Không có dữ liệu"}</div>)
-				}
+				} */}
 			</div>
 			<div className="job-list__footer">
 				<Pagination />

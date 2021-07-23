@@ -51,7 +51,7 @@ export default function ListRecruitment (props) {
 						<Header main="Duyệt yêu cầu tuyển dụng" />
 					</div>
 					<div className="list__header__button" >
-						<button className="btn list__header__button shadow-none" ><span className="list__header__button__text" onClick={() => handleAllRequest()}>Hiện tất cả</span></button>
+						<button className="text-nowrap btn list__header__button shadow-none" ><span className="list__header__button__text" onClick={() => handleAllRequest()}>Hiện tất cả</span></button>
 						<input id="list-show-all-request" type="checkbox" className="btn list__header__button__checkbox shadow-none"  checked={allRequest} />
 					</div>
 				</div>

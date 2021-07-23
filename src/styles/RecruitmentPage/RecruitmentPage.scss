@@ -1,0 +1,43 @@
+@import "../index.scss";
+
+@include desktop {
+
+	.hanging {
+
+		// width: 100%;
+		display: flex;
+		height: min-content;
+		justify-content: center;
+		padding: 0 150px;
+		// padding: 0 0 0 150px;
+		margin-top: 16px;
+	}
+}
+
+@include tablet {
+	
+	.hanging {
+
+		// width: 100%;
+		display: flex;
+		height: min-content;
+		justify-content: center;
+		padding: 0 16px;
+		// padding: 0 0 0 150px;
+		margin-top: 16px;
+	}
+}
+
+@include mobile {
+
+	.hanging {
+
+		// width: 100%;
+		display: flex;
+		height: min-content;
+		justify-content: center;
+		padding: 0 16px;
+		// padding: 0 0 0 150px;
+		margin-top: 16px;
+	}
+}

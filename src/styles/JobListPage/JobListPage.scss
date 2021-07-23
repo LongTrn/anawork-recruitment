@@ -1,4 +1,25 @@
-.job-list-page {
+@import "../index.scss";
 
-	margin: 60px 80px;
+@include desktop {
+
+	.job-list-page {
+	
+		margin: 60px 80px;
+	}
+}
+
+@include tablet {
+
+	.job-list-page {
+	
+		margin: 53px 16px 21px;
+	}
+}
+
+@include mobile {
+
+	.job-list-page {
+	
+		margin: 53px 16px 21px;
+	}
 }
