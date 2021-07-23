@@ -28,7 +28,7 @@ export default function CVForm (props) {
 				</button>
 				{/* <input type="file" /> */}
 			</div>
-			<div className="cv__verify"><ReCAPTCHA  sitekey={"6LcbG7IbAAAAABqgvWBVLNdMmRQI28TxSUeOcAwn"} onChange={(e) => console.log("Recaptcha",e.target.value)}/></div>
+			<div className="cv__verify"><ReCAPTCHA sitekey={"6LcbG7IbAAAAABqgvWBVLNdMmRQI28TxSUeOcAwn"} onChange={(e) => console.log("Recaptcha",e.target.value)}/></div>
 			<div className="cv__submit">
 				<button className="text-uppercase shadow-none text-nowrap cv__submit__button">gửi hồ sơ</button>
 			</div>

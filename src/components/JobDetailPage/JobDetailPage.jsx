@@ -9,7 +9,7 @@ export default function JobDetailPage (props) {
 		<div className="job-detail-page gap gap-2">
 			<JobDetail />
 			<CVForm />
-			<div> </div>
+			{/* <div> </div> */}
 			<JobList header="Những vị trí khác" modified={true}/>
 		</div>
 	)

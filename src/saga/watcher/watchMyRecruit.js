@@ -1,4 +1,4 @@
-import { call, put, takeEvery, select, takeLatest } from 'redux-saga/effects'
+import { put, takeEvery, } from 'redux-saga/effects'
 import {axios} from '../../config/index'
 
 import {

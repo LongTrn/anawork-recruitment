@@ -13,7 +13,7 @@ export default function Header (props) {
 				<span className="spacing-xs"></span>
 			</div>
 			{sub&&(
-				<div className="header__item header__item--center">
+				<div className="text-nowrap header__item header__item--center">
 					<span className="header__line">|</span>
 					<span className="spacing-xs"></span>
 					<span className="header__sub">{sub}</span>

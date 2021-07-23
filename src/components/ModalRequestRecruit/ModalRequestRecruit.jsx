@@ -64,7 +64,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	selectItem: {
 
-		paddingLeft: 0,
+		// paddingLeft: 0,
+		maxWidth: "100%",
 		fontFamily: "Roboto",
 		fontSize: 13,
 		width: "100%",

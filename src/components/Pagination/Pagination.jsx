@@ -58,7 +58,7 @@ export default function Pagination ({ mine = false ,classes }) {
 			</div>
 			<div className="page__item">
 				<div>
-					<span className="page__number ">{(index - 1) * pageSize + 1} - {ranging > total? total: ranging} của {total}</span>
+					<span className="page__number text-nowrap">{(index - 1) * pageSize + 1} - {ranging > total? total: ranging} của {total}</span>
 				</div>
 				<div className="page__buttons">
 					<button className="btn page__buttons--size shadow-none" disabled={!(index - 1)}><i className="bi bi-chevron-bar-left page__buttons__first" onClick={() => handlePage(1)}/></button>
