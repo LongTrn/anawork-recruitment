@@ -110,38 +110,37 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 				<Col sm={12} className="preview-recruit__col" ><label htmlFor="name" className="label--left text-nowrap">Tên yêu cầu:</label></Col>
 			</Row>
 			<Row className="preview-recruit__row">
-				<Col sm={12} className="preview-recruit__col" ><div className="preview-recruit__col__value">{name}</div></Col>
+				<Col sm={12} className="preview-recruit__col preview-recruit__col--end-section " ><div className="preview-recruit__col__value">{name}</div></Col>
 			</Row>
 			<Row className="preview-recruit__row preview-recruit__row__label">
-				<Col sm={6} className="preview-recruit__col" ><label htmlFor="type" className="label--left text-nowrap" >Loại tuyển dụng:</label></Col>
-				<Col sm={6} className="preview-recruit__col" ><label htmlFor="position" className="label--left text-nowrap ">Chức vụ:</label></Col>
+				<Col sm={6} className="preview-recruit__col preview-recruit__col__label--margin-bottom" ><label htmlFor="type" className="label--left text-nowrap" >Loại tuyển dụng:</label></Col>
+				<Col sm={6} className="preview-recruit__col preview-recruit__col__label--margin-bottom" ><label htmlFor="position" className="label--left text-nowrap ">Chức vụ:</label></Col>
 			</Row>
 			<Row className="preview-recruit__row">
-				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value">{category_id?category_id === 1?"Tuyển mới": "Thay thế":""}</div></Col>
-				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value">{extend_position_name}</div></Col>
+				<Col sm={6} className="preview-recruit__col preview-recruit__col__value--margin-bottom" ><div className="preview-recruit__col__value">{category_id?category_id === 1?"Tuyển mới": "Thay thế":""}</div></Col>
+				<Col sm={6} className="preview-recruit__col preview-recruit__col__value--margin-bottom preview-recruit__col--end-section" ><div className="preview-recruit__col__value">{extend_position_name}</div></Col>
 			</Row>
 			<Row className="preview-recruit__row preview-recruit__row__label">
-				<Col sm={6} className="preview-recruit__col" ><label htmlFor="count"  className="label--left text-nowrap">Số lượng:</label></Col>
-				{/* <Col sm={6} className="preview-recruit__col" ><input id="count" type="number" value={quantity || 1} min={0} className="input--borderless" name="count" /></Col> */}
-				<Col sm={6} className="preview-recruit__col" ><label htmlFor="salary" className="label--left text-nowrap">Mức lương đề xuất:</label></Col>
+				<Col sm={6} className="preview-recruit__col preview-recruit__col__label--margin-bottom" ><label htmlFor="count"  className="label--left text-nowrap">Số lượng:</label></Col>
+				<Col sm={6} className="preview-recruit__col preview-recruit__col__label--margin-bottom" ><label htmlFor="salary" className="label--left text-nowrap">Mức lương đề xuất:</label></Col>
 			</Row>
 			<Row className="preview-recruit__row">
-				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value">{quantity}</div></Col>
-				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value">{salary || "---"}</div></Col>
+				<Col sm={6} className="preview-recruit__col preview-recruit__col__value--margin-bottom" ><div className="preview-recruit__col__value">{quantity}</div></Col>
+				<Col sm={6} className="preview-recruit__col preview-recruit__col__value--margin-bottom preview-recruit__col--end-section" ><div className="preview-recruit__col__value">{salary || "---"}</div></Col>
 			</Row>
 			<Row className="preview-recruit__row preview-recruit__row__label">
-				<Col sm={6} className="preview-recruit__col" ><label htmlFor="date-start"  className="label--left text-nowrap">Từ ngày:</label></Col>
-				<Col sm={6} className="preview-recruit__col" ><label htmlFor="date-end" className="label--left text-nowrap">Đến ngày:</label></Col>
+				<Col sm={6} className="preview-recruit__col preview-recruit__col__label--margin-bottom" ><label htmlFor="date-start"  className="label--left text-nowrap">Từ ngày:</label></Col>
+				<Col sm={6} className="preview-recruit__col preview-recruit__col__label--margin-bottom" ><label htmlFor="date-end" className="label--left text-nowrap">Đến ngày:</label></Col>
 			</Row>
 			<Row className="preview-recruit__row">
-				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value">{moment(startDay).format('DD/MM/YYYY') || "DD/MM/YYYY"}</div></Col>
-				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value">{moment(endDay).format("DD/MM/YYYY") || "DD/MM/YYYY"}</div></Col>
+				<Col sm={6} className="preview-recruit__col preview-recruit__col__value--margin-bottom" ><div className="preview-recruit__col__value">{moment(startDay).format('DD/MM/YYYY') || "DD/MM/YYYY"}</div></Col>
+				<Col sm={6} className="preview-recruit__col preview-recruit__col__value--margin-bottom preview-recruit__col--end-section" ><div className="preview-recruit__col__value">{moment(endDay).format("DD/MM/YYYY") || "DD/MM/YYYY"}</div></Col>
 			</Row>
 			<Row className="preview-recruit__row preview-recruit__row__label">
 				<Col sm={12} className="preview-recruit__col" ><label htmlFor="creator" className="label--left text-nowrap">Người duyệt:</label></Col>
 			</Row>
 			<Row className="preview-recruit__row">
-				<Col sm={12} className="preview-recruit__col" ><div className="preview-recruit__col__value">{extend_approver_fullname_email}</div></Col>
+				<Col sm={12} className="preview-recruit__col" ><div className="preview-recruit__col__value preview-recruit__col--end-section text-wrap">{extend_approver_fullname_email}</div></Col>
 			</Row>
 			<Row className="preview-recruit__row preview-recruit__row__label">
 				<Col sm={12} className="preview-recruit__col" ><label htmlFor="description" className="label--left text-nowrap">Mô tả yêu cầu:</label></Col>

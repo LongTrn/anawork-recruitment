@@ -9,7 +9,6 @@ export default function RecruitmentPage () {
 				<Header
 					main="Tuyển dụng"
 					sub="Yêu cầu tuyển dụng của tôi"
-					flag={true}
 				/>
 			</div>
 			<div className="hanging"><Recruitment /></div>

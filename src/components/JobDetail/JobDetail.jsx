@@ -14,7 +14,7 @@ export default function JobDetail (props) {
 					<Container fluid>
 						<Row className="job-detail__header__sub--modified">
 							<Col className="job-detail__header__sub--no-padding"><div className="text-nowrap job-detail__header__sub__text"><span className="job-detail__header__sub__label">Vị trí:</span> {"position"}</div> </Col>
-							<Col className="job-detail__header__sub--no-padding"><div className="text-nowrap job-detail__header__sub__text"><span className="job-detail__header__sub__label">Ngày đăng:</span> {"posted Date"}</div> </Col>
+							<Col className="job-detail__header__sub--no-padding"><div className="text-nowrap job-detail__header__sub__text"><span className="job-detail__header__sub__label">Ngày đăng:</span> {"DD/MM/YYYY"}</div> </Col>
 							<Col className="job-detail__header__sub--no-padding"><div className="text-nowrap job-detail__header__sub__text"><span className="job-detail__header__sub__label">Mức lương:</span > <span className="job-item__info--gold">{"salary"}</span></div></Col>
 						</Row>
 					</Container>

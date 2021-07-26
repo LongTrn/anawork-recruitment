@@ -133,7 +133,11 @@
 
 		&__footer {
 
-			display: none;
+			// display: none;
+			// width: 100%;
+			display: flex;
+			justify-content: flex-end;
+			margin-top: 16px;
 		}
 	
 		&--modified {
