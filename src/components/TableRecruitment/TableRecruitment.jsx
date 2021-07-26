@@ -1,5 +1,4 @@
 import React, { useState, useEffect, } from 'react';
-
 import "../../styles/TableRecruitment/TableRecruitment.scss"
 import {  ButtonDetail, ButtonView, ButtonEdit, ButtonDelete, } from "../index"
 import moment from "moment"
@@ -7,17 +6,6 @@ import moment from "moment"
 
 export default function TableRecruitment ({ data, pageIndex, pagesize, editable = false, all = false}) {
 	const [list, setList] = useState([])
-
-	const fetchData = async ( index = 1, size = 10, ) => {
-		
-		// const url = `/api/recruits/${!editable?`pendingRequests?Filters=${encodeURIComponent("extend_request_status==Chờ duyệt")}&`:`myPendingRequest?Filters=&`}Sorts=&Page=${index}&PageSize=${size}`
-		// const response = await axios.get(url)
-		
-		// if (!response.data.success) { return []}
-		
-		// const { collection } = response.data.data
-		// setList(collection)
-	}
 
 	useEffect(() => {
 		
@@ -30,7 +18,6 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 			setList(data)
 		}
 
-		fetchData(pageIndex, pagesize)
 
 	}, [ pagesize, ])
 

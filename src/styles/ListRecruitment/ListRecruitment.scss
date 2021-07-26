@@ -741,10 +741,11 @@
 		&__header {
 
 			width: max-content;
-			height: 40px;
-			margin: 0 0 2px;
+			height: 80px;
+			margin: 0 0 8px;
 			padding: 16px 16px 0;
 			border-radius: 4px;
+			border-bottom: 1px solid #ccc;
 
 			&__text {
 
@@ -756,7 +757,12 @@
 				font-size: 14px;
 				font-weight: 500;
 				text-align: left;
-				color: var(--primary-dark-grey);			
+				color: var(--primary-dark-grey);	
+			}
+
+			&__text.text-nowrap {
+					
+				white-space: normal !important;	
 			}
 
 			&__button {

@@ -1,7 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 @import "../index.scss";
-// @import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 @import 'react-summernote/dist/react-summernote.css';
 
 html, body, div#root {
@@ -11,25 +10,29 @@ html, body, div#root {
 
 @include mobile {
 
-	html {
+	html, body {
 
-		min-width: 100%;
+		min-width: 100vw;
+		width: 100vw;
 	}
 }
 
 @include tablet {
 
-	html {
+	html, body {
 
-		min-width: 100%;
+		min-width: 100vw;
+		width: 100vw;
 	}
 }
 
 @include desktop {
 
-	html {
+	html, body {
 
-		min-width: $desktop-width;
+		// min-width: $desktop-width;
+		min-width: 100vw;
+		width: 100vw;
 	}
 }
 
