@@ -1,100 +1,312 @@
-.page {
+@import "../index.scss";
 
-	display: flex;
-	justify-content: flex-end;
-	// margin: auto 10%;
-	align-items:baseline;
-	max-height: 65px;
-	padding: 0 16px;
-
-	select {
-		
-		border: none;
-		outline: none;
-		font-family: Poppins;
-		font-size: 13px;
-		text-align: center;
-		color: #4a4a4a;	
-
-		&.page__range {
-
-			width: 40px;
-			height: 20px;
-		}
-
-		.page__range__value, #paging__ListRecruitment {
-
-			// font-family: Poppins;
-			// font-size: 13px;
-			text-align: center;
-			// color: #4a4a4a;	
-			// height: fit-content;		
-		}
-
-		&#paging__ListRecruitment {
-
-			height: max-content;
-		}
-	}
-
-	&__item {
+@include desktop {
+	
+	.page {
 
 		display: flex;
-		flex-direction: row;
-		align-items: baseline;
-	}
+		justify-content: flex-end;
+		// margin: auto 10%;
+		align-items:baseline;
+		max-height: 65px;
+		padding: 0 16px;
 
-	&__text {
-
-		width: max-content;
-		height: 20px;
-		margin: 0 16px 0 0;
-		font-family: Poppins;
-		font-size: 13px;
-		text-align: left;
-		color: #757575;
-	}
-
-	&__number {
-
-		max-width: 100px;
-		height: 20px;
-		margin: 0 16px;
-		font-family: Poppins;
-		font-size: 13px;
-		text-align: center;
-		color: #bdbdbd;
-	}
-
-	&__buttons {
-
-		// width: 80px;
-		display: flex;
-		justify-content: space-between;
-		// margin-left: 16px;
-
-		button.btn {
-
-			padding: 8px;
-		}
-		
-		i {
+		select {
 			
-			width: 1px;
-			height: 12px;
+			border: none;
+			outline: none;
+			font-family: Poppins;
+			font-size: 13px;
+			text-align: center;
+			color: #4a4a4a;	
+
+			&.page__range {
+
+				width: 40px;
+				height: 20px;
+			}
+
+			.page__range__value, #paging__ListRecruitment {
+
+				// font-family: Poppins;
+				// font-size: 13px;
+				text-align: center;
+				// color: #4a4a4a;	
+				// height: fit-content;		
+			}
+
+			&#paging__ListRecruitment {
+
+				height: max-content;
+			}
 		}
 
-		&--size {
+		&__item {
 
-			width: 40px;
-			height: 40px;
+			display: flex;
+			flex-direction: row;
+			align-items: baseline;
 		}
+
+		&__text {
+
+			width: max-content;
+			height: 20px;
+			margin: 0 16px 0 0;
+			font-family: Poppins;
+			font-size: 13px;
+			text-align: left;
+			color: #757575;
+		}
+
+		&__number {
+
+			max-width: 100px;
+			height: 20px;
+			margin: 0 16px;
+			font-family: Poppins;
+			font-size: 13px;
+			text-align: center;
+			color: #bdbdbd;
+		}
+
+		&__buttons {
+
+			// width: 80px;
+			display: flex;
+			justify-content: space-between;
+			// margin-left: 16px;
+
+			button.btn {
+
+				padding: 8px;
+			}
+			
+			i {
+				
+				width: 1px;
+				height: 12px;
+			}
+
+			&--size {
+
+				width: 40px;
+				height: 40px;
+			}
+		}
+	}
+
+	.center { 
+		
+		display: flex;
+		justify-content: center;
 	}
 }
 
-
-.center { 
+@include tablet {
 	
-	display: flex;
-	justify-content: center;
+	.page {
+
+		display: flex;
+		justify-content: flex-end;
+		// margin: auto 10%;
+		align-items:baseline;
+		max-height: 65px;
+		padding: 0 16px;
+
+		select {
+			
+			border: none;
+			outline: none;
+			font-family: Poppins;
+			font-size: 13px;
+			text-align: center;
+			color: #4a4a4a;	
+
+			&.page__range {
+
+				width: 40px;
+				height: 20px;
+			}
+
+			.page__range__value, #paging__ListRecruitment {
+
+				// font-family: Poppins;
+				// font-size: 13px;
+				text-align: center;
+				// color: #4a4a4a;	
+				// height: fit-content;		
+			}
+
+			&#paging__ListRecruitment {
+
+				height: max-content;
+			}
+		}
+
+		&__item {
+
+			display: flex;
+			flex-direction: row;
+			align-items: baseline;
+		}
+
+		&__text {
+
+			width: max-content;
+			height: 20px;
+			margin: 0 16px 0 0;
+			font-family: Poppins;
+			font-size: 13px;
+			text-align: left;
+			color: #757575;
+		}
+
+		&__number {
+
+			max-width: 100px;
+			height: 20px;
+			margin: 0 16px;
+			font-family: Poppins;
+			font-size: 13px;
+			text-align: center;
+			color: #bdbdbd;
+		}
+
+		&__buttons {
+
+			// width: 80px;
+			display: flex;
+			justify-content: space-between;
+			// margin-left: 16px;
+
+			button.btn {
+
+				padding: 8px;
+			}
+			
+			i {
+				
+				width: 1px;
+				height: 12px;
+			}
+
+			&--size {
+
+				width: 40px;
+				height: 40px;
+			}
+		}
+	}
+
+	.center { 
+		
+		display: flex;
+		justify-content: center;
+	}
+}
+
+@include mobile {
+
+	.page {
+
+		display: flex;
+		justify-content: flex-end;
+		align-items:baseline;
+		max-height: 65px;
+		padding: 0 16px;
+		flex-direction: column-reverse;
+		align-items: flex-end;
+
+		select {
+			
+			border: none;
+			outline: none;
+			font-family: Poppins;
+			font-size: 13px;
+			text-align: center;
+			color: #4a4a4a;	
+
+			&.page__range {
+
+				width: 40px;
+				height: 20px;
+			}
+
+			.page__range__value, #paging__ListRecruitment {
+
+				// font-family: Poppins;
+				// font-size: 13px;
+				text-align: center;
+				// color: #4a4a4a;	
+				// height: fit-content;		
+			}
+
+			&#paging__ListRecruitment {
+
+				height: max-content;
+			}
+		}
+
+		&__item {
+
+			display: flex;
+			flex-direction: row;
+			align-items: baseline;
+		}
+
+		&__text {
+
+			width: max-content;
+			height: 20px;
+			margin: 0 16px 0 0;
+			font-family: Poppins;
+			font-size: 13px;
+			text-align: left;
+			color: #757575;
+		}
+
+		&__number {
+
+			max-width: 100px;
+			height: 20px;
+			margin: 0 16px;
+			font-family: Poppins;
+			font-size: 13px;
+			text-align: center;
+			color: #bdbdbd;
+		}
+
+		&__buttons {
+
+			// width: 80px;
+			display: flex;
+			justify-content: space-between;
+			// margin-left: 16px;
+
+			button.btn {
+
+				padding: 8px;
+			}
+			
+			i {
+				
+				width: 1px;
+				height: 12px;
+			}
+
+			&--size {
+
+				width: 40px;
+				height: 40px;
+			}
+		}
+	}
+
+	.center { 
+		
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 }

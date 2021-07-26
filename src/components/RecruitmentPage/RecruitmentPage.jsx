@@ -5,11 +5,13 @@ import { Header, Recruitment, ListRecruitment,MyRecruited } from "../index"
 export default function RecruitmentPage () {
 	return(
 		<div className="recruitment-page">
-			<Header
-				main="Tuyển dụng"
-				sub="Yêu cầu tuyển dụng của tôi"
-				flag={true}
-			/>
+			<div className="hanging">
+				<Header
+					main="Tuyển dụng"
+					sub="Yêu cầu tuyển dụng của tôi"
+					flag={true}
+				/>
+			</div>
 			<div className="hanging"><Recruitment /></div>
 			<div className="hanging"><ListRecruitment /></div>
 			<div className="hanging"><MyRecruited /></div>

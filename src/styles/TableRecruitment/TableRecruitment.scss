@@ -817,9 +817,8 @@
 			
 			/* head takes the height it requires, 
 			and it's not scaled when table is resized */
-			display: flex; 
-			flex-direction: column;
-			flex: 1 1 auto;
+			display: none; 
+			width: 100%;
 		}
 
 		tbody {
@@ -960,7 +959,11 @@
 
 		&__rows {
 
-			height: 56px;
+			// height: 52px;
+			height: 180px;
+			height: fit-content;
+			min-height: 180px;
+			min-height: fit-content;
 			align-self: stretch;
 			flex-grow: 0;
 			padding: 0;
@@ -968,6 +971,7 @@
 			box-shadow: 2px 2px 4px 0 rgba(82, 63, 105, 0.1);	
 			border-radius: 4px;
 			display: flex;		
+			flex-wrap: wrap;
 
 			&__text {
 
@@ -980,13 +984,14 @@
 			&__name {
 
 				width: 247px;
-				height: 56px;
+				height: 52px;
 				flex-grow: 0;
 				padding: 18px 42px 18px 12px;
 				background-color: var(--ezycheck-white);	
 				display: flex;
 				align-items: center;
-				
+				flex-basis: 100% !important;
+
 				&__text {
 					
 					width: 193px;
@@ -1006,63 +1011,70 @@
 			&__description {
 
 				width: 251px;
-				height: 56px;
+				height: 52px;
 				flex-grow: 0;
 				padding: 18px 46px 18px 12px;
 				background-color: var(--ezycheck-white);	
 				display: flex;
-				align-items: center;			
+				align-items: center;	
+				flex-basis: 100% !important;		
 			}
 
 			&__creator {
 
 				width: 150px;
-				height: 56px;
+				height: 52px;
 				flex-grow: 0;
 				padding: 18px 44px 18px 12px;
 				background-color: var(--ezycheck-white);
 				display: flex;
 				align-items: center;
+				flex-basis: 100% !important;
 			}
 
 			&__date-start {
 
-				width: 90px;
+				width: 100%;
+				width: 50%;
+				height: 52px;
 				align-self: stretch;
 				flex-grow: 0;
 				padding: 18px 3px 18px 12px;
 				background-color: var(--ezycheck-white);
 				display: flex;
 				align-items: center;
+				flex-basis: 50% !important;
 			}
 
 			&__date-end {
 
-				width: 110px;
-				width: 110px;
-				height: 56px;
+				width: 100%;
+				width: 50%;
+				height: 52px;
 				flex-grow: 0;
 				padding: 18px 23px 18px 12px;
 				background-color: var(--ezycheck-white);
 				display: flex;
 				align-items: center;
+				flex-basis: 50% !important;
 			}
 
 			&__count {
 
 				width: 80px;
-				height: 56px;
+				height: 52px;
 				padding: 12px 14px;
 				background-color: var(--ezycheck-white);
 				display: flex;
 				align-items: center;
 				justify-content: center;
+				flex-basis: 100% !important;
 			}
 
 			&__behavior {
 
 				width: 176px;
-				height: 56px;
+				height: 52px;
 				flex-grow: 0;
 				padding: 18px 0 18px 35px;
 				margin-right: 0;
@@ -1070,6 +1082,7 @@
 				background-color: var(--ezycheck-white);
 				display: flex;
 				align-items: center;
+				flex-basis: 100% !important;
 
 				&__button {
 		

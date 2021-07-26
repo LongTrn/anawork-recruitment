@@ -187,7 +187,9 @@
 			
 		height: auto;
 		display: flex;
-		flex-direction: row;
+		// flex-direction: row;
+		flex-direction: column;
+		width: 100%;
 	
 		&__item {
 	
@@ -206,6 +208,11 @@
 			font-size: 16px;
 			font-weight: 500;
 			color: var(--primary-dark-grey);
+		}
+	
+		&__main.text-nowrap {
+			
+			white-space: normal !important;
 		}
 	
 		&__line {
@@ -237,7 +244,6 @@
 			
 			margin: 16px;
 			padding: 16px 0 16px 2px;
-	
 		}
 	}
 }
