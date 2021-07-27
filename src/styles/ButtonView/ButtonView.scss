@@ -3,9 +3,28 @@
 	&__icon {
 
 		width: 16px;
-		// height: 16px;
+		height: 16px;
 		flex-grow: 0;
 		object-fit: contain;
+	}
+
+	&__view {
+
+		width: 80px;
+
+		&.btn {
+
+			display: flex;
+			justify-content: center;
+			align-content: center;
+			font-size: 13px;
+		}
+
+		&__text {
+
+			padding: auto 16px;
+			display: flex !important;
+		}
 	}
 }
 

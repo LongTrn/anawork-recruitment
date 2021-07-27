@@ -91,7 +91,7 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 													<td className="table__rows--align-text table__rows__date-end"><span className="table__rows__text">{dateEnd.split("-").join("/")}</span></td>
 													<td className="table__rows--align-text table__rows__count table--text-center"><span className="table__rows__text">{quantity}</span></td>
 													<td className="table__rows--align-text table__rows__behavior ">
-														{/* {editable? 
+														{editable? 
 															status === "pending"? 
 																<>
 																	<ButtonEdit className="shadow-none"id={id}/>
@@ -103,7 +103,7 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 															<>
 																<ButtonDetail className="shadow-none" id={id}/>
 															</>
-														} */}
+														}
 													</td>
 												</tr>
 											</React.Fragment>
