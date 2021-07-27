@@ -42,7 +42,8 @@ export default function MyRecruited (props) {
 				</div>
 			</div>
 			<TableRecruitment editable data={state} index={index} pageSize={pageSize} />
-			<Pagination mine={true} classes={"center"} />
+			{/* <Pagination classes={"center"} page="myRecruit"/> */}
+			<Pagination classes={"center"} page={{type: "myRecruit"}} />
 		</div>
 	)
 }

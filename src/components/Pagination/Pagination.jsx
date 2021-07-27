@@ -1,6 +1,7 @@
 import React, { useState, useEffect, } from 'react';
 import "../../styles/Pagination/Pagination.scss"
 import { useDispatch, useSelector, } from "react-redux"
+import { useParams, } from "react-router-dom";
 import { 
 	SET_RECRUIT_PAGE, 
 	SET_RECRUIT_PAGE_SIZE,
@@ -10,27 +11,58 @@ import {
 	SET_MY_RECRUIT_PAGE_SIZE,
 } from '../../redux/myRecruit/myRecruitActionType';
 
-export default function Pagination ({ mine = false ,classes }) {
+import { 
+	FETCH_JOB_DATA, 
+	FETCH_JOB_DETAIL, 
 
-	const { index, total, pageSize, all } = useSelector(state => mine? state.myRecruit : state.recruit)
+	SET_JOB_PAGE, 
+	SET_JOB_PAGE_SIZE,
+} from '../../redux/jobs/jobsActionType';
+
+export default function Pagination ({ classes, page }) {
+
+	const state = useSelector(state => state[page.type])
+	const { index, total, pageSize, all } = state
 	const numbersList = [ 5, 10 , 20 , 100];
 	const [ranging, setRanging] = useState(index * pageSize)
 	const dispatch = useDispatch();
-
+	const { idJobDetail: exceptJobID }= useParams();
 	
 	const handlePage = (index) => {
-		if (mine) {
-			dispatch({ type: SET_MY_RECRUIT_PAGE, payload: { input: { index, size: pageSize}}})
-		} else {
-			dispatch({ type: SET_RECRUIT_PAGE, payload: { input: { all, index, size: pageSize}}})
+
+		switch (page.type) {
+
+			case "jobs":
+				if (page.payload.input === "otherJobs") return dispatch({ type: SET_JOB_PAGE, payload: { input: { target: FETCH_JOB_DATA, id: exceptJobID, index, size: pageSize}}});
+				else return dispatch({ type: SET_JOB_PAGE, payload: { input: { target: FETCH_JOB_DATA, index, size: pageSize}}});
+
+			case "recruit":
+				return dispatch({ type: SET_RECRUIT_PAGE, payload: { input: { all, index, size: pageSize}}});
+			
+			case "myRecruit":
+				return dispatch({ type: SET_MY_RECRUIT_PAGE, payload: { input: { index, size: pageSize}}});
+			
+			default:
+				return;
 		}
 	}
 	
 	const handlePageSize = (size) => {
-		if (mine) {
-			dispatch({ type: SET_MY_RECRUIT_PAGE_SIZE, payload: { input: { index, size}}})
-		} else {
-			dispatch({ type: SET_RECRUIT_PAGE_SIZE, payload: { input: { all, index, size}}})
+		
+		switch (page.type) {
+
+			case "jobs":
+				if (page.payload.input === "otherJobs") return dispatch({ type: SET_JOB_PAGE_SIZE, payload: { input: { target: FETCH_JOB_DATA, id: exceptJobID , index, size}}});
+				else return dispatch({ type: SET_JOB_PAGE_SIZE, payload: { input: { target: FETCH_JOB_DATA, index, size}}});
+
+			case "recruit":
+				return dispatch({ type: SET_RECRUIT_PAGE_SIZE, payload: { input: { all, index, size}}});
+				
+			case "myRecruit":
+				return dispatch({ type: SET_MY_RECRUIT_PAGE_SIZE, payload: { input: { index, size}}});
+			
+			default:
+				return;
 		}
 	}
 
@@ -38,7 +70,9 @@ export default function Pagination ({ mine = false ,classes }) {
 		setRanging(parseInt(index * pageSize))
 	}, [ index, pageSize, ])
 
-	useEffect(() => {}, [ mine ])
+	useEffect(() => {
+		// console.log(page, state)
+	}, [ page, state ])
 
 	return (
 		<div className={classes? "page center" :"page"}>

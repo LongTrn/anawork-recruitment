@@ -1,12 +1,31 @@
 @import "../index.scss";
 
-@include desktop {
+@include monitor {
 	
 	.job-detail-page {
 
-		margin: 39px 80px 100px;
+		width: 70%;
+		margin: 39px auto 100px;
 	}
 }
+
+@include pc {
+	
+	.job-detail-page {
+
+		width: 80%;
+		margin: 39px auto 100px;
+	}
+}
+
+// @include desktop {
+	
+// 	.job-detail-page {
+
+// 		margin: 39px 80px 100px;
+// 	}
+// }
+
 @include tablet {
 
 	
@@ -15,6 +34,7 @@
 		margin: 39px 80px 100px;
 	}
 }
+
 @include mobile {
 	
 	.job-detail-page {

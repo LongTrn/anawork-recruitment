@@ -12,10 +12,9 @@ function App() {
 		<Router>
 			<Switch>
 				<Route exact path="/"><RecruitmentPage /></Route>
-				<Route path="/job-list"><JobListPage /></Route>
-				<Route path="/job-detail/:id"><JobDetailPage /></Route>
+				<Route exact path="/job-list"><JobListPage /></Route>
+				<Route path="/job-list/job-detail/:idJobDetail"><JobDetailPage /></Route>
 			</Switch>
-			{/* <Recruitment/> */}
 		</Router>
 	);
 }
