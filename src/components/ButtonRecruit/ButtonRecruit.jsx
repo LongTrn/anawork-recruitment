@@ -58,10 +58,11 @@ export default function ButtonRecruit ({ header, }) {
 				className="modal"
 			>
 				<Header 
-					closeButton
-					closeLabel=""
+					// closeButton
+					// closeLabel=""
 				>
 					<Title className="modal-request-recruit__header__text text-nowrap">{header||"Modal title"}</Title>
+					<button className="btn shadow-none" onClick={handleClose}><i className="bi bi-x-lg"></i></button>
 				</Header>
 				<Body>
 					<ModalRequestRecruit ref={buttonRef} onSubmit={onSubmit}/>

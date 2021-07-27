@@ -69,3 +69,10 @@
 		box-shadow:none;
 	}
 }
+
+.bi-pencil-fill::before, 
+.bi-trash-fill::before,
+.bi-list-ul::before {
+
+    color: #a9a9a9;
+}

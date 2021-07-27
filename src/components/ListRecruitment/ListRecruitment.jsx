@@ -50,10 +50,22 @@ export default function ListRecruitment (props) {
 					<div className="list__header__text">
 						<Header main="Duyệt yêu cầu tuyển dụng" />
 					</div>
-					<div className="list__header__button" >
-						<button className="text-nowrap btn list__header__button shadow-none" ><span className="list__header__button__text" onClick={() => handleAllRequest()}>Hiện tất cả</span></button>
-						<input id="list-show-all-request" type="checkbox" className="btn list__header__button__checkbox shadow-none"  checked={allRequest} />
-					</div>
+					<label className="list__header__button" >
+						{/* <span className="checkmark_container"> */}
+							<button className="text-nowrap btn list__header__button shadow-none" ><span className="list__header__button__text" onClick={() => handleAllRequest()}>Hiện tất cả</span></button>
+							<span class="checkmark checkmark_container">
+								{allRequest?
+									(<>
+										<span className="checkmark__ripple"><span className="checkmark__ripple__element"></span></span>
+										<span className="checkmark__frame"></span>
+										<span className="checkmark__background"><i className="bi bi-check-lg"></i></span>
+									</>)
+									:
+									<input id="list-show-all-request" type="checkbox" className="btn list__header__button__checkbox shadow-none checkmark__input"  checked={allRequest} />
+								}
+							</span>
+						{/* </span> */}
+					</label>
 				</div>
 			</div>
 			<TableRecruitment data={state} index={index} pageSize={pageSize} all={allRequest} />

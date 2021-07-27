@@ -88,3 +88,7 @@
 		}
 	}
 }
+.btn.btn-outline-primary.table__rows__behavior__button.text-nowrap.shadow-none > .bi-list-ul::before {
+
+    color: var(--primary-purple) !important;
+}
