@@ -53,7 +53,7 @@ export default function ListRecruitment (props) {
 					<label className="list__header__button" >
 						{/* <span className="checkmark_container"> */}
 							<button className="text-nowrap btn list__header__button shadow-none" ><span className="list__header__button__text" onClick={() => handleAllRequest()}>Hiện tất cả</span></button>
-							<span class="checkmark checkmark_container">
+							<span className="checkmark checkmark_container">
 								{allRequest?
 									(<>
 										<span className="checkmark__ripple"><span className="checkmark__ripple__element"></span></span>
@@ -69,7 +69,8 @@ export default function ListRecruitment (props) {
 				</div>
 			</div>
 			<TableRecruitment data={state} index={index} pageSize={pageSize} all={allRequest} />
-			<Pagination />
+			{/* <Pagination page="recruit"/> */}
+			<Pagination page={{type: "recruit"}} />
 		</div>
 	)
 }

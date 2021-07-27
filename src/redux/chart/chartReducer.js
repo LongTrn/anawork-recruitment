@@ -10,7 +10,7 @@ const initial = {
 	year: parseInt(moment().format("YYYY")),
 	isLoading: false,
 	data: [],
-	labels: null,
+	labels: [],
 	error: null
 }
 
