@@ -36,12 +36,8 @@ export default function JobList({ header = "Vị trí cần tuyển", modified =
 	return (
 		<div className={modified?"job-list job-list--modified" :"job-list"}>
 			<div className="job-list__header">
-				<div className="job-list__header__text text-nowrap">
-					{header}
-				</div>
-				<div className="job-list__header__search-bar">
-					<SearchBar />
-				</div>
+				<div className="text-nowrap job-list__header__text"><b>{header}</b></div>
+				<div className="job-list__header__search-bar"><SearchBar /></div>
 			</div>
 			<div className="job-list__body">
 				{list.length?
