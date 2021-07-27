@@ -1,4 +1,4 @@
-import React, { useState, useEffect,} from "react";
+import React, { useState, useEffect, useRef,} from "react";
 import "../../styles/CVForm/CVForm.scss"
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -9,6 +9,12 @@ export default function CVForm (props) {
 		phone: "",
 		mail: "",
 	})
+	const uploadFileButton = useRef();
+
+	const openUploader = () => {
+
+		uploadFileButton.current.click();
+	}
 
 	return (
 		<div className="cv">
@@ -19,14 +25,14 @@ export default function CVForm (props) {
 					<input type="text" className="cv__form__info__input" name="phone" placeholder="Số điện thoại"/>
 					<input type="text" className="cv__form__info__input" name="mail" placeholder="E-mail"/>
 				</div>
-				<button className="cv__form__action btn-block" onClick={()=> alert("test")}>
+				<button className="cv__form__action btn-block" onClick={() => openUploader()}>
 					<div className="text-nowrap cv__form__action__text cv__form__action__icon">
 						<i className="bi bi-cloud-upload"></i>
 					</div>
 					<div className="text-nowrap cv__form__action__text">Tải CV của bạn lên</div>
 					<div className="text-nowrap cv__form__action__text">(.pdf, .doc, .docx, .xls, .jpg, .png)</div>
 				</button>
-				{/* <input type="file" /> */}
+				<input type="file" hidden ref={uploadFileButton}/>
 			</div>
 			<div className="cv__verify"><ReCAPTCHA sitekey={"6LcbG7IbAAAAABqgvWBVLNdMmRQI28TxSUeOcAwn"} onChange={(e) => console.log("Recaptcha",e.target.value)}/></div>
 			<div className="cv__submit">

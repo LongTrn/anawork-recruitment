@@ -74,6 +74,30 @@ $desktop-x-large-width: 2560px;
   }
 }
 
+@mixin pc {
+  @media (min-width: #{$desktop-width}) and (max-width: #{$desktop-large-width}) {
+    @content;
+  }
+}
+
+@mixin monitor {
+  @media (min-width: #{$desktop-large-width}) {
+    @content;
+  }
+}
+
+@mixin cine{
+  @media (min-width: #{$desktop-width}) and (max-width: #{$desktop-x-large-width}) {
+    @content;
+  }
+}
+
+@mixin theater {
+  @media (min-width: #{$desktop-x-large-width}) {
+    @content;
+  }
+}
+
 // ::-webkit-scrollbar-track
 // {
 // 	// -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
