@@ -20,8 +20,8 @@ export default function CVForm (props) {
 					<input type="text" className="cv__form__info__input" name="mail" placeholder="E-mail"/>
 				</div>
 				<button className="cv__form__action btn-block" onClick={()=> alert("test")}>
-					<div className="text-nowrap cv__form__action__text">
-						Icon
+					<div className="text-nowrap cv__form__action__text cv__form__action__icon">
+						<i className="bi bi-cloud-upload"></i>
 					</div>
 					<div className="text-nowrap cv__form__action__text">Tải CV của bạn lên</div>
 					<div className="text-nowrap cv__form__action__text">(.pdf, .doc, .docx, .xls, .jpg, .png)</div>
@@ -32,6 +32,9 @@ export default function CVForm (props) {
 			<div className="cv__submit">
 				<button className="text-uppercase shadow-none text-nowrap cv__submit__button">gửi hồ sơ</button>
 			</div>
+			{/* <div>
+				<input type="file" className="cv__form__action__form" placeholder="Testing"/>
+			</div> */}
 		</div>
 	)
 }

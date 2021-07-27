@@ -6,7 +6,7 @@ export default function TimeSort ({year, nextYear, previousYear,}) {
 	return(
 		<div className="timeline timeline--middle-vertically">
 			<button
-				className="btn timeline__button__arrows"
+				className="btn timeline__button__arrows shadow-none"
 				onClick={previousYear}
 				>
 				<img 
@@ -17,7 +17,7 @@ export default function TimeSort ({year, nextYear, previousYear,}) {
 			</button>
 			<span className="timeline__value">{year}</span>
 			<button
-				className="btn timeline__button__arrows"
+				className="btn timeline__button__arrows shadow-none"
 				onClick={nextYear}
 			>
 				<img 

@@ -84,9 +84,10 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 				<Footer className="gap-2">
 					{state !== "Chờ duyệt" ? 
 						<>
-							<button className="btn btn-primary button__detail shadow-none" onClick={handleClose}><span className="button__detail__text">Xong</span></button>
+							<button className="btn btn-primary button__detail shadow-none" onClick={handleClose}><span className="button__detail__text">Đóng</span></button>
 						</>
-						: (<>
+						: 
+						(<>
 							<button className="btn btn-primary button__detail shadow-none" onClick={handleApprove}><span className="button__detail__text">Duyệt yêu cầu</span></button>
 							<button className="btn btn-white button__cancel shadow-none" onClick={handleReject}><span className="button__detail__text__cancel">Từ chối</span></button>
 						</>)}

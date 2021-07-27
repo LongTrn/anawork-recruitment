@@ -40,7 +40,9 @@ export default function ButtonView ({ header = "Yêu cầu tuyển dụng", id }
 					<ModalPreviewRecruit view={true} id={id}/>
 				</Body>
 				<Footer>
-					<button className="btn btn-primary button__detail shadow-none" onClick={handleClose}><span className="button__text button__text">Xong</span></button>
+					<>
+						<button className="btn btn-primary button__view shadow-none" onClick={handleClose}><span className="button__view__text button__text">Đóng</span></button>
+					</>
 				</Footer>
 			</Modal>
 		</div>

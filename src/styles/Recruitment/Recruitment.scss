@@ -1,7 +1,31 @@
 @import "../index.scss";
 
+@media (min-width: #{$desktop-x-large-width}) {
 
-@media (min-width: #{$desktop-large-width}) {
+	.recruitment {
+	
+		width: 100%;
+		height: max-content;
+		background-color: #f9f9fc;
+		display: flex;
+	
+		&__wrapper {
+	
+			&__left {
+	
+				min-width: 80%;
+				padding-right: 16px;
+			}
+			
+			&__right {
+				
+				min-width: 20%;
+			}
+		}
+	}
+}
+
+@media (min-width: #{$desktop-large-width}) and (max-width: #{$desktop-x-large-width - 1px} ) {
 	
 	.recruitment {
 	
@@ -26,26 +50,29 @@
 	}
 }
 
-@include desktop {
+@media (min-width: #{$desktop-width}) and (max-width: #{$desktop-large-width - 1px} ) {
+
+// @include desktop {
 
 	.recruitment {
 	
 		width: 100%;
 		height: max-content;
 		background-color: #f9f9fc;
-		display: flex;
+		// display: flex;
 	
 		&__wrapper {
 	
 			&__left {
 	
-				min-width: 70%;
-				padding-right: 16px;
+				min-width: 100%;
+				// padding-right: 16px;
 			}
 			
 			&__right {
 				
-				min-width: 30%;
+				margin-top: 16px;
+				min-width: 100%;
 			}
 		}
 	}

@@ -64,7 +64,7 @@ export default function ButtonDelete ({ header = "Yêu cầu tuyển dụng", id
 				</Body>
 				<Footer className="gap-2">
 					<button className="btn button__delete shadow-none"><span className="button__delete__text" onClick={handleDelete}>Xóa</span></button>
-					<button className="btn button__delete__cancel shadow-none" onClick={handleClose}><span className="button__delete__text__cancel">Hủy bỏ</span></button>
+					<button className="btn button__delete__cancel shadow-none" onClick={handleClose}><span className="button__delete__text__cancel">Hủy</span></button>
 				</Footer>
 			</Modal>
 

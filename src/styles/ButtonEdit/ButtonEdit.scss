@@ -10,7 +10,6 @@
 	
 	&__edit {
 
-
 		width: 114px;
 		height: 32px;
 		margin: 0 0 0 8px;
@@ -21,14 +20,25 @@
 		border-radius: 4px;
 		background-color: var(--primary-purple);
 
+		&.btn {
+
+			display: flex;
+		}
+
 		&__cancel {
 
-			width: 76;
+			width: 80px;
 			height: 32px;
 			display: flex;
 			justify-content: center;
 			text-align: center;
 			border-radius: 4px;
+
+			&.btn {
+
+				display: flex;
+				background-color: #e9eaf9;
+			}
 		}
 		
 		&__text {
@@ -58,4 +68,11 @@
 		outline:none;
 		box-shadow:none;
 	}
+}
+
+.bi-pencil-fill::before, 
+.bi-trash-fill::before,
+.bi-list-ul::before {
+
+    color: #a9a9a9;
 }

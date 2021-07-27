@@ -64,7 +64,7 @@ export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", id})
 				</Body>
 				<Footer className="gap-2">
 					<button className="btn btn-primary button__edit shadow-none"><span className="button__edit__text" onClick={handleSubmit}>Chỉnh sửa</span></button>
-					<button className="btn btn-white button__cancel shadow-none" onClick={handleClose}><span className="button__edit__text__cancel">Hủy bỏ</span></button>
+					<button className="btn btn-white button__edit__cancel shadow-none" onClick={handleClose}><span className="button__edit__text__cancel">Hủy bỏ</span></button>
 				</Footer>
 			</Modal>
 
