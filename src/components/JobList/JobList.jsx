@@ -23,7 +23,7 @@ export default function JobList({ header = "Vị trí cần tuyển", modified =
 
 	useEffect(() => {
 		// get api
-		dispatch({type: FETCH_JOB_DATA, payload: { input: { id: except, index: 1, size: 10, }}})
+		dispatch({type: FETCH_JOB_DATA, payload: { input: { id: except, index, size: pageSize, }}})
 	}, [ except, ])
 
 

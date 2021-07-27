@@ -22,7 +22,6 @@ export default function JobDetail (props) {
 
 	useEffect(() => {
 
-		console.log(id)
 		dispatch({type: FETCH_JOB_DETAIL, payload: { input: { id }}})
 	}, [ id ])
 

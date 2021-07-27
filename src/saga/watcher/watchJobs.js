@@ -113,10 +113,10 @@ function* workerPageSizing(action) {
 }
 
 export function* watchJobs(action){
-	// yield takeEvery(SET_RECRUIT_PAGE, workerPaging)
-	// yield takeEvery(SET_RECRUIT_PAGE_SIZE, workerPageSizing)
 	// yield takeEvery(SET_RECRUIT_ALL_REQUESTS, workerRecruit)
     // yield takeEvery(FETCH_RECRUIT_DATA, workerRecruit)
 	yield takeEvery(FETCH_JOB_DATA, workerJobs)
 	yield takeEvery(FETCH_JOB_DETAIL, workerJobDetail)
+	yield takeEvery(SET_JOB_PAGE, workerPaging)
+	yield takeEvery(SET_JOB_PAGE_SIZE, workerPageSizing)
 }
