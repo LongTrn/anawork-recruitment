@@ -1085,3 +1085,13 @@
 		}
 	}
 }
+
+input#list-show-all-request {
+    width: 16px;
+    height: 16px;
+    align-self: center;
+    flex-grow: 0;
+    border-radius: 2px;
+    background-color: var(--primary-purple);
+    color: var(--primary-purple);
+}

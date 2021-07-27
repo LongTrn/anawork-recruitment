@@ -140,7 +140,7 @@ export default function ModalPreviewRecruit ({ data, view = false, id}) {
 				<Col sm={12} className="preview-recruit__col" ><label htmlFor="creator" className="label--left text-nowrap">Người duyệt:</label></Col>
 			</Row>
 			<Row className="preview-recruit__row">
-				<Col sm={12} className="preview-recruit__col" ><div className="preview-recruit__col__value preview-recruit__col--end-section text-wrap">{extend_approver_fullname_email}</div></Col>
+				<Col sm={6} className="preview-recruit__col" ><div className="preview-recruit__col__value preview-recruit__col--end-section text-wrap">{extend_approver_fullname_email}</div></Col>
 			</Row>
 			<Row className="preview-recruit__row preview-recruit__row__label">
 				<Col sm={12} className="preview-recruit__col" ><label htmlFor="description" className="label--left text-nowrap">Mô tả yêu cầu:</label></Col>

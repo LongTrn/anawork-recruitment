@@ -824,7 +824,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 							/>
 						</div>
 						{
-							<Text className="text-muted">
+							<Text>
 								<span className="error-message">{error.quantity}</span>
 							</Text>
 						}
@@ -967,7 +967,7 @@ export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
 							<b className="label--right text-nowrap">Người duyệt*:</b>
 						</label>
 					</Col>
-					<Col sm={10} className="request-recruit__col">
+					<Col sm={4} className="request-recruit__col">
 						<FormControl
 							className={
 								!error.extend_approver_fullname_email

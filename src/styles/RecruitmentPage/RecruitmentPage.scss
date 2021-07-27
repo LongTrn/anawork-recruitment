@@ -1,7 +1,32 @@
 @import "../index.scss";
 
-@include desktop {
+@media (min-width: #{$desktop-x-large-width}) {
+	.recruitment-page {
 
+		width: 65%;
+		margin: 0 auto;
+	}
+	
+	.hanging {
+
+		// width: 100%;
+		display: flex;
+		height: min-content;
+		// justify-content: center;
+		// padding: 0 auto;
+		// padding: 0 0 0 150px;
+		margin: 16px auto;
+	}
+}
+
+@media (min-width: #{$desktop-width}) and (max-width: #{$desktop-x-large-width - 1px}) {
+
+	.recruitment-page {
+
+		width: 80%;
+		margin: 0 auto;
+	}
+	
 	.hanging {
 
 		// width: 100%;
@@ -9,6 +34,7 @@
 		height: min-content;
 		// justify-content: center;
 		padding: 0 150px;
+		padding: 0 30px;
 		// padding: 0 0 0 150px;
 		margin: 16px 0;
 	}

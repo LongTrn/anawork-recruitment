@@ -32,6 +32,9 @@ export default function CVForm (props) {
 			<div className="cv__submit">
 				<button className="text-uppercase shadow-none text-nowrap cv__submit__button">gửi hồ sơ</button>
 			</div>
+			{/* <div>
+				<input type="file" className="cv__form__action__form" placeholder="Testing"/>
+			</div> */}
 		</div>
 	)
 }

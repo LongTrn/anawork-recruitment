@@ -297,7 +297,6 @@
 
 				&__text {
 
-
 				}
 			
 				&__text {
@@ -320,7 +319,8 @@
 				
 				&--modified {
 
-
+					display: flex;
+					flex-wrap: wrap;
 				}
 
 				&--gold {
@@ -329,6 +329,8 @@
 				}
 
 				&--no-padding {
+
+					flex-basis: 50% !important;	
 
 					&.col {
 

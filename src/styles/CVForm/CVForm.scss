@@ -71,6 +71,21 @@
 					text-align: center;
 					color: #959595;
 				}
+
+				&__form {
+
+					font-size: 18px;
+					display: block;
+					width: 100%;
+					border: none;
+					text-transform: none;
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					opacity: 0;
+				}
 			}
 		}
 
