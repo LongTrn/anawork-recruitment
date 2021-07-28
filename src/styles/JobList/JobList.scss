@@ -15,7 +15,8 @@
 			align-items: center;
 			flex-direction: row;
 			justify-content: space-between;
-			margin: 0 16px;
+			// margin: 0 16px;
+			margin: 0;
 			border-bottom: 1px solid #ccc;
 	
 			&__text {
@@ -37,7 +38,8 @@
 		&__body {
 	
 			min-height: 100px;
-			padding: 0 8px 0;
+			// padding: 0 8px 0;
+			padding: 0;
 		}
 	
 		&__footer {
@@ -48,6 +50,7 @@
 		&--modified {
 	
 			margin-top: 16px;
+			padding: 40px 40px 60px 48px;
 		}
 	}
 }
@@ -67,7 +70,8 @@
 			align-items: center;
 			flex-direction: row;
 			justify-content: space-between;
-			margin: 0 16px;
+			// margin: 0 16px;
+			margin: 0;
 			border-bottom: 1px solid #ccc;
 	
 			&__text {
@@ -89,7 +93,8 @@
 		&__body {
 	
 			min-height: 100px;
-			padding: 0 8px 0;
+			// padding: 0 8px 0;
+			padding: 0;
 		}
 	
 		&__footer {
@@ -100,6 +105,7 @@
 		&--modified {
 	
 			margin-top: 16px;
+			padding: 40px 30px 60px 38px;
 		}
 	}
 }
@@ -119,7 +125,8 @@
 			align-items: center;
 			flex-direction: row;
 			justify-content: space-between;
-			margin: 0 16px;
+			// margin: 0 16px;
+			margin: 0;
 			border-bottom: 1px solid #ccc;
 	
 			&__text {
@@ -141,7 +148,8 @@
 		&__body {
 	
 			min-height: 100px;
-			padding: 0 8px 0;
+			// padding: 0 8px 0;
+			padding: 0;
 		}
 
 		&__footer {
@@ -154,6 +162,7 @@
 		&--modified {
 	
 			margin-top: 16px;
+			padding: 40px 16px 60px 15px;
 		}
 	}
 }

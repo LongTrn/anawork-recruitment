@@ -42,7 +42,7 @@ export default function JobDetail (props) {
 				</div>
 				
 				<div className="job-detail__header__action">
-					<button className="btn btn-primary text-uppercase shadow-none job-detail__header__action__button">
+					<button className="btn text-uppercase shadow-none job-detail__header__action__button">
 						<span className="job-detail__header__action__button__text">nộp hồ sơ</span>
 					</button>
 				</div>

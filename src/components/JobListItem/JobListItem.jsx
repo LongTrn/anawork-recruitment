@@ -1,9 +1,7 @@
-import React, { useEffect, } from 'react';
+import React from 'react';
 import "../../styles/JobListItem/JobListItem.scss"
 import { Link, } from "react-router-dom"
 import { Container, Row, Col,} from 'react-bootstrap';
-import { useDispatch, useSelector, } from "react-redux"
-import { FETCH_JOB_DETAIL, } from '../../redux/jobs/jobsActionType';
 import moment from 'moment';
 
 export default function JobListItem ({ id, name, extend_position_name, created_at, salary }) {
@@ -23,7 +21,7 @@ export default function JobListItem ({ id, name, extend_position_name, created_a
 							>{ name }</Link>
 						</Col>
 					</Row>
-					<Row className="job-item__info--flex-end">
+					<Row className="job-item__info--flex-end job-item__info__sub">
 						<Col className="job-item__info--modified"> 
 							<div>
 								<div className="job-item__info__text"><span className="job-item__info__label">Vị trí:</span> {extend_position_name}</div>
