@@ -15,8 +15,8 @@ export default function ButtonRecruit ({ header, }) {
 	const { Header, Title, Body, Footer, } = Modal;
 	const [show, setShow] = useState(false);
 	
-	const { index, total, pageSize, all } = useSelector(state => state.recruit)
-	const { index: myIndex, total: myTotal, pageSize: myPageSize, all: myAll } = useSelector(state => state.myRecruit)
+	const { index, pageSize, all } = useSelector(state => state.recruit)
+	const { index: myIndex, pageSize: myPageSize, } = useSelector(state => state.myRecruit)
 	const dispatch = useDispatch();
   
 	const handleClose = () => setShow(false);

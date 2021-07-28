@@ -6,13 +6,12 @@ import { useDispatch, useSelector, } from "react-redux"
 import {
 	FETCH_JOB_DATA,
 } from "../../redux/jobs/jobsActionType"
-import moment from "moment";
 
 export default function JobList({ header = "Vị trí cần tuyển", modified = false, except }) {
 
 	const [list, setList] = useState([])
 	const state = useSelector(state => state.jobs)
-	const { index, pageSize, total, collection, } = state
+	const { index, pageSize, collection, } = state
 	const dispatch = useDispatch();
 
 	useEffect(() => {

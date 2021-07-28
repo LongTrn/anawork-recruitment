@@ -14,7 +14,7 @@ export default function JobDetailPage (props) {
 	return (
 		<div className="job-detail-page gap gap-2">
 			<JobDetail />
-			<CVForm />
+			<CVForm recruit_id={id}/>
 			<JobList except={id} header="Những vị trí khác" modified={true}/>
 		</div>
 	)

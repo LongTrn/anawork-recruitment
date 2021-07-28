@@ -7,7 +7,7 @@ import { Header, TableRecruitment, Pagination, } from "../index"
 import { useDispatch, useSelector, } from "react-redux"
 import { 
 	FETCH_RECRUIT_DATA, 
-	SET_RECRUIT_ALL_REQUESTS,
+	// SET_RECRUIT_ALL_REQUESTS,
 } from '../../redux/recruit/recruitActionType';
 
 export default function ListRecruitment (props) {
@@ -17,7 +17,7 @@ export default function ListRecruitment (props) {
 	const { 
 		index,
 		pageSize,
-		total,
+		// total,
 		data,
 		all,
 	} = useSelector(state => state.recruit)

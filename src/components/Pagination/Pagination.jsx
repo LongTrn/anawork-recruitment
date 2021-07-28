@@ -13,7 +13,6 @@ import {
 
 import { 
 	FETCH_JOB_DATA, 
-	FETCH_JOB_DETAIL, 
 
 	SET_JOB_PAGE, 
 	SET_JOB_PAGE_SIZE,

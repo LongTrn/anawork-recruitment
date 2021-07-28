@@ -16,8 +16,8 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 	const [show, setShow] = useState(false);
 	const [state, setState] = useState("")
 	
-	const { index, total, pageSize, all } = useSelector(state => state.recruit)
-	const { index: myIndex, total: myTotal, pageSize: myPageSize, all: myAll } = useSelector(state => state.myRecruit)
+	const { index, pageSize, all } = useSelector(state => state.recruit)
+	const { index: myIndex, pageSize: myPageSize, } = useSelector(state => state.myRecruit)
 	const dispatch = useDispatch();
   
 	const handleClose = () => setShow(false);
@@ -72,11 +72,12 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 				className="modal"
 			>
 				<Header 
-					closeButton
-					closeLabel=""
-					className="modal-preview-recruit__header"
+					// closeButton
+					// closeLabel=""
+					// className="modal-preview-recruit__header"
 				>
 					<Title className="modal-preview-recruit__header__text text-nowrap">{header||"Yêu cầu tuyển dụng"}</Title>
+					<button className="btn shadow-none" onClick={handleClose}><i className="bi bi-x-lg"></i></button>
 				</Header>
 				<Body>
 					<ModalPreviewRecruit id={id} view/>

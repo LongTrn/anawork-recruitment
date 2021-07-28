@@ -1,8 +1,6 @@
 import React, { useState, useEffect, } from 'react';
 import "../../styles/MyRecruited/MyRecruited.scss"
 import { Header, TableRecruitment, Pagination, } from "../index"
-// import { MyRecruitedModel,} from "../../models/index"
-import { axios } from "../../config/index"
 
 import { useDispatch, useSelector, } from "react-redux"
 import { 
@@ -15,7 +13,7 @@ export default function MyRecruited (props) {
 	const { 
 		index,
 		pageSize,
-		total,
+		// total,
 		data,
 	} = useSelector(state => state.myRecruit)
 	const dispatch = useDispatch();
