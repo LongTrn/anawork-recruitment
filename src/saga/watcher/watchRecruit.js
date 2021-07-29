@@ -20,7 +20,7 @@ function* workerRecruit (action) {
 		
 		if (!response.data.success) throw new Error("Fetch List Recruits Failed")
 		const { pageIndex, pagesize, total, collection } = response.data.data
-		yield put({ type: FETCH_RECRUIT_SUCCESS, payload: { index: pageIndex, pageSize: pagesize, total, data: collection} })		
+		yield put({ type: FETCH_RECRUIT_SUCCESS, payload: { index: pageIndex, pageSize: pagesize, total, data: collection, all} })		
 	} catch (error) {
 		console.group("Watcher Recruit")
 		console.log(error)
@@ -37,7 +37,8 @@ function* workerRecruit (action) {
 function* workerPaging(action) {
 	try {
 		const input = action.payload.input
-		yield put({type: FETCH_RECRUIT_DATA, payload: {input}})
+		// yield put({type: FETCH_RECRUIT_DATA, payload: {input}})
+		yield put({type: SET_RECRUIT_ALL_REQUESTS, payload: {input}})
 		
 	} catch (error) {
 		console.group("Watcher Recruit Paging")

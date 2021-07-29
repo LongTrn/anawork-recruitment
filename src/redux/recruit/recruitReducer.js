@@ -40,6 +40,7 @@ export const recruitReducer = (state = initial, action) => {
 				index: action.payload.index,
 				pageSize: action.payload.pageSize,
 				total: action.payload.total,
+				all: action.payload.all,
 			}
 		case SET_RECRUIT_PAGE:
 			return {

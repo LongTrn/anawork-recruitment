@@ -15,43 +15,39 @@ export default function ListRecruitment (props) {
 	const [allRequest, setAllRequest] = useState(false)
 	const buttonRef = useRef();
 	const { 
-		index,
 		pageSize,
-		// total,
 		isLoading,
-		data,
 		all,
 	} = useSelector(state => state.recruit)
 	const dispatch = useDispatch();
 
-	const fetchData = async ( getAll = false, index = 1, size = 10, ) => {
-		// dispatch({ type: FETCH_RECRUIT_DATA, payload: { input: {getAll, index, size}}})
-		// console.log("tset getAll ", getAll)
+	const fetchData = async ( getAll = false, size = 10, ) => {
+
+		// if (getAll) {
+
+		// 	dispatch({ type: SET_RECRUIT_ALL_REQUESTS, payload: { input: { all: getAll, index, size}}})
+		// } else dispatch({ type: FETCH_RECRUIT_DATA, payload: { input: { index, size}}})
+		
 		if (getAll) {
 
-			dispatch({ type: SET_RECRUIT_ALL_REQUESTS, payload: { input: { all: getAll, index, size}}})
-		} else dispatch({ type: FETCH_RECRUIT_DATA, payload: { input: { index, size}}})
+			dispatch({ type: SET_RECRUIT_ALL_REQUESTS, payload: { input: { all: getAll, index: 1, size}}})
+		} else dispatch({ type: FETCH_RECRUIT_DATA, payload: { input: { index: 1, size}}})
 	}
 	
 	const handleAllRequest = () => {
 		if(isLoading) return;
-
-		// fetchData(!all, index, pageSize)
-		// fetchData(!allRequest, index, pageSize)
 		setAllRequest(prev =>!prev)
-		// setAllRequest(prev => !all)
 	}
 
 	useEffect(() => {
-		// fetchData(all, index, pageSize)
 		setAllRequest(prev=>all)
 	} , [ all, ])
 
 	useEffect(() => {
-		fetchData(allRequest, index, pageSize)
+		fetchData(allRequest, pageSize)
 	}, [ allRequest,])
 
-	useEffect(() => {console.log("isLoading", isLoading)}, [ isLoading, ])
+	useEffect(() => {}, [ isLoading, ])
 
 	return (
 		<div className="list">
@@ -61,7 +57,6 @@ export default function ListRecruitment (props) {
 						<Header main="Duyệt yêu cầu tuyển dụng" />
 					</div>
 					<label className="list__header__button" >
-						{/* <span className="checkmark_container"> */}
 							<button className="text-nowrap btn list__header__button shadow-none" ><span className="list__header__button__text" onClick={() => handleAllRequest()}>Hiện tất cả</span></button>
 							<span className="checkmark checkmark_container">
 								{allRequest?
@@ -72,10 +67,8 @@ export default function ListRecruitment (props) {
 									</>)
 									:
 									<input id="list-show-all-request" ref={buttonRef} type="checkbox" className="btn list__header__button__checkbox shadow-none checkmark__input"  onChange={() => setAllRequest(prev =>!prev)} checked={allRequest} />
-									// <input id="list-show-all-request" ref={buttonRef} type="checkbox" className="btn list__header__button__checkbox shadow-none checkmark__input"  onChange={() => handleAllRequest()} checked={allRequest} />
 								}
 							</span>
-						{/* </span> */}
 					</label>
 				</div>
 			</div>
