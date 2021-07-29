@@ -13,7 +13,6 @@ export default function TableRecruitment ({ page, editable = false,  }) {
 	useEffect(() => {
 		
 		// setList(data)
-		console.log(page.type, list)
 	}, [ list ])
 
 	// useEffect(() => {
@@ -102,7 +101,7 @@ export default function TableRecruitment ({ page, editable = false,  }) {
 														{editable? 
 															status === "pending"? 
 																<>
-																	<ButtonEdit className="shadow-none"id={id}/>
+																	<ButtonEdit className="shadow-none" id={id}/>
 																	<ButtonDelete className="shadow-none" id={id}/>
 																</>
 																:
