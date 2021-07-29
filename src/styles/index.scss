@@ -75,7 +75,7 @@ $desktop-x-large-width: 2560px;
 }
 
 @mixin pc {
-  @media (min-width: #{$desktop-width}) and (max-width: #{$desktop-large-width}) {
+  @media (min-width: #{$desktop-width}) and (max-width: #{$desktop-large-width - 1px}) {
     @content;
   }
 }

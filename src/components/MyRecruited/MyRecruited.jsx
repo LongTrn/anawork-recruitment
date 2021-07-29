@@ -32,7 +32,7 @@ export default function MyRecruited (props) {
 
 	return (
 		<div className="my-list">
-			<div className="my-list__header">
+			<div className="my-list__header my-list__header--left-padding">
 				<div className="my-list__header--left-padding">
 					<div className="my-list__header__text">
 						<Header main="Tuyển dụng của tôi"/>
@@ -40,7 +40,6 @@ export default function MyRecruited (props) {
 				</div>
 			</div>
 			<TableRecruitment editable data={state} index={index} pageSize={pageSize} />
-			{/* <Pagination classes={"center"} page="myRecruit"/> */}
 			<Pagination classes={"center"} page={{type: "myRecruit"}} />
 		</div>
 	)

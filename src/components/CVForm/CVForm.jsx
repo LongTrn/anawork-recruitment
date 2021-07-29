@@ -12,7 +12,6 @@ export default function CVForm ({recruit_id}) {
 		mail: "",
 		captcha: "",
 	})
-
 	const [touch, setTouch] = useState({
 		name: false,
 		phone: false,
@@ -20,37 +19,11 @@ export default function CVForm ({recruit_id}) {
 		captcha: false,
 		files: false,
 	})
-
 	const [error, setError] = useState({})
-
 	const [valid, setValid] = useState(false)
-
 	const [files, setFiles] = useState([])
-	const uploadFileButton = useRef();
-	const removeRef = useRef();
-
-	const openUploader = () => {
-
-		uploadFileButton.current.click();
-	}
 
 	const handleFile = async (event) => {
-		
-		// const newFiles = Array.from(event.target.files).map(file => {
-		// 	console.log(file)
-		// 	console.log(typeof file)
-		// 	uploadCV(file)
-		// 	return {
-		// 		_id: moment().format("x"),
-		// 		name: file.name,
-		// 		size: file.size,
-		// 		type: file.type, 
-		// 		lastModified: moment(file.lastModifiedDate).format("x"), 
-		// 		lastModifiedDate: moment(file.lastModifiedDate).format("LLLL"),
-		// 		webkitRelativePath: file.webkitRelativePath,
-		// 	}
-		// })
-		// files.push(...newFiles);
 
 		const newFiles = (event.target.files)
 		files.push(...newFiles);
@@ -63,13 +36,6 @@ export default function CVForm ({recruit_id}) {
 		setState(prev => ({...prev, captcha: value}))
 	}
 
-	const handleRemove = (event) => {
-		
-		console.log("remove Item", event)
-		removeRef.current.click();
-		// setFiles(prev => {console.log(newFiles); return [...newFiles]})
-	}
-
 	const removeFile = (index) => {
 
 		console.group("removeFile")
@@ -79,8 +45,17 @@ export default function CVForm ({recruit_id}) {
 	}
 
 	const submitCV = async () => {
-		setTouch(prev => ({...prev, files: true}))
-		// if (!valid) return;
+		setTouch(prev => ({...prev, 
+			name: true,
+			phone: true,
+			mail: true,
+			captcha: true,
+			files: true,
+		}))
+
+		validation()
+
+		if (!valid) return;
 
 		const url = `/api/recruitCvSubmitted`
 		const submitState = {
@@ -156,11 +131,17 @@ export default function CVForm ({recruit_id}) {
 
 	const validation = () => {
 		
+		validateInput()
+		validateSubmit()
+	}
+
+	const validateInput = () => {
+
 		if (touch.name) {
 
 			if (!state.name || state.name === "") {
 				setError(prev => ({...prev, name: "Họ và tên là bắt buộc"}))
-			} else setError((name, ...prev) => prev)
+			} else setError(({name, ...prev}) => prev)
 		}
 		
 		if (touch.phone) {
@@ -169,7 +150,7 @@ export default function CVForm ({recruit_id}) {
 				setError(prev => ({...prev, phone: "Số điện thoại là bắt buộc"}))
 			} else if (isNaN(state.phone)) {
 				setError(prev => ({...prev, phone: "Số điện thoại không phù hợp"}))
-			} else setError((phone, ...prev) => prev)
+			} else setError(({phone, ...prev}) => prev)
 		}
 		
 		if (touch.mail) {
@@ -178,30 +159,35 @@ export default function CVForm ({recruit_id}) {
 				setError(prev => ({...prev, mail: "Email là bắt buộc"}))
 			} else if (!validateEmail(state.mail)) {
 				setError(prev => ({...prev, mail: "Email không phù hợp"}))
-			} else setError((mail, ...prev) => prev)
+			} else setError(({mail, ...prev}) => prev)
 		}
-		if (touch.files) {
-
-			if (files.length <= 0) {
-				setError(prev => ({...prev, file: "File đính kèm là bắt buộc"}))
-			} else setError((file, ...prev) => prev)
-		}
-
-		if (!state.captcha || state.captcha === "") {
-			setError(prev => ({...prev, captcha: "ReCaptcha là bắt buộc"}))
-		// } else if (!validateEmail(state.captcha)) {
-			// setError(prev => ({...prev, captcha: "Ecaptcha không hợp lệ"}))
-		} else setError((captcha, ...prev) => prev)
-
 	}
 
-	useEffect(() => {
-	
-		// console.log("test files", files)
-	}, [files])
+	const validateSubmit = (type = "") => {
 
-	useEffect(() => validation(), [ state, ])
-	useEffect(() => validation(), [ touch, ])
+		if (type === "files" || type === "") {
+			if (touch.files) {
+				console.log("test file length", files.length )
+				if (files.length <= 0) { 
+					setError(prev => ({...prev, file: "File đính kèm là bắt buộc"}))
+				} else setError(({file, ...prev}) => prev)
+			}
+		}
+
+		if (type === "captcha" || type === "") {
+			if (touch.captcha) {
+
+				if (!state.captcha || state.captcha === "") {
+					setError(prev => ({...prev, captcha: "ReCaptcha là bắt buộc"}))
+				} else setError(({captcha, ...prev}) => prev)
+			}
+		}
+	}
+	
+	useEffect(() => {console.log("validate input"); validateInput()}, [ state.name, state.phone, state.mail ])
+	useEffect(() => {console.log("validate all"); validation()}, [ touch, ])
+	useEffect(() => { if (touch.files) validateSubmit("files")}, [ files, ])
+	useEffect(() => { if (touch.captcha) validateSubmit("captcha")}, [ state.captcha, ])
 
 	useEffect(() =>{
 		if (Object.keys(error).length) {
@@ -217,21 +203,25 @@ export default function CVForm ({recruit_id}) {
 			<div className="text-uppercase cv__header">nộp hồ sơ ứng tuyển</div>
 			<div className="cv__form">
 				<div className="cv__form__info">
-					<input type="text" className="cv__form__info__input" onClick={e => setTouch(prev => ({...prev, [e.target.name]: true,}))} onChange={(e) => setState(prev => ({...prev, [e.target.name]: e.target.value}))} value={state.name} name="name" placeholder="Họ và tên"/>
-					<span>{error.name}</span>
-					<input type="text" className="cv__form__info__input" onClick={e => setTouch(prev => ({...prev, [e.target.name]: true,}))} onChange={(e) => setState(prev => ({...prev, [e.target.name]: e.target.value}))} value={state.phone} name="phone" placeholder="Số điện thoại"/>
-					<span>{error.phone}</span>
-					<input type="text" className="cv__form__info__input" onClick={e => setTouch(prev => ({...prev, [e.target.name]: true,}))} onChange={(e) => setState(prev => ({...prev, [e.target.name]: e.target.value}))} value={state.mail} name="mail" placeholder="E-mail"/>
-					<span>{error.mail}</span>
+					<div className="cv__form__info__row">
+						<input type="text" className={(error.name && " cv__form__info--warning") + " cv__form__info__input shadow-none"} onClick={e => setTouch(prev => ({...prev, [e.target.name]: true,}))} onChange={(e) => setState(prev => ({...prev, [e.target.name]: e.target.value}))} autocomplete={false} value={state.name} name="name" placeholder="Họ và tên"/>
+						<span className="cv__form__info__message">{error.name}</span>
+					</div>
+					<div className="cv__form__info__row">
+						<input type="text" className={(error.phone && " cv__form__info--warning") + " cv__form__info__input shadow-none"} onClick={e => setTouch(prev => ({...prev, [e.target.name]: true,}))} onChange={(e) => setState(prev => ({...prev, [e.target.name]: e.target.value}))} autocomplete={false} value={state.phone} name="phone" placeholder="Số điện thoại"/>
+						<span className="cv__form__info__message">{error.phone}</span>
+					</div>
+					<div className="cv__form__info__row">
+						<input type="text" className={(error.mail && " cv__form__info--warning") + " cv__form__info__input shadow-none"} onClick={e => setTouch(prev => ({...prev, [e.target.name]: true,}))} onChange={(e) => setState(prev => ({...prev, [e.target.name]: e.target.value}))} autocomplete={false} value={state.mail} name="mail" placeholder="E-mail"/>
+						<span className="cv__form__info__message">{error.mail}</span>
+					</div>
 				</div>
 				<button 
 					className={(files.length?"cv__form__action--modified cv__form__action__preview ":"") + " cv__form__action btn-block" }
-					// onClick={() => openUploader()}
 				>
 					<input 
 						type="file" 
 						value=""
-						ref={uploadFileButton} 
 						onChange={(event) => handleFile(event)}
 						onClick={() => {
 							console.log("test touch file")
@@ -248,9 +238,10 @@ export default function CVForm ({recruit_id}) {
 									key={index} 
 									className="cv__form__action__preview__child "
 									// onClick={(event) => removeFile(event)} 
+									onClick={() => removeFile(index)}
 								>
 									<div className="cv__form__action__preview__child__text"
-										onClick={() => removeFile(index)}
+										// onClick={() => removeFile(index)}
 									>
 										<i className="bi bi-x-lg"/>
 										{file.name}
@@ -258,8 +249,7 @@ export default function CVForm ({recruit_id}) {
 									<div 
 										id={file._id}
 										className="cv__form__action__preview__child__button" 
-										onClick={() => removeFile(index)}
-										ref={removeRef}
+										// onClick={() => removeFile(index)}
 									><i className="bi bi-x-lg"/></div>
 								</div>
 							)
@@ -274,21 +264,18 @@ export default function CVForm ({recruit_id}) {
 						</>)
 					}	
 				</button>
-				<span>{error.file}</span>
+				{/* <span className="cv__form__info__message">{error.file}</span> */}
 			</div>
 			<div className="cv__verify">
 				<ReCAPTCHA 
 					sitekey={"6LcbG7IbAAAAABqgvWBVLNdMmRQI28TxSUeOcAwn"} 
 					onChange={(value) => handleValidReCaptcha(value)}
 				/>
-				<span>{error.captcha}</span>
+				<span className="cv__form__info__message">{error.captcha}</span>
 			</div>
 			<div className="cv__submit">
 				<button type="button" onClick={() => submitCV()} className="text-uppercase shadow-none text-nowrap cv__submit__button">gửi hồ sơ</button>
 			</div>
-			{/* <div>
-				<input type="file" className="cv__form__action__form" placeholder="Testing"/>
-			</div> */}
 		</div>
 	)
 }
