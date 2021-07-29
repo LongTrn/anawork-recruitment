@@ -9,14 +9,23 @@ import {
 	SET_MY_RECRUIT_PAGE_SIZE,
 } from "../../redux/myRecruit/myRecruitActionType"
 
+function* fetchData(size, index = 1,) {
+
+	const url = `/api/recruits/myRequests?Filters=&Sorts=&Page=${index}&PageSize=${size}`
+	const response = yield axios.get(url)
+	
+	if (!response.data.success) throw new Error("Fetch My List Recruits Failed")
+	return response.data.data
+}
+
 function* workerMyRecruit (action) {
 	try {
 		const { index, size } = action.payload.input
-		const url = `/api/recruits/myRequests?Filters=&Sorts=&Page=${index}&PageSize=${size}`
-		const response = yield axios.get(url)
+		let response = yield fetchData(size, index);
 		
-		if (!response.data.success) throw new Error("Fetch My List Recruits Failed")
-		const { pageIndex, pagesize, total, collection } = response.data.data
+		if (size >= response.total) response = yield fetchData(size)
+
+		const { pageIndex, pagesize, total, collection } = response
 		yield put({ type: FETCH_MY_RECRUIT_SUCCESS, payload: { index: pageIndex, pageSize: pagesize, total, data: collection} })		
 	} catch (error) {
 		console.group("Watcher My Recruit")

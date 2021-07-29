@@ -49,7 +49,6 @@ export default function Pagination ({ classes, page }) {
 	
 	const handlePageSize = (size) => {
 		
-		console.log()
 		switch (page.type) {
 
 			case "jobs":
