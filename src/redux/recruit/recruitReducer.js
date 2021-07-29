@@ -56,6 +56,7 @@ export const recruitReducer = (state = initial, action) => {
 		case SET_RECRUIT_ALL_REQUESTS:
 			return {
 				...state,
+				isLoading: true,
 				all: action.payload.input.all,
 			}
 
