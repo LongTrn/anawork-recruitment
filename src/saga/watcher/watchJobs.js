@@ -14,15 +14,25 @@ import {
 	SET_JOB_PAGE_SIZE,
 } from "../../redux/jobs/jobsActionType"
 
+function* fetchData(size, id, search, index = 1) {
+	
+	const url = id? `/api/recruits/publicRequests?Filters=id!=${id}&Sorts=&Page=${index}&PageSize=${size}`
+	: search? `/api/recruits/publicRequests?Filters=name@=*${search}&Sorts=&Page=${index}&PageSize=${size}`
+	: `/api/recruits/publicRequests?Sorts=&Page=${index}&PageSize=${size}`
+	const response = yield axios.get(url)
+	
+	if (!response.data.success) throw new Error("Fetch List Jobs Failed")
+	return response.data.data
+}
+
 function* workerJobs (action) {
 	try {
-		const { id, index, size } = action.payload.input
-		const url = id? `/api/recruits/publicRequests?Filters=id!=${id}&Sorts=&Page=${index}&PageSize=${size}`
-		:`/api/recruits/publicRequests?Sorts=&Page=${index}&PageSize=${size}`
-		const response = yield axios.get(url)
-		
-		if (!response.data.success) throw new Error("Fetch List Jobs Failed")
-		const { pageIndex, pagesize, total, collection } = response.data.data
+		const { id, search, index, size } = action.payload.input
+		let response = yield fetchData(size, id, search, index,)
+
+		if (size >= response.total) response =yield fetchData(size, id, search,)
+
+		const { pageIndex, pagesize, total, collection } = response
 		yield put({ type: FETCH_JOB_SUCCESS, payload: { index: pageIndex, pageSize: pagesize, total, data: collection} })		
 	} catch (error) {
 		console.group("Watcher Recruit")

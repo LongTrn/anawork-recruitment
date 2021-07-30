@@ -1,8 +1,6 @@
 import React, { useState, useEffect, } from 'react';
 import "../../styles/MyRecruited/MyRecruited.scss"
 import { Header, TableRecruitment, Pagination, } from "../index"
-// import { MyRecruitedModel,} from "../../models/index"
-import { axios } from "../../config/index"
 
 import { useDispatch, useSelector, } from "react-redux"
 import { 
@@ -15,7 +13,7 @@ export default function MyRecruited (props) {
 	const { 
 		index,
 		pageSize,
-		total,
+		// total,
 		data,
 	} = useSelector(state => state.myRecruit)
 	const dispatch = useDispatch();
@@ -34,16 +32,16 @@ export default function MyRecruited (props) {
 
 	return (
 		<div className="my-list">
-			<div className="my-list__header">
+			<div className="my-list__header my-list__header--left-padding">
 				<div className="my-list__header--left-padding">
 					<div className="my-list__header__text">
 						<Header main="Tuyển dụng của tôi"/>
 					</div>
 				</div>
 			</div>
-			<TableRecruitment editable data={state} index={index} pageSize={pageSize} />
-			{/* <Pagination classes={"center"} page="myRecruit"/> */}
-			<Pagination classes={"center"} page={{type: "myRecruit"}} />
+			{/* <TableRecruitment editable data={state} index={index} pageSize={pageSize} /> */}
+			<TableRecruitment editable page={{type: "myRecruit"}} />
+			<Pagination page={{type: "myRecruit"}} />
 		</div>
 	)
 }

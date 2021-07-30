@@ -6,14 +6,14 @@ import { useDispatch, useSelector, } from "react-redux"
 import {
 	FETCH_JOB_DATA,
 } from "../../redux/jobs/jobsActionType"
-import moment from "moment";
 
 export default function JobList({ header = "Vị trí cần tuyển", modified = false, except }) {
 
 	const [list, setList] = useState([])
 	const state = useSelector(state => state.jobs)
-	const { index, pageSize, total, collection, } = state
+	const { index, pageSize, collection, } = state
 	const dispatch = useDispatch();
+
 
 	useEffect(() => {
 		// get api
@@ -26,8 +26,6 @@ export default function JobList({ header = "Vị trí cần tuyển", modified =
 		dispatch({type: FETCH_JOB_DATA, payload: { input: { id: except, index, size: pageSize, }}})
 	}, [ except, ])
 
-
-
 	useEffect(() => {
 		
 		setList(collection)
@@ -36,12 +34,8 @@ export default function JobList({ header = "Vị trí cần tuyển", modified =
 	return (
 		<div className={modified?"job-list job-list--modified" :"job-list"}>
 			<div className="job-list__header">
-				<div className="job-list__header__text text-nowrap">
-					{header}
-				</div>
-				<div className="job-list__header__search-bar">
-					<SearchBar />
-				</div>
+				<div className="text-nowrap job-list__header__text"><b>{header}</b></div>
+				{!except && (<div className="job-list__header__search-bar"><SearchBar /></div>)}
 			</div>
 			<div className="job-list__body">
 				{list.length?

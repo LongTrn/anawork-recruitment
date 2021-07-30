@@ -13,7 +13,6 @@ import {
 
 import { 
 	FETCH_JOB_DATA, 
-	FETCH_JOB_DETAIL, 
 
 	SET_JOB_PAGE, 
 	SET_JOB_PAGE_SIZE,
@@ -25,6 +24,7 @@ export default function Pagination ({ classes, page }) {
 	const { index, total, pageSize, all } = state
 	const numbersList = [ 5, 10 , 20 , 100];
 	const [ranging, setRanging] = useState(index * pageSize)
+	const [allRequest, setAllRequest] = useState(false)
 	const dispatch = useDispatch();
 	const { idJobDetail: exceptJobID }= useParams();
 	
@@ -37,7 +37,7 @@ export default function Pagination ({ classes, page }) {
 				else return dispatch({ type: SET_JOB_PAGE, payload: { input: { target: FETCH_JOB_DATA, index, size: pageSize}}});
 
 			case "recruit":
-				return dispatch({ type: SET_RECRUIT_PAGE, payload: { input: { all, index, size: pageSize}}});
+				return dispatch({ type: SET_RECRUIT_PAGE, payload: { input: { all: allRequest, index, size: pageSize}}});
 			
 			case "myRecruit":
 				return dispatch({ type: SET_MY_RECRUIT_PAGE, payload: { input: { index, size: pageSize}}});
@@ -56,7 +56,7 @@ export default function Pagination ({ classes, page }) {
 				else return dispatch({ type: SET_JOB_PAGE_SIZE, payload: { input: { target: FETCH_JOB_DATA, index, size}}});
 
 			case "recruit":
-				return dispatch({ type: SET_RECRUIT_PAGE_SIZE, payload: { input: { all, index, size}}});
+				return dispatch({ type: SET_RECRUIT_PAGE_SIZE, payload: { input: { all: allRequest, index, size}}});
 				
 			case "myRecruit":
 				return dispatch({ type: SET_MY_RECRUIT_PAGE_SIZE, payload: { input: { index, size}}});
@@ -71,8 +71,11 @@ export default function Pagination ({ classes, page }) {
 	}, [ index, pageSize, ])
 
 	useEffect(() => {
-		// console.log(page, state)
 	}, [ page, state ])
+
+	useEffect(() => { 
+		setAllRequest(prev=>all)
+	}, [ all, ])
 
 	return (
 		<div className={classes? "page center" :"page"}>
@@ -92,7 +95,7 @@ export default function Pagination ({ classes, page }) {
 			</div>
 			<div className="page__item">
 				<div>
-					<span className="page__number text-nowrap">{(index - 1) * pageSize + 1} - {ranging > total? total: ranging} của {total}</span>
+					<span className="page__number text-nowrap">{(index - 1) * pageSize + 1 > total? parseInt(total/pageSize) * pageSize + 1: (index - 1) * pageSize + 1 || " "} - {ranging > total? total: ranging || " "} của {total}</span>
 				</div>
 				<div className="page__buttons">
 					<button className="btn page__buttons--size shadow-none" disabled={!(index - 1)}><i className="bi bi-chevron-bar-left page__buttons__first" onClick={() => handlePage(1)}/></button>

@@ -4,10 +4,12 @@
 
 	.job-item {
 
-		height: 106px;
+		// min-height: 106px;
+		height: max-content;
 		display: flex;
 		flex-direction: row;
-		padding: 24px 24px 30px 4px;
+		// padding: 24px 24px 30px 4px;
+		padding: 24px 24px 30px 0;
 		border-bottom: 1px solid #ccc;
 		justify-content: space-between;
 	
@@ -18,9 +20,9 @@
 			&__header {
 	
 				display: flex;
-				height: 23px;
-				font-size: 20px;
-				font-weight: 500;
+				min-height: 23px;
+				font-size: 16px;
+				font-weight: 550;
 				align-items: flex-start;
 				color: var(--login-blue);
 				margin-bottom: 16px;
@@ -31,6 +33,7 @@
 				height: 16px;
 				font-size: 14px;
 				text-align: left;
+				color: var(--primary-dark-grey);
 			}
 	
 			&__label {
@@ -47,6 +50,17 @@
 			&--gold {
 				color: #ffa117;
 			}
+
+			&--modified {
+
+				margin-top: 8px;
+				height: max-content;
+
+				&.col {
+					
+					padding: 0;
+				}
+			}
 		}
 	
 		&__action {
@@ -54,9 +68,22 @@
 			display: flex;
 			align-items: center;
 	
-			&__button {
+			&__button.btn {
 	
 				width: 140px;
+				height: 40px;
+				display: flex;
+				padding: 12px;
+				border-radius: 4px;
+				color: var(--login-blue);
+				border: solid 1px var(--login-blue);
+				align-items: center;
+				justify-content: center;
+
+				&:hover {
+
+					color: var(--login-blue);
+				}
 			}
 	
 			button.btn.btn-outline-primary.job-item__action__button:hover {
@@ -72,24 +99,28 @@
 
 	.job-item {
 
-		height: 118px;
+		// min-height: 118px;
+		// min-height: max-content;
+		height: max-content;
 		display: flex;
 		flex-direction: row;
 		margin-bottom: 16px;
-		padding: 16px 16px 16px 4px;
+		// padding: 16px 16px 16px 4px;
+		padding: 16px 16px 16px 0;
 		border-bottom: 1px solid #ccc;
 		justify-content: space-between;
 	
 		&__info {
 	
 			width: 100%;
+			height: max-content;
 	
 			&__header {
 	
 				display: flex;
-				height: 23px;
-				font-size: 20px;
-				font-weight: 500;
+				min-height: 23px;
+				font-size: 16px;
+				font-weight: 550;
 				align-items: flex-start;
 				color: var(--login-blue);
 				margin-bottom: 16px;
@@ -116,8 +147,13 @@
 
 			&--modified {
 
-				// display: flex;
 				margin-top: 8px;
+				height: max-content;
+
+				&.col {
+
+					padding: 0;
+				}
 			}
 	
 			&--gold {
@@ -129,11 +165,23 @@
 	
 			display: flex;
 			align-items: center;
-			// margin-top: ;
 	
-			&__button {
+			&__button.btn {
 	
 				width: 140px;
+				height: 40px;
+				display: flex;
+				padding: 12px;
+				border-radius: 4px;
+				color: var(--login-blue);
+				border: solid 1px var(--login-blue);
+				align-items: center;
+				justify-content: center;
+
+				&:hover {
+
+					color: var(--login-blue);
+				}
 			}
 	
 			button.btn.btn-outline-primary.job-item__action__button:hover {
@@ -149,8 +197,10 @@
 
 	.job-item {
 
-		height: 118px;
-		padding: 16px 16px 16px 4px;
+		// min-height: 118px;
+		height: max-content;
+		// padding: 16px 16px 16px 4px;
+		padding: 16px 16px 16px 0;
 		border-bottom: 1px solid #ccc;
 	
 		&__info {
@@ -160,12 +210,13 @@
 			&__header {
 	
 				display: flex;
-				height: 23px;
-				font-size: 20px;
-				font-weight: 500;
+				min-height: 23px;
+				font-size: 16px;
+				font-weight: 550;
 				align-items: flex-start;
 				color: var(--login-blue);
 				margin-bottom: 8px;
+				white-space: normal !important;
 			}
 			
 			&__text {
@@ -174,13 +225,19 @@
 				font-size: 14px;
 				text-align: left;
 				margin-top: 6px;
+				white-space: normal !important;
 			}
 
 			&__label {
 				
 				color: #959595;
 			}
-		
+			
+			&__sub {
+
+				
+			}
+
 			&--flex-end {
 	
 				display: flex;
@@ -192,6 +249,17 @@
 			&--gold {
 				color: #ffa117;
 			}
+
+			&--modified {
+
+				margin-top: 8px;
+				height: max-content;
+
+				&.col {
+
+					padding: 0;
+				}
+			}
 		}
 	
 		&__action {
@@ -199,9 +267,22 @@
 			display: none;
 			align-items: center;
 	
-			&__button {
+			&__button.btn {
 	
 				width: 140px;
+				height: 40px;
+				display: flex;
+				padding: 12px;
+				border-radius: 4px;
+				color: var(--login-blue);
+				border: solid 1px var(--login-blue);
+				align-items: center;
+				justify-content: center;
+
+				&:hover {
+
+					color: var(--login-blue);
+				}
 			}
 	
 			button.btn.btn-outline-primary.job-item__action__button:hover {

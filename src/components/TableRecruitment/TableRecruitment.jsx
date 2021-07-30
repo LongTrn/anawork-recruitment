@@ -2,28 +2,35 @@ import React, { useState, useEffect, } from 'react';
 import "../../styles/TableRecruitment/TableRecruitment.scss"
 import {  ButtonDetail, ButtonView, ButtonEdit, ButtonDelete, } from "../index"
 import moment from "moment"
+import { useDispatch, useSelector, } from "react-redux"
 
-
-export default function TableRecruitment ({ data, pageIndex, pagesize, editable = false, all = false}) {
-	const [list, setList] = useState([])
+// export default function TableRecruitment ({ data, pageIndex, pagesize, editable = false, all = false, page}) {
+export default function TableRecruitment ({ page, editable = false,  }) {
+	// const [list, setList] = useState([])
+	const state = useSelector(state => state[page.type])
+	const { data: list, all } = state
 
 	useEffect(() => {
 		
-		setList(data)
-	}, [ data, ])
+		// setList(data)
+	}, [ list ])
 
-	useEffect(() => {
+	// useEffect(() => {
+		
+	// 	// setList(data)
+	// }, [ data, ])
 
-		if (pagesize && data.length) {
-			setList(data)
-		}
+	// useEffect(() => {
 
+	// 	if (pagesize && data.length) {
+	// 		// setList(data)
+	// 	}
 
-	}, [ pagesize, ])
+	// }, [ pagesize, ])
 
 	useEffect(() => { 
 	
-		setList(data) 
+		// setList(data) 
 	}, [ all,])
 
 	// useEffect(() => console.log(moment().format()), [])
@@ -94,7 +101,7 @@ export default function TableRecruitment ({ data, pageIndex, pagesize, editable 
 														{editable? 
 															status === "pending"? 
 																<>
-																	<ButtonEdit className="shadow-none"id={id}/>
+																	<ButtonEdit className="shadow-none" id={id}/>
 																	<ButtonDelete className="shadow-none" id={id}/>
 																</>
 																:

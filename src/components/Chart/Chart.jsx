@@ -8,7 +8,7 @@ import {chartConstant} from "../../constants/index"
 
 defaults.font.family = "Roboto"
 const {ORANGE_BAR, DODGER_BLUE_BAR} = chartConstant
-export default function Chart ({  }) {
+export default function Chart ( props ) {
 
 	const [state, setState] = useState({
 		labels: ['Kế toán', ],

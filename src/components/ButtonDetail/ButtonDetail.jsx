@@ -16,12 +16,15 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 	const [show, setShow] = useState(false);
 	const [state, setState] = useState("")
 	
-	const { index, total, pageSize, all } = useSelector(state => state.recruit)
-	const { index: myIndex, total: myTotal, pageSize: myPageSize, all: myAll } = useSelector(state => state.myRecruit)
+	const { index, pageSize, all } = useSelector(state => state.recruit)
+	const { index: myIndex, pageSize: myPageSize, } = useSelector(state => state.myRecruit)
 	const dispatch = useDispatch();
   
 	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+	const handleShow = async () => {
+		await fetchData(id)
+		setShow(true);
+	}
 	const handleReject = async () => {
 		const url =`/api/recruits/requests/${id}/reject`
 		const response = await axios.put(url)
@@ -48,11 +51,15 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 	const fetchData = async ( id ) => {
 		const response = await axios.get(`/api/recruits/requests/${id}`)
 		
-		if (!response.data.success) { return []}
+		if (!response.data.success) { return;}
 		const {extend_request_status,} = response.data.data
-		setState(extend_request_status)
+		console.log("extend_request_status", extend_request_status)
+		await setState(extend_request_status)
 	}
-	useEffect(() => {fetchData(id)}, [id])
+	useEffect(() => {}, [id])
+	// useEffect(() => {fetchData(id)}, [id])
+	// useEffect(() => {if(show) fetchData(id)}, [id])
+	useEffect(() => {}, [state])
 	
 	return (
 		<div>
@@ -71,12 +78,9 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 				keyboard={false}
 				className="modal"
 			>
-				<Header 
-					closeButton
-					closeLabel=""
-					className="modal-preview-recruit__header"
-				>
+				<Header>
 					<Title className="modal-preview-recruit__header__text text-nowrap">{header||"Yêu cầu tuyển dụng"}</Title>
+					<button className="btn shadow-none" onClick={handleClose}><i className="bi bi-x-lg"></i></button>
 				</Header>
 				<Body>
 					<ModalPreviewRecruit id={id} view/>
