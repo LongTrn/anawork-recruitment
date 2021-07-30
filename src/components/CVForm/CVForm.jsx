@@ -23,24 +23,24 @@ export default function CVForm ({recruit_id}) {
 	const [valid, setValid] = useState(false)
 	const [files, setFiles] = useState([])
 
-	const handleFile = async (event) => {
-
-		const newFiles = (event.target.files)
+	const handleFile = (event) => {
+		// const newFiles = (event.target.files)
+		const newFiles = validateFormat([...event.target.files])
 		files.push(...newFiles);
 		setFiles(prev => ([...files]))
 	}
 
 	const handleValidReCaptcha = (value) => {
 
-		console.log(value)
+		// console.log(value)
 		setState(prev => ({...prev, captcha: value}))
 	}
 
 	const removeFile = (index) => {
 
-		console.group("removeFile")
-			console.log(files[index].name)
-		console.groupEnd()
+		// console.group("removeFile")
+		// 	console.log(files[index].name)
+		// console.groupEnd()
 		setFiles(prev => files.filter(file => files.indexOf(file) !== index))
 	}
 
@@ -167,7 +167,7 @@ export default function CVForm ({recruit_id}) {
 
 		if (type === "files" || type === "") {
 			if (touch.files) {
-				console.log("test file length", files.length )
+				// console.log("test file length", files.length )
 				if (files.length <= 0) { 
 					setError(prev => ({...prev, file: "File đính kèm là bắt buộc"}))
 				} else setError(({file, ...prev}) => prev)
@@ -183,17 +183,59 @@ export default function CVForm ({recruit_id}) {
 			}
 		}
 	}
+
+	const getExtension = (fileName) => {
+
+		return ".".concat(fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2))
+	}
+
+	const validateFormat = (list) => {
+		return list.filter( file => {
+
+			const ext = getExtension(file.name);
+			return [".pdf", ".doc", ".docx", ".png", ".jpg", ".xls", ".xlsx"].includes(ext)
+		})
+	}
+
+	const filterIconFiles = (fileName) => {
+		const ext = getExtension(fileName)
+		switch (ext) {
+
+			case ".doc":
+			case ".docx":
+				// return (<img alt="file-word-icon" src="/img/file-earmark-word.svg" />)
+				return (<i className="bi bi-file-earmark-word" />)
+				
+			case ".xls":
+			case ".xlsx":
+				// return (<img alt="file-word-icon" src="/img/file-earmark-excel.svg" />)
+				return (<i className="bi bi-file-earmark-excel" />)
+
+			case ".pdf":
+				// return (<img alt="file-word-icon" src="/img/file-earmark-pdf.svg" />)
+				return (<i className="bi bi-file-earmark-pdf" />)
+				
+			case ".png":
+			case ".jpg":
+				// return (<img alt="file-word-icon" src="/img/file-earmark-image.svg" />)
+				return (<i className="bi bi-file-earmark-image" />)
+						
+			default:
+				// return (<img alt="file-word-icon" src="/img/file-earmark.svg" />)
+				return (<i className="bi bi-file-earmark" />)
+		}
+	}
 	
-	useEffect(() => {console.log("validate input"); validateInput()}, [ state.name, state.phone, state.mail ])
-	useEffect(() => {console.log("validate all"); validation()}, [ touch, ])
+	useEffect(() => {validateInput()}, [ state.name, state.phone, state.mail ])
+	useEffect(() => {validation()}, [ touch, ])
 	useEffect(() => { if (touch.files) validateSubmit("files")}, [ files, ])
 	useEffect(() => { if (touch.captcha) validateSubmit("captcha")}, [ state.captcha, ])
 
 	useEffect(() =>{
 		if (Object.keys(error).length) {
-			console.group("validating"); 
-			console.log(error); 
-			console.groupEnd();
+			// console.group("validating"); 
+			// console.log(error); 
+			// console.groupEnd();
 			setValid(false)
 		} else setValid(true)
 	}, [ error, ])
@@ -224,7 +266,7 @@ export default function CVForm ({recruit_id}) {
 						value=""
 						onChange={(event) => handleFile(event)}
 						onClick={() => {
-							console.log("test touch file")
+							// console.log("test touch file")
 							setTouch(prev => ({...prev, files: true}))}
 						}
 						className="cv__form__action__uploader" 
@@ -237,19 +279,15 @@ export default function CVForm ({recruit_id}) {
 								<div 
 									key={index} 
 									className="cv__form__action__preview__child "
-									// onClick={(event) => removeFile(event)} 
 									onClick={() => removeFile(index)}
 								>
-									<div className="cv__form__action__preview__child__text"
-										// onClick={() => removeFile(index)}
-									>
-										<i className="bi bi-x-lg"/>
+									<div className="cv__form__action__preview__child__text">
+										{filterIconFiles(file.name)}
 										{file.name}
 									</div>
 									<div 
 										id={file._id}
 										className="cv__form__action__preview__child__button" 
-										// onClick={() => removeFile(index)}
 									><i className="bi bi-x-lg"/></div>
 								</div>
 							)
@@ -257,14 +295,14 @@ export default function CVForm ({recruit_id}) {
 						:
 						(<>
 							<div className="text-nowrap cv__form__action__text cv__form__action__icon">
-								<i className="bi bi-cloud-upload"></i>
+								{/* <i className="bi bi-cloud-upload"></i> */}
+								<img alt="cloud upload" src="/img/cloud-upload.svg" className="cv__form__action__text"/>
 							</div>
 							<div className="text-nowrap cv__form__action__text">Tải CV của bạn lên</div>
 							<div className="text-nowrap cv__form__action__text">(.pdf, .doc, .docx, .xls, .jpg, .png)</div>
 						</>)
 					}	
 				</button>
-				{/* <span className="cv__form__info__message">{error.file}</span> */}
 			</div>
 			<div className="cv__verify">
 				<ReCAPTCHA 
