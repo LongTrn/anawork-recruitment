@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, } from 'react';
 import "../../styles/ListRecruitment/ListRecruitment.scss"
 import { Header, TableRecruitment, Pagination, } from "../index"
 // import { ListRecruitmentModel } from "../../models/index"
@@ -10,10 +10,9 @@ import {
 	SET_RECRUIT_ALL_REQUESTS,
 } from '../../redux/recruit/recruitActionType';
 
-export default function ListRecruitment (props) {
+export default function ListRecruitment () {
 
 	const [allRequest, setAllRequest] = useState(false)
-	const buttonRef = useRef();
 	const { 
 		pageSize,
 		isLoading,
@@ -22,14 +21,7 @@ export default function ListRecruitment (props) {
 	const dispatch = useDispatch();
 
 	const fetchData = async ( getAll = false, size = 10, ) => {
-
-		// if (getAll) {
-
-		// 	dispatch({ type: SET_RECRUIT_ALL_REQUESTS, payload: { input: { all: getAll, index, size}}})
-		// } else dispatch({ type: FETCH_RECRUIT_DATA, payload: { input: { index, size}}})
-		
 		if (getAll) {
-
 			dispatch({ type: SET_RECRUIT_ALL_REQUESTS, payload: { input: { all: getAll, index: 1, size}}})
 		} else dispatch({ type: FETCH_RECRUIT_DATA, payload: { input: { index: 1, size}}})
 	}
@@ -66,7 +58,7 @@ export default function ListRecruitment (props) {
 										<span className="checkmark__background"><i className="bi bi-check-lg"></i></span>
 									</>)
 									:
-									<input id="list-show-all-request" ref={buttonRef} type="checkbox" className="btn list__header__button__checkbox shadow-none checkmark__input"  onChange={() => setAllRequest(prev =>!prev)} checked={allRequest} />
+									<input id="list-show-all-request" type="checkbox" className="btn list__header__button__checkbox shadow-none checkmark__input"  onChange={() => setAllRequest(prev =>!prev)} checked={allRequest} />
 								}
 							</span>
 					</label>

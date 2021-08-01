@@ -1,13 +1,14 @@
 import React, { useEffect, } from 'react';
 import "../../styles/MyRecruited/MyRecruited.scss"
-import { Header, TableRecruitment, Pagination, } from "../index"
+import { Header, } from "../index"
 
 import { useDispatch, } from "react-redux"
 import { 
 	FETCH_MY_RECRUIT_DATA, 
 } from '../../redux/myRecruit/myRecruitActionType';
+import { withRecruitment, } from "../index"
 
-export default function MyRecruited () {
+function MyRecruitedHeader () {
 
 	const dispatch = useDispatch();
 	const fetchData = async ( all = false, index = 1, size = 10, ) => {
@@ -19,16 +20,13 @@ export default function MyRecruited () {
 	}, [])
 
 	return (
-		<div className="my-list">
-			<div className="my-list__header my-list__header--left-padding">
-				<div className="my-list__header--left-padding">
-					<div className="my-list__header__text">
-						<Header main="Tuyển dụng của tôi"/>
-					</div>
+		<div className="my-list__header my-list__header--left-padding">
+			<div className="my-list__header--left-padding">
+				<div className="my-list__header__text">
+					<Header main="Tuyển dụng của tôi"/>
 				</div>
 			</div>
-			<TableRecruitment editable page={{type: "myRecruit"}} />
-			<Pagination page={{type: "myRecruit"}} />
 		</div>
 	)
 }
+export default withRecruitment(MyRecruitedHeader, {type: "myRecruit"})

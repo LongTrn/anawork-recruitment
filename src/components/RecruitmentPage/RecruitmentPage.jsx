@@ -1,6 +1,12 @@
 import React from 'react'
 import '../../styles/RecruitmentPage/RecruitmentPage.scss';
-import { Header, Recruitment, ListRecruitment,MyRecruited } from "../index"
+import { 
+	Header, 
+	Recruitment, 
+	ListRecruitmentHeader, 
+	MyRecruitedHeader, 
+} from "../index"
+
 
 export default function RecruitmentPage () {
 	return(
@@ -12,8 +18,8 @@ export default function RecruitmentPage () {
 				/>
 			</div>
 			<div className="hanging"><Recruitment /></div>
-			<div className="hanging"><ListRecruitment /></div>
-			<div className="hanging"><MyRecruited /></div>
+			<div className="hanging"><ListRecruitmentHeader /></div>
+			<div className="hanging"><MyRecruitedHeader /></div>
 		</div>
 	)
 }

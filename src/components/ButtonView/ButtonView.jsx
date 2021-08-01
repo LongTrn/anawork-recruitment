@@ -18,7 +18,6 @@ export default function ButtonView ({ header = "Yêu cầu tuyển dụng", id }
 				onClick={handleShow}
 			>
 				<i className="bi bi-list-ul table__rows__behavior__button__icon"/>
-				{/* <span className="table__rows__behavior__button__text">Xem chi tiết</span> */}
 			</button>
 
 			<Modal
@@ -28,13 +27,9 @@ export default function ButtonView ({ header = "Yêu cầu tuyển dụng", id }
 				keyboard={false}
 				className="modal"
 			>
-				<Header 
-					closeButton
-					closeLabel=""
-					// closeVariant="success"
-					className="modal-preview-recruit__header"
-				>
+				<Header>
 					<Title className="modal-preview-recruit__header__text text-nowrap">{header||"Yêu cầu tuyển dụng"}</Title>
+					<button className="btn shadow-none" onClick={handleClose}><i className="bi bi-x-lg"></i></button>
 				</Header>
 				<Body>
 					<ModalPreviewRecruit view={true} id={id}/>
@@ -46,6 +41,5 @@ export default function ButtonView ({ header = "Yêu cầu tuyển dụng", id }
 				</Footer>
 			</Modal>
 		</div>
-
 	)
 }

@@ -23,11 +23,13 @@ export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", id})
 	const handleShow = () => setShow(true);
 	const handleSubmit = async (event) => {
 		
-		const response = buttonRef.current.edit()
+		const response = await buttonRef.current.edit()
 		if (!response) return handleClose()
-		console.log("E thanh cong")
-		fetchData()
-		handleClose()
+		else {
+			fetchData()
+			handleClose()
+			return;
+		}
 	}
 
 	const fetchData = () => {
@@ -52,15 +54,12 @@ export default function ButtonEdit ({ header = "Yêu cầu tuyển dụng", id})
 				keyboard={false}
 				className="modal"
 			>
-				<Header 
-					closeButton
-					closeLabel=""
-					// closeVariant="success"
-				>
+				<Header>
 					<Title className="modal-preview-recruit__header__text text-nowrap">{header||"Yêu cầu tuyển dụng"}</Title>
+					<button className="btn shadow-none" onClick={handleClose}><i className="bi bi-x-lg"></i></button>
 				</Header>
 				<Body>
-					<ModalRequestRecruit id={id} ref={buttonRef}  handleSubmit={handleSubmit}/>
+					<ModalRequestRecruit id={id} ref={buttonRef} />
 				</Body>
 				<Footer className="gap-2">
 					<button className="btn btn-primary button__edit shadow-none"><span className="button__edit__text" onClick={handleSubmit}>Chỉnh sửa</span></button>

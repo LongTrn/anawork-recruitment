@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default forwardRef(function ModalRequestRecruit ({ onSubmit, id }, ref) {
+export default forwardRef(function ModalRequestRecruit ({ id }, ref) {
 	const [state, setState] = useState({
 		name: "",
 		category_id: {name: "", value: ""},

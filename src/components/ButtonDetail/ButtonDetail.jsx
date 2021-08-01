@@ -57,8 +57,6 @@ export default function ButtonDetail ({ header = "Yêu cầu tuyển dụng", id
 		await setState(extend_request_status)
 	}
 	useEffect(() => {}, [id])
-	// useEffect(() => {fetchData(id)}, [id])
-	// useEffect(() => {if(show) fetchData(id)}, [id])
 	useEffect(() => {}, [state])
 	
 	return (

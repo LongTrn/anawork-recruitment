@@ -24,9 +24,8 @@ export default function ButtonDelete ({ header = "Yêu cầu tuyển dụng", id
 		
 		const url = `/api/recruits/requests/${id}`
 		const response = await axios.delete(url)
-		if (!response.data.success) {return;}
+		if (!response.data.success) return;
 		fetchData()
-		console.log(response)
 		handleClose();
 	}
 
@@ -52,12 +51,9 @@ export default function ButtonDelete ({ header = "Yêu cầu tuyển dụng", id
 				keyboard={false}
 				className="modal"
 			>
-				<Header 
-					closeButton
-					closeLabel=""
-					// // closeVariant="success"
-				>
+				<Header>
 					<Title>{"Xóa yêu cầu tuyển dụng"}</Title>
+					<button className="btn shadow-none" onClick={handleClose}><i className="bi bi-x-lg"></i></button>
 				</Header>
 				<Body className="button__delete button__delete__body">
 					Bạn có muốn xóa bỏ yêu cầu này không?
